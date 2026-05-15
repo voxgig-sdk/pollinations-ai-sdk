@@ -1,0 +1,20 @@
+{
+  "existing": {
+    "image_generation": {
+      "IMAGE_GENERATION00": {
+        "prompt": "PROMPT01"
+      },
+      "IMAGE_GENERATION01": {
+        "prompt": "PROMPT01"
+      },
+      "IMAGE_GENERATION02": {
+        "prompt": "PROMPT01"
+      }
+    }
+  },
+  "new": {
+    "image_generation": {
+      "image_generation_ref01": {}
+    }
+  }
+}

@@ -1,0 +1,32 @@
+# BasicImageGenerationFlow
+
+main: kit: flow: BasicImageGenerationFlow:
+{
+  entity: "image_generation",
+  kind: "basic",
+  name: "BasicImageGenerationFlow",
+  step: [
+    {
+      input: {
+        ref: "image_generation_ref01",
+        srcdatavar: "image_generation_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "image_generation01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-image_generation_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicImageGenerationFlow"
+}

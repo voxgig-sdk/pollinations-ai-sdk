@@ -1,0 +1,400 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Pollinations AI",
+    "description": "Pollinations AI is an open-source platform providing simple text and image generation APIs without the need for sign-ups or API keys. It emphasizes user privacy and encourages creative exploration with AI-generated content.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://pollinations.ai/"
+    },
+    "license": {
+      "name": "Open Source",
+      "url": "https://pollinations.ai/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://image.pollinations.ai",
+      "description": "Pollinations AI Image Generation Server"
+    },
+    {
+      "url": "https://text.pollinations.ai",
+      "description": "Pollinations AI Text Generation Server"
+    }
+  ],
+  "paths": {
+    "/prompt/{prompt}": {
+      "get": {
+        "summary": "Generate Image from Text Prompt",
+        "description": "Generates an AI image based on the provided text prompt. Returns the generated image directly without requiring authentication or API keys.",
+        "operationId": "generateImage",
+        "tags": [
+          "Image Generation"
+        ],
+        "parameters": [
+          {
+            "name": "prompt",
+            "in": "path",
+            "required": true,
+            "description": "The text prompt describing the image to generate",
+            "schema": {
+              "type": "string"
+            },
+            "example": "A beautiful sunset over mountains"
+          },
+          {
+            "name": "width",
+            "in": "query",
+            "required": false,
+            "description": "Width of the generated image in pixels",
+            "schema": {
+              "type": "integer",
+              "default": 1024,
+              "minimum": 128,
+              "maximum": 2048
+            }
+          },
+          {
+            "name": "height",
+            "in": "query",
+            "required": false,
+            "description": "Height of the generated image in pixels",
+            "schema": {
+              "type": "integer",
+              "default": 1024,
+              "minimum": 128,
+              "maximum": 2048
+            }
+          },
+          {
+            "name": "seed",
+            "in": "query",
+            "required": false,
+            "description": "Seed for reproducible image generation",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "description": "The AI model to use for generation",
+            "schema": {
+              "type": "string",
+              "default": "flux"
+            }
+          },
+          {
+            "name": "nologo",
+            "in": "query",
+            "required": false,
+            "description": "Remove Pollinations logo from the generated image",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "enhance",
+            "in": "query",
+            "required": false,
+            "description": "Enhance the prompt automatically",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "image/jpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error during image generation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "summary": "Generate Text from Prompt",
+        "description": "Generates AI text responses based on the provided prompt using various language models. Does not require authentication or API keys.",
+        "operationId": "generateText",
+        "tags": [
+          "Text Generation"
+        ],
+        "servers": [
+          {
+            "url": "https://text.pollinations.ai"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TextGenerationRequest"
+              },
+              "example": {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "Write a short poem about artificial intelligence"
+                  }
+                ],
+                "model": "openai",
+                "seed": 42,
+                "temperature": 0.7
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated text response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TextGenerationResponse"
+                }
+              }
+            },
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters or prompt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error during text generation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TextGenerationRequest": {
+        "type": "object",
+        "required": [
+          "messages"
+        ],
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "Array of message objects for the conversation",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          },
+          "model": {
+            "type": "string",
+            "description": "The language model to use for text generation",
+            "default": "openai",
+            "enum": [
+              "openai",
+              "mistral",
+              "claude"
+            ]
+          },
+          "seed": {
+            "type": "integer",
+            "description": "Seed for reproducible text generation"
+          },
+          "temperature": {
+            "type": "number",
+            "description": "Controls randomness in generation (0.0 to 2.0)",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 1
+          },
+          "max_tokens": {
+            "type": "integer",
+            "description": "Maximum number of tokens to generate",
+            "minimum": 1,
+            "maximum": 4096
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "required": [
+          "role",
+          "content"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "description": "The role of the message sender",
+            "enum": [
+              "system",
+              "user",
+              "assistant"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "The content of the message"
+          }
+        }
+      },
+      "TextGenerationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the generation"
+          },
+          "object": {
+            "type": "string",
+            "example": "chat.completion"
+          },
+          "created": {
+            "type": "integer",
+            "description": "Unix timestamp of when the generation was created"
+          },
+          "model": {
+            "type": "string",
+            "description": "The model used for generation"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Choice"
+            }
+          },
+          "usage": {
+            "$ref": "#/components/schemas/Usage"
+          }
+        }
+      },
+      "Choice": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Message"
+          },
+          "finish_reason": {
+            "type": "string",
+            "enum": [
+              "stop",
+              "length",
+              "content_filter"
+            ]
+          }
+        }
+      },
+      "Usage": {
+        "type": "object",
+        "properties": {
+          "prompt_tokens": {
+            "type": "integer",
+            "description": "Number of tokens in the prompt"
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "description": "Number of tokens in the completion"
+          },
+          "total_tokens": {
+            "type": "integer",
+            "description": "Total number of tokens used"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "Error message describing what went wrong"
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of error"
+              },
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Image Generation",
+      "description": "AI-powered image generation from text prompts"
+    },
+    {
+      "name": "Text Generation",
+      "description": "AI-powered text and conversation generation"
+    }
+  ],
+  "security": [],
+  "x-api-characteristics": {
+    "authentication": "none",
+    "privacy-focused": true,
+    "open-source": true,
+    "no-signup-required": true
+  }
+}

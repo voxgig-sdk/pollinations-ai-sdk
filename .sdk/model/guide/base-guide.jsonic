@@ -1,0 +1,20 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 2
+  metrics: count: method: 2
+
+  entity: generate_text: {
+    path: "/": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: image_generation: {
+    path: "/prompt/{prompt}": {
+      op: load: method: *GET
+    }
+  }
+
+}

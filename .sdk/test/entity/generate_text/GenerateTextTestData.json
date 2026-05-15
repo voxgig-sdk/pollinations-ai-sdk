@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "generate_text": {
+      "GENERATE_TEXT00": {
+        "choice": [],
+        "created": "s65",
+        "id": "GENERATE_TEXT00",
+        "max_token": "s67",
+        "message": [],
+        "model": "s69",
+        "object": "s6a",
+        "seed": "s6b",
+        "temperature": 108,
+        "usage": {}
+      },
+      "GENERATE_TEXT01": {
+        "choice": [],
+        "created": "sc9",
+        "id": "GENERATE_TEXT01",
+        "max_token": "scb",
+        "message": [],
+        "model": "scd",
+        "object": "sce",
+        "seed": "scf",
+        "temperature": 208,
+        "usage": {}
+      },
+      "GENERATE_TEXT02": {
+        "choice": [],
+        "created": "s12d",
+        "id": "GENERATE_TEXT02",
+        "max_token": "s12f",
+        "message": [],
+        "model": "s131",
+        "object": "s132",
+        "seed": "s133",
+        "temperature": 308,
+        "usage": {}
+      }
+    }
+  },
+  "new": {
+    "generate_text": {
+      "generate_text_ref01": {
+        "choice": [],
+        "created": "s191",
+        "max_token": "s193",
+        "message": [],
+        "model": "s195",
+        "object": "s196",
+        "seed": "s197",
+        "temperature": 408,
+        "usage": {}
+      }
+    }
+  }
+}

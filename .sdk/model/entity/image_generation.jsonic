@@ -1,0 +1,110 @@
+# Entity: image_generation
+
+main: kit: entity: image_generation: {
+
+  alias: field: {}
+
+  name: "image_generation"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "A beautiful sunset over mountains"
+                kind: "param"
+                name: "prompt"
+                orig: "prompt"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: false
+                kind: "query"
+                name: "enhance"
+                orig: "enhance"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                example: 1024
+                kind: "query"
+                name: "height"
+                orig: "height"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "flux"
+                kind: "query"
+                name: "model"
+                orig: "model"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: false
+                kind: "query"
+                name: "nologo"
+                orig: "nologo"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                kind: "query"
+                name: "seed"
+                orig: "seed"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 1024
+                kind: "query"
+                name: "width"
+                orig: "width"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/prompt/{prompt}"
+          parts: [
+            "prompt"
+            "{prompt}"
+          ]
+          select: {
+            exist: [
+              "enhance"
+              "height"
+              "model"
+              "nologo"
+              "prompt"
+              "seed"
+              "width"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "prompt"
+      ]
+    ]
+  }
+
+
+
+}

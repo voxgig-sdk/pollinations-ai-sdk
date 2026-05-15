@@ -1,0 +1,22 @@
+package = "voxgig-sdk-pollinations-ai"
+version = "0.0-1"
+source = {
+  url = "git://github.com/voxgig-sdk/pollinations-ai-sdk.git"
+}
+description = {
+  summary = "PollinationsAi SDK for Lua",
+  license = "MIT"
+}
+dependencies = {
+  "lua >= 5.3",
+  "dkjson >= 2.5",
+  "dkjson >= 2.5",
+}
+build = {
+  type = "builtin",
+  modules = {
+    ["pollinations-ai_sdk"] = "pollinations-ai_sdk.lua",
+    ["config"] = "config.lua",
+    ["features"] = "features.lua",
+  }
+}

@@ -1,0 +1,18 @@
+# BasicGenerateTextFlow
+
+main: kit: flow: BasicGenerateTextFlow:
+{
+  entity: "generate_text",
+  kind: "basic",
+  name: "BasicGenerateTextFlow",
+  step: [
+    {
+      input: {
+        ref: "generate_text_ref01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicGenerateTextFlow"
+}

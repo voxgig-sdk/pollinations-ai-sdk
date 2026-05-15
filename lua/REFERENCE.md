@@ -1,0 +1,213 @@
+# PollinationsAi Lua SDK Reference
+
+Complete API reference for the PollinationsAi Lua SDK.
+
+
+## PollinationsAiSDK
+
+### Constructor
+
+```lua
+local sdk = require("pollinations-ai_sdk")
+local client = sdk.new(options)
+```
+
+Create a new SDK client instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `options` | `table` | SDK configuration options. |
+| `options.apikey` | `string` | API key for authentication. |
+| `options.base` | `string` | Base URL for API requests. |
+| `options.prefix` | `string` | URL prefix appended after base. |
+| `options.suffix` | `string` | URL suffix appended after path. |
+| `options.headers` | `table` | Custom headers for all requests. |
+| `options.feature` | `table` | Feature configuration. |
+| `options.system` | `table` | System overrides (e.g. custom fetch). |
+
+
+### Static Methods
+
+#### `sdk.test(testopts, sdkopts)`
+
+Create a test client with mock features active. Both arguments may be `nil`.
+
+```lua
+local client = sdk.test(nil, nil)
+```
+
+
+### Instance Methods
+
+#### `GenerateText(data)`
+
+Create a new `GenerateText` entity instance. Pass `nil` for no initial data.
+
+#### `ImageGeneration(data)`
+
+Create a new `ImageGeneration` entity instance. Pass `nil` for no initial data.
+
+#### `options_map() -> table`
+
+Return a deep copy of the current SDK options.
+
+#### `get_utility() -> Utility`
+
+Return a copy of the SDK utility object.
+
+#### `direct(fetchargs) -> table, err`
+
+Make a direct HTTP request to any API endpoint.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `fetchargs.path` | `string` | URL path with optional `{param}` placeholders. |
+| `fetchargs.method` | `string` | HTTP method (default: `"GET"`). |
+| `fetchargs.params` | `table` | Path parameter values for `{param}` substitution. |
+| `fetchargs.query` | `table` | Query string parameters. |
+| `fetchargs.headers` | `table` | Request headers (merged with defaults). |
+| `fetchargs.body` | `any` | Request body (tables are JSON-serialized). |
+| `fetchargs.ctrl` | `table` | Control options (e.g. `{ explain = true }`). |
+
+**Returns:** `table, err`
+
+#### `prepare(fetchargs) -> table, err`
+
+Prepare a fetch definition without sending the request. Accepts the
+same parameters as `direct()`.
+
+**Returns:** `table, err`
+
+
+---
+
+## GenerateTextEntity
+
+```lua
+local generate_text = client:GenerateText(nil)
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `choice` | ``$ARRAY`` | No |  |
+| `created` | ``$INTEGER`` | No |  |
+| `id` | ``$STRING`` | No |  |
+| `max_token` | ``$INTEGER`` | No |  |
+| `message` | ``$ARRAY`` | Yes |  |
+| `model` | ``$STRING`` | No |  |
+| `object` | ``$STRING`` | No |  |
+| `seed` | ``$INTEGER`` | No |  |
+| `temperature` | ``$NUMBER`` | No |  |
+| `usage` | ``$OBJECT`` | No |  |
+
+### Operations
+
+#### `create(reqdata, ctrl) -> any, err`
+
+Create a new entity with the given data.
+
+```lua
+local result, err = client:GenerateText(nil):create({
+  message = --[[ `$ARRAY` ]],
+}, nil)
+```
+
+### Common Methods
+
+#### `data_get() -> table`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> table`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `GenerateTextEntity` instance with the same client and
+options.
+
+#### `get_name() -> string`
+
+Return the entity name.
+
+
+---
+
+## ImageGenerationEntity
+
+```lua
+local image_generation = client:ImageGeneration(nil)
+```
+
+### Operations
+
+#### `load(reqmatch, ctrl) -> any, err`
+
+Load a single entity matching the given criteria.
+
+```lua
+local result, err = client:ImageGeneration(nil):load({ id = "image_generation_id" }, nil)
+```
+
+### Common Methods
+
+#### `data_get() -> table`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> table`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `ImageGenerationEntity` instance with the same client and
+options.
+
+#### `get_name() -> string`
+
+Return the entity name.
+
+
+---
+
+## Features
+
+| Feature | Version | Description |
+| --- | --- | --- |
+| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
+
+
+Features are activated via the `feature` option:
+
+```lua
+local client = sdk.new({
+  feature = {
+    test = { active = true },
+  },
+})
+```
+
