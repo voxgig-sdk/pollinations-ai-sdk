@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/pollinations-ai-sdk/go/utility/struct"
 )
 
 type PollinationsAiSDK struct {

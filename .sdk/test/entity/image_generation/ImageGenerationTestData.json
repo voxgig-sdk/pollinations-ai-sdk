@@ -2,13 +2,16 @@
   "existing": {
     "image_generation": {
       "IMAGE_GENERATION00": {
-        "prompt": "PROMPT01"
+        "prompt": "PROMPT01",
+        "id": "IMAGE_GENERATION00"
       },
       "IMAGE_GENERATION01": {
-        "prompt": "PROMPT01"
+        "prompt": "PROMPT01",
+        "id": "IMAGE_GENERATION01"
       },
       "IMAGE_GENERATION02": {
-        "prompt": "PROMPT01"
+        "prompt": "PROMPT01",
+        "id": "IMAGE_GENERATION02"
       }
     }
   },

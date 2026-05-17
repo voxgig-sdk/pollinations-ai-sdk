@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/pollinations-ai-sdk"
-	"github.com/voxgig-sdk/pollinations-ai-sdk/core"
+	sdk "github.com/voxgig-sdk/pollinations-ai-sdk/go"
+	"github.com/voxgig-sdk/pollinations-ai-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/pollinations-ai-sdk/go/utility/struct"
 )
 
 func TestGenerateTextEntity(t *testing.T) {

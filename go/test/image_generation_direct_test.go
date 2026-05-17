@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/pollinations-ai-sdk"
-	"github.com/voxgig-sdk/pollinations-ai-sdk/core"
+	sdk "github.com/voxgig-sdk/pollinations-ai-sdk/go"
+	"github.com/voxgig-sdk/pollinations-ai-sdk/go/core"
 )
 
 func TestImageGenerationDirect(t *testing.T) {

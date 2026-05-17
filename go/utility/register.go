@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/pollinations-ai-sdk/core"
+import "github.com/voxgig-sdk/pollinations-ai-sdk/go/core"
 
 func init() {
 	core.UtilityRegistrar = registerAll

@@ -1,10 +1,10 @@
 package voxgigpollinationsaisdk
 
 import (
-	"github.com/voxgig-sdk/pollinations-ai-sdk/core"
-	"github.com/voxgig-sdk/pollinations-ai-sdk/entity"
-	"github.com/voxgig-sdk/pollinations-ai-sdk/feature"
-	_ "github.com/voxgig-sdk/pollinations-ai-sdk/utility"
+	"github.com/voxgig-sdk/pollinations-ai-sdk/go/core"
+	"github.com/voxgig-sdk/pollinations-ai-sdk/go/entity"
+	"github.com/voxgig-sdk/pollinations-ai-sdk/go/feature"
+	_ "github.com/voxgig-sdk/pollinations-ai-sdk/go/utility"
 )
 
 // Type aliases preserve external API.
