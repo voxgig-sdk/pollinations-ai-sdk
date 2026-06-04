@@ -24,8 +24,28 @@ main: {
       ]
       title: "Pollinations AI"
       version: "1.0.0"
+      tagline: "Generate text and images from prompts via simple URL-based endpoints, no signup or API key required"
+      homepage: "https://pollinations.ai"
+      docs_url: "https://github.com/pollinations/pollinations"
+      license_short: "Open source (MIT)"
+      license_md: `- Pollinations is open source and released under the MIT licence
+- No signup or API key is required for basic usage; CORS is enabled for in-browser calls
+- Optional publishable (\`pk_\`) and secret (\`sk_\`) keys are available via \`enter.pollinations.ai\` for higher quotas
+- Generated content is produced by upstream models; check the project README for any model-specific terms before commercial reuse`
+      about_md: `[Pollinations AI](https://pollinations.ai) is an open-source generative AI platform based in Berlin that exposes text, image, audio and video generation through plain HTTP URLs. The project is community-driven, with infrastructure support from partners such as Perplexity AI, AWS, Google Cloud, Azure and Cloudflare, and powers a large ecosystem of community apps.
+
+What you get from the API:
+
+- Text generation by GET-ing a prompt path (e.g. \`https://text.pollinations.ai/{prompt}\`)
+- Image generation by GET-ing a prompt path against the image host (e.g. \`https://image.pollinations.ai/prompt/{prompt}\`), which returns a generated image directly in the response
+- A choice of underlying models (the image service in this SDK is reachable at \`https://image.pollinations.ai\`)
+
+Operationally, the public endpoints work without authentication and with CORS enabled, so they can be called straight from a browser. Optional API keys are offered for higher-volume use: publishable keys are intended for client-side calls with per-IP quotas, secret keys for server-side use. Endpoints are URL-driven, so prompts and parameters are encoded into the path or query string rather than a JSON body.`
+      entity_desc: {
+        generate_text: "Prompt-to-text generation; the prompt is passed as a path segment (the text service lives at `text.pollinations.ai`, e.g. `GET /{prompt}`) and the response is the generated text."
+        image_generation: "Prompt-to-image generation hosted at `image.pollinations.ai`; requesting a prompt path returns a generated image as the HTTP response body."
+      }
+      auth: false
     }
   }
-}
-
 }

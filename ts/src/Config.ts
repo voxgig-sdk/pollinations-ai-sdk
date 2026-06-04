@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://image.pollinations.ai',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },

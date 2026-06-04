@@ -113,7 +113,6 @@ func generate_textBasicSetup(extra map[string]any) *entityTestSetup {
 		"POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID": idmap,
 		"POLLINATIONSAI_TEST_LIVE":      "FALSE",
 		"POLLINATIONSAI_TEST_EXPLAIN":   "FALSE",
-		"POLLINATIONSAI_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID"])
@@ -124,7 +123,6 @@ func generate_textBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["POLLINATIONSAI_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["POLLINATIONSAI_APIKEY"],
 			},
 			extra,
 		})
