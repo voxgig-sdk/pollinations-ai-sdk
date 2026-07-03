@@ -1,48 +1,13 @@
 {
-  "name": "pollinations-ai",
-  "origin": "voxgig-sdk",
   "def": "pollinations-ai_0.1.0.json",
   "main": {
+    "def": {
+      "desc": ""
+    },
     "kit": {
-      "info": {
-        "contact": {
-          "url": "https://pollinations.ai/"
-        },
-        "description": "Pollinations AI is an open-source platform providing simple text and image generation APIs without the need for sign-ups or API keys. It emphasizes user privacy and encourages creative exploration with AI-generated content.",
-        "license": {
-          "name": "Open Source",
-          "url": "https://pollinations.ai/"
-        },
-        "servers": [
-          {
-            "description": "Pollinations AI Image Generation Server",
-            "url": "https://image.pollinations.ai"
-          },
-          {
-            "description": "Pollinations AI Text Generation Server",
-            "url": "https://text.pollinations.ai"
-          }
-        ],
-        "title": "Pollinations AI",
-        "version": "1.0.0",
-        "tagline": "Generate text and images from prompts via simple URL-based endpoints, no signup or API key required",
-        "homepage": "https://pollinations.ai",
-        "docs_url": "https://github.com/pollinations/pollinations",
-        "license_short": "Open source (MIT)",
-        "license_md": "- Pollinations is open source and released under the MIT licence\n- No signup or API key is required for basic usage; CORS is enabled for in-browser calls\n- Optional publishable (`pk_`) and secret (`sk_`) keys are available via `enter.pollinations.ai` for higher quotas\n- Generated content is produced by upstream models; check the project README for any model-specific terms before commercial reuse",
-        "about_md": "[Pollinations AI](https://pollinations.ai) is an open-source generative AI platform based in Berlin that exposes text, image, audio and video generation through plain HTTP URLs. The project is community-driven, with infrastructure support from partners such as Perplexity AI, AWS, Google Cloud, Azure and Cloudflare, and powers a large ecosystem of community apps.\n\nWhat you get from the API:\n\n- Text generation by GET-ing a prompt path (e.g. `https://text.pollinations.ai/{prompt}`)\n- Image generation by GET-ing a prompt path against the image host (e.g. `https://image.pollinations.ai/prompt/{prompt}`), which returns a generated image directly in the response\n- A choice of underlying models (the image service in this SDK is reachable at `https://image.pollinations.ai`)\n\nOperationally, the public endpoints work without authentication and with CORS enabled, so they can be called straight from a browser. Optional API keys are offered for higher-volume use: publishable keys are intended for client-side calls with per-IP quotas, secret keys for server-side use. Endpoints are URL-driven, so prompts and parameters are encoded into the path or query string rather than a JSON body.",
-        "entity_desc": {
-          "generate_text": "Prompt-to-text generation; the prompt is passed as a path segment (the text service lives at `text.pollinations.ai`, e.g. `GET /{prompt}`) and the response is the generated text.",
-          "image_generation": "Prompt-to-image generation hosted at `image.pollinations.ai`; requesting a prompt path returns a generated image as the HTTP response body."
-        },
-        "auth": false
-      },
       "config": {
         "auth": {
           "prefix": "Bearer"
-        },
-        "headers": {
-          "content-type": "application/json"
         },
         "docs_order": [
           "ts",
@@ -51,73 +16,77 @@
           "go",
           "rb",
           "lua"
-        ]
+        ],
+        "headers": {
+          "content-type": "application/json"
+        }
       },
       "entity": {
         "generate_text": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "choice",
               "req": false,
-              "type": "`$ARRAY`",
-              "active": true
+              "type": "`$ARRAY`"
             },
             {
+              "active": true,
               "name": "created",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "id",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "max_token",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "message",
               "req": true,
-              "type": "`$ARRAY`",
-              "active": true
+              "type": "`$ARRAY`"
             },
             {
+              "active": true,
               "name": "model",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "object",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "seed",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "temperature",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             },
             {
+              "active": true,
               "name": "usage",
               "req": false,
-              "type": "`$OBJECT`",
-              "active": true
+              "type": "`$OBJECT`"
             }
           ],
           "id": {
@@ -127,104 +96,107 @@
           "name": "generate_text",
           "op": {
             "create": {
+              "input": "data",
               "name": "create",
               "points": [
                 {
+                  "active": true,
+                  "args": {},
                   "method": "POST",
                   "orig": "/",
+                  "parts": [],
+                  "select": {},
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true,
-                  "parts": [],
-                  "args": {},
-                  "select": {}
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
-          "active": true,
           "relations": {
             "ancestors": []
           }
         },
         "image_generation": {
+          "active": true,
           "alias": {
             "field": {}
           },
+          "fields": [],
           "name": "image_generation",
           "op": {
             "load": {
+              "input": "data",
               "name": "load",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "params": [
                       {
+                        "active": true,
                         "example": "A beautiful sunset over mountains",
                         "kind": "param",
                         "name": "prompt",
                         "orig": "prompt",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ],
                     "query": [
                       {
+                        "active": true,
                         "example": false,
                         "kind": "query",
                         "name": "enhance",
                         "orig": "enhance",
                         "reqd": false,
-                        "type": "`$BOOLEAN`",
-                        "active": true
+                        "type": "`$BOOLEAN`"
                       },
                       {
+                        "active": true,
                         "example": 1024,
                         "kind": "query",
                         "name": "height",
                         "orig": "height",
                         "reqd": false,
-                        "type": "`$INTEGER`",
-                        "active": true
+                        "type": "`$INTEGER`"
                       },
                       {
+                        "active": true,
                         "example": "flux",
                         "kind": "query",
                         "name": "model",
                         "orig": "model",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "example": false,
                         "kind": "query",
                         "name": "nologo",
                         "orig": "nologo",
                         "reqd": false,
-                        "type": "`$BOOLEAN`",
-                        "active": true
+                        "type": "`$BOOLEAN`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "seed",
                         "orig": "seed",
                         "reqd": false,
-                        "type": "`$INTEGER`",
-                        "active": true
+                        "type": "`$INTEGER`"
                       },
                       {
+                        "active": true,
                         "example": 1024,
                         "kind": "query",
                         "name": "width",
                         "orig": "width",
                         "reqd": false,
-                        "type": "`$INTEGER`",
-                        "active": true
+                        "type": "`$INTEGER`"
                       }
                     ]
                   },
@@ -248,11 +220,9 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
           "relations": {
@@ -261,16 +231,11 @@
                 "prompt"
               ]
             ]
-          },
-          "active": true,
-          "fields": []
+          }
         }
       },
       "feature": {
         "test": {
-          "name": "test",
-          "title": "In-memory mock transport for testing without a live server",
-          "version": "0.0.1",
           "active": true,
           "config": {
             "options": {
@@ -278,6 +243,14 @@
             }
           },
           "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
             "PostConstruct": {
               "active": true,
               "await": false
@@ -286,25 +259,11 @@
               "active": true,
               "await": false
             },
-            "SetData": {
-              "active": true,
-              "await": false
-            },
-            "GetData": {
-              "active": true,
-              "await": false
-            },
-            "SetMatch": {
-              "active": true
-            },
-            "GetMatch": {
-              "active": true,
+            "PostOperation": {
+              "active": false,
               "await": false
             },
             "PrePoint": {
-              "active": true
-            },
-            "PreSpec": {
               "active": true,
               "await": false
             },
@@ -320,20 +279,32 @@
               "active": true,
               "await": false
             },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
             "PreTarget": {
               "active": false,
               "await": false
             },
-            "PostOperation": {
-              "active": false,
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
               "await": false
             }
           },
+          "name": "test",
           "target": {
-            "ts": {
+            "go": {
               "deps": {}
             },
-            "go": {
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
               "deps": {}
             },
             "lua": {
@@ -348,43 +319,47 @@
             "rb": {
               "deps": {}
             },
-            "go-cli": {
-              "deps": {}
-            },
-            "go-mcp": {
+            "ts": {
               "deps": {}
             }
-          }
+          },
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1"
         }
       },
       "flow": {
         "BasicGenerateTextFlow": {
+          "active": true,
           "entity": "generate_text",
+          "key$": "BasicGenerateTextFlow",
           "kind": "basic",
           "name": "BasicGenerateTextFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "generate_text_ref01"
               },
-              "op": "create",
-              "active": true,
               "match": {},
-              "data": {},
+              "op": "create",
               "spec": [],
               "valid": []
             }
-          ],
-          "key$": "BasicGenerateTextFlow",
-          "active": true,
-          "param": {}
+          ]
         },
         "BasicImageGenerationFlow": {
+          "active": true,
           "entity": "image_generation",
+          "key$": "BasicImageGenerationFlow",
           "kind": "basic",
           "name": "BasicImageGenerationFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "image_generation_ref01",
                 "srcdatavar": "image_generation_ref01_data",
@@ -394,6 +369,7 @@
                 "id": "image_generation01"
               },
               "op": "load",
+              "spec": [],
               "valid": [
                 {
                   "apply": "TextFieldMark",
@@ -401,27 +377,60 @@
                     "mark": "Mark01-image_generation_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "data": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicImageGenerationFlow",
-          "active": true,
-          "param": {}
+          ]
         }
       },
+      "info": {
+        "contact": {
+          "url": "https://pollinations.ai/"
+        },
+        "description": "Pollinations AI is an open-source platform providing simple text and image generation APIs without the need for sign-ups or API keys. It emphasizes user privacy and encourages creative exploration with AI-generated content.",
+        "license": {
+          "name": "Open Source",
+          "url": "https://pollinations.ai/"
+        },
+        "servers": [
+          {
+            "description": "Pollinations AI Image Generation Server",
+            "url": "https://image.pollinations.ai"
+          },
+          {
+            "description": "Pollinations AI Text Generation Server",
+            "url": "https://text.pollinations.ai"
+          }
+        ],
+        "title": "Pollinations AI",
+        "version": "1.0.0"
+      },
+      "option": {},
       "target": {
-        "go-cli": {
-          "title": "Go CLI",
-          "ext": "go",
+        "go": {
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "go",
           "module": {
             "name": "pollinations-ai"
           },
+          "name": "go",
+          "srcfeature": false,
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "pollinations-ai"
+          },
+          "name": "go-cli",
           "phase": {
             "entity": {
               "active": false
@@ -436,19 +445,19 @@
               "active": false
             }
           },
-          "deps": {},
-          "name": "go-cli",
-          "active": true
+          "title": "Go CLI"
         },
         "go-mcp": {
-          "title": "Go MCP server",
-          "ext": "go",
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "go",
           "module": {
             "name": "pollinations-ai"
           },
+          "name": "go-mcp",
           "phase": {
             "entity": {
               "active": false
@@ -463,138 +472,120 @@
               "active": false
             }
           },
-          "deps": {},
-          "name": "go-mcp",
-          "active": true
-        },
-        "ts": {
-          "title": "TypeScript",
-          "ext": "ts",
-          "comment": {
-            "line": "//"
-          },
-          "module": {
-            "name": "pollinations-ai"
-          },
-          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
-          "deps": {
-            "dotenv": {
-              "active": true,
-              "version": "^17.4.2",
-              "kind": "dev"
-            },
-            "typescript": {
-              "active": true,
-              "version": "^5.9.3",
-              "kind": "dev"
-            },
-            "@types/node": {
-              "active": true,
-              "version": "^25.6.0",
-              "kind": "dev"
-            }
-          },
-          "name": "ts",
-          "active": true
-        },
-        "go": {
-          "title": "Golang",
-          "ext": "go",
-          "comment": {
-            "line": "//"
-          },
-          "module": {
-            "name": "pollinations-ai"
-          },
-          "srcfeature": false,
-          "deps": {},
-          "name": "go",
-          "active": true
+          "title": "Go MCP server"
         },
         "lua": {
-          "title": "Lua",
-          "ext": "lua",
+          "active": true,
           "comment": {
             "line": "--"
           },
-          "module": {
-            "name": "pollinations-ai"
-          },
-          "srcfeature": false,
           "deps": {
             "dkjson": {
               "active": true,
-              "version": "2.5",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "2.5"
             }
           },
+          "ext": "lua",
+          "module": {
+            "name": "pollinations-ai"
+          },
           "name": "lua",
-          "active": true
+          "srcfeature": false,
+          "title": "Lua"
         },
         "php": {
-          "title": "PHP",
-          "ext": "php",
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "php",
           "module": {
             "name": "pollinations-ai"
           },
-          "srcfeature": false,
-          "deps": {},
           "name": "php",
-          "active": true
+          "srcfeature": false,
+          "title": "PHP"
         },
         "py": {
-          "title": "Python",
-          "ext": "py",
+          "active": true,
           "comment": {
             "line": "#"
           },
-          "module": {
-            "name": "pollinations-ai"
-          },
-          "srcfeature": false,
           "deps": {
             "requests": {
               "active": true,
-              "version": "2.33",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "2.33"
             }
           },
-          "name": "py",
-          "active": true
-        },
-        "rb": {
-          "title": "Ruby",
-          "ext": "rb",
-          "comment": {
-            "line": "#"
-          },
+          "ext": "py",
           "module": {
             "name": "pollinations-ai"
           },
+          "name": "py",
           "srcfeature": false,
+          "title": "Python"
+        },
+        "rb": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
           "deps": {
-            "voxgig-struct": {
-              "active": true,
-              "version": "0.0.10",
-              "kind": "prod"
-            },
             "json": {
               "active": true,
-              "version": "0",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "0"
+            },
+            "voxgig-struct": {
+              "active": true,
+              "kind": "prod",
+              "version": "0.0.10"
             }
           },
+          "ext": "rb",
+          "module": {
+            "name": "pollinations-ai"
+          },
           "name": "rb",
-          "active": true
+          "srcfeature": false,
+          "title": "Ruby"
+        },
+        "ts": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "module": {
+            "name": "pollinations-ai"
+          },
+          "name": "ts",
+          "title": "TypeScript"
         }
-      },
-      "option": {}
-    },
-    "def": {
-      "desc": ""
+      }
     }
-  }
+  },
+  "name": "pollinations-ai",
+  "origin": "voxgig-sdk"
 }

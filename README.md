@@ -1,20 +1,8 @@
 # PollinationsAi SDK
 
-Generate text and images from prompts via simple URL-based endpoints, no signup or API key required
+Pollinations AI client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Pollinations AI
-
-[Pollinations AI](https://pollinations.ai) is an open-source generative AI platform based in Berlin that exposes text, image, audio and video generation through plain HTTP URLs. The project is community-driven, with infrastructure support from partners such as Perplexity AI, AWS, Google Cloud, Azure and Cloudflare, and powers a large ecosystem of community apps.
-
-What you get from the API:
-
-- Text generation by GET-ing a prompt path (e.g. `https://text.pollinations.ai/{prompt}`)
-- Image generation by GET-ing a prompt path against the image host (e.g. `https://image.pollinations.ai/prompt/{prompt}`), which returns a generated image directly in the response
-- A choice of underlying models (the image service in this SDK is reachable at `https://image.pollinations.ai`)
-
-Operationally, the public endpoints work without authentication and with CORS enabled, so they can be called straight from a browser. Optional API keys are offered for higher-volume use: publishable keys are intended for client-side calls with per-IP quotas, secret keys for server-side use. Endpoints are URL-driven, so prompts and parameters are encoded into the path or query string rather than a JSON body.
 
 ## Try it
 
@@ -48,27 +36,28 @@ gem install pollinations-ai-sdk
 luarocks install pollinations-ai-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { PollinationsAiSDK } from 'pollinations-ai'
 
-const client = new PollinationsAiSDK({})
+const client = new PollinationsAiSDK({
+  apikey: process.env.POLLINATIONS-AI_APIKEY,
+})
 
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -98,8 +87,8 @@ The API exposes 2 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **GenerateText** | Prompt-to-text generation; the prompt is passed as a path segment (the text service lives at `text.pollinations.ai`, e.g. `GET /{prompt}`) and the response is the generated text. | `/` |
-| **ImageGeneration** | Prompt-to-image generation hosted at `image.pollinations.ai`; requesting a prompt path returns a generated image as the HTTP response body. | `/prompt/{prompt}` |
+| **GenerateText** |  | `/` |
+| **ImageGeneration** |  | `/prompt/{prompt}` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -109,9 +98,12 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from pollinationsai_sdk import PollinationsAiSDK
 
-client = PollinationsAiSDK({})
+client = PollinationsAiSDK({
+    "apikey": os.environ.get("POLLINATIONS-AI_APIKEY"),
+})
 
 ```
 
@@ -121,7 +113,9 @@ client = PollinationsAiSDK({})
 <?php
 require_once 'pollinationsai_sdk.php';
 
-$client = new PollinationsAiSDK([]);
+$client = new PollinationsAiSDK([
+    "apikey" => getenv("POLLINATIONS-AI_APIKEY"),
+]);
 
 ```
 
@@ -130,7 +124,9 @@ $client = new PollinationsAiSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/pollinations-ai-sdk/go"
 
-client := sdk.NewPollinationsAiSDK(map[string]any{})
+client := sdk.NewPollinationsAiSDK(map[string]any{
+    "apikey": os.Getenv("POLLINATIONS-AI_APIKEY"),
+})
 
 ```
 
@@ -139,7 +135,9 @@ client := sdk.NewPollinationsAiSDK(map[string]any{})
 ```ruby
 require_relative "PollinationsAi_sdk"
 
-client = PollinationsAiSDK.new({})
+client = PollinationsAiSDK.new({
+  "apikey" => ENV["POLLINATIONS-AI_APIKEY"],
+})
 
 ```
 
@@ -148,7 +146,9 @@ client = PollinationsAiSDK.new({})
 ```lua
 local sdk = require("pollinations-ai_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("POLLINATIONS-AI_APIKEY"),
+})
 
 ```
 
@@ -168,25 +168,21 @@ const result = await client.GenerateText().load({ id: 'test01' })
 ### Python
 
 ```python
-client = PollinationsAiSDK.test(None, None)
-result, err = client.GenerateText(None).load(
-    {"id": "test01"}, None
-)
+client = PollinationsAiSDK.test()
+result, err = client.GenerateText().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = PollinationsAiSDK::test(null, null);
-[$result, $err] = $client->GenerateText(null)->load(
-    ["id" => "test01"], null
-);
+$client = PollinationsAiSDK::test();
+[$result, $err] = $client->GenerateText()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.GenerateText(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -195,19 +191,15 @@ result, err := client.GenerateText(nil).Load(
 ### Ruby
 
 ```ruby
-client = PollinationsAiSDK.test(nil, nil)
-result, err = client.GenerateText(nil).load(
-  { "id" => "test01" }, nil
-)
+client = PollinationsAiSDK.test
+result, err = client.GenerateText().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:GenerateText(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:GenerateText():load({ id = "test01" })
 ```
 
 ## How it works
@@ -311,16 +303,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Pollinations AI
-
-- Upstream: [https://pollinations.ai](https://pollinations.ai)
-- API docs: [https://github.com/pollinations/pollinations](https://github.com/pollinations/pollinations)
-
-- Pollinations is open source and released under the MIT licence
-- No signup or API key is required for basic usage; CORS is enabled for in-browser calls
-- Optional publishable (`pk_`) and secret (`sk_`) keys are available via `enter.pollinations.ai` for higher quotas
-- Generated content is produced by upstream models; check the project README for any model-specific terms before commercial reuse
 
 ---
 

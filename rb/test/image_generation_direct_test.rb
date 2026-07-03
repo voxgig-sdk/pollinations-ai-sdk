@@ -69,12 +69,14 @@ def image_generation_direct_setup(mockres)
   env = Runner.env_override({
     "POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID" => {},
     "POLLINATIONSAI_TEST_LIVE" => "FALSE",
+    "POLLINATIONSAI_APIKEY" => "NONE",
   })
 
   live = env["POLLINATIONSAI_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["POLLINATIONSAI_APIKEY"],
     }
     client = PollinationsAiSDK.new(merged_opts)
     return {

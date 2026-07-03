@@ -88,6 +88,7 @@ def _generate_text_basic_setup(extra):
         "POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID": idmap,
         "POLLINATIONSAI_TEST_LIVE": "FALSE",
         "POLLINATIONSAI_TEST_EXPLAIN": "FALSE",
+        "POLLINATIONSAI_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -98,6 +99,7 @@ def _generate_text_basic_setup(extra):
     if env.get("POLLINATIONSAI_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("POLLINATIONSAI_APIKEY"),
             },
             extra or {},
         ])

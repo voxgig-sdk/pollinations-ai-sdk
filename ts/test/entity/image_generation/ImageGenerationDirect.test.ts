@@ -79,12 +79,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID': {},
     'POLLINATIONSAI_TEST_LIVE': 'FALSE',
+    'POLLINATIONSAI_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.POLLINATIONSAI_TEST_LIVE
 
   if (live) {
     const client = new PollinationsAiSDK({
+      apikey: env.POLLINATIONSAI_APIKEY,
     })
 
     let idmap: any = env['POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID']

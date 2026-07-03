@@ -110,12 +110,14 @@ func image_generationDirectSetup(mockres any) *image_generationDirectSetupResult
 	env := envOverride(map[string]any{
 		"POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID": map[string]any{},
 		"POLLINATIONSAI_TEST_LIVE":    "FALSE",
+		"POLLINATIONSAI_APIKEY":       "NONE",
 	})
 
 	live := env["POLLINATIONSAI_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["POLLINATIONSAI_APIKEY"],
 		}
 		client := sdk.NewPollinationsAiSDK(mergedOpts)
 

@@ -117,6 +117,7 @@ func image_generationBasicSetup(extra map[string]any) *entityTestSetup {
 		"POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID": idmap,
 		"POLLINATIONSAI_TEST_LIVE":      "FALSE",
 		"POLLINATIONSAI_TEST_EXPLAIN":   "FALSE",
+		"POLLINATIONSAI_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID"])
@@ -127,6 +128,7 @@ func image_generationBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["POLLINATIONSAI_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["POLLINATIONSAI_APIKEY"],
 			},
 			extra,
 		})
