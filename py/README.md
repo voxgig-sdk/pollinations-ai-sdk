@@ -10,7 +10,7 @@ The Python SDK for the PollinationsAi API — an entity-oriented client followin
 
 ## Install
 ```bash
-pip install pollinations-ai-sdk
+pip install voxgig-sdk-pollinations-ai
 ```
 
 Or install from source:

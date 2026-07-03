@@ -10,7 +10,7 @@ The TypeScript SDK for the PollinationsAi API — a type-safe, entity-oriented c
 
 ## Install
 ```bash
-npm install pollinations-ai
+npm install @voxgig-sdk/pollinations-ai
 ```
 ## Tutorial: your first API call
 

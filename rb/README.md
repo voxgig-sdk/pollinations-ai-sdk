@@ -10,13 +10,13 @@ The Ruby SDK for the PollinationsAi API — an entity-oriented client using idio
 
 ## Install
 ```bash
-gem install pollinations-ai-sdk
+gem install voxgig-sdk-pollinations-ai
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "pollinations-ai-sdk"
+gem "voxgig-sdk-pollinations-ai"
 ```
 
 Then run:

@@ -10,7 +10,7 @@ The PHP SDK for the PollinationsAi API — an entity-oriented client using PHP c
 
 ## Install
 ```bash
-composer require voxgig/pollinations-ai-sdk
+composer require voxgig-sdk/pollinations-ai
 ```
 
 

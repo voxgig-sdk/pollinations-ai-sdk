@@ -10,7 +10,7 @@ The Lua SDK for the PollinationsAi API — an entity-oriented client using Lua c
 
 ## Install
 ```bash
-luarocks install pollinations-ai-sdk
+luarocks install voxgig-sdk-pollinations-ai
 ```
 
 If the module is not yet published, add the source directory to
