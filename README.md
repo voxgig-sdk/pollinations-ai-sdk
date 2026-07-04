@@ -129,22 +129,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = PollinationsAiSDK.test()
-const result = await client.generatetext.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const generatetext = await client.GenerateText().load({ id: 'test01' })
+// generatetext is a bare GenerateText populated with mock data
+console.log(generatetext)
 ```
 
 ### Python
 
 ```python
 client = PollinationsAiSDK.test()
-result = client.generatetext.load({"id": "test01"})
+generatetext = client.GenerateText().load({"id": "test01"})
+print(generatetext)
 ```
 
 ### PHP
 
 ```php
-$client = PollinationsAiSDK::test();
-$result = $client->generatetext()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = PollinationsAiSDK::test([
+    "entity" => ["generatetext" => ["test01" => ["id" => "test01"]]],
+]);
+$generatetext = $client->GenerateText()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -159,15 +164,18 @@ result, err := client.GenerateText(nil).Load(
 ### Ruby
 
 ```ruby
-client = PollinationsAiSDK.test
-result = client.generatetext.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = PollinationsAiSDK.test({
+  "entity" => { "generatetext" => { "test01" => { "id" => "test01" } } },
+})
+generatetext = client.GenerateText.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:generatetext():load({ id = "test01" })
+local result, err = client:GenerateText():load({ id = "test01" })
 ```
 
 ## How it works
@@ -215,6 +223,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

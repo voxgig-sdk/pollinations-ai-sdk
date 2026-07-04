@@ -233,10 +233,10 @@ class PollinationsAiSDK
 
     private $_generate_text = null;
 
-    // Idiomatic facade: $client->generate_text()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias GenerateText() (PHP method
-    // names are case-insensitive).
-    public function generate_text($data = null)
+    // Canonical facade: $client->GenerateText()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->generate_text()
+    // resolves here too.
+    public function GenerateText($data = null)
     {
         require_once __DIR__ . '/entity/generate_text_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class PollinationsAiSDK
 
     private $_image_generation = null;
 
-    // Idiomatic facade: $client->image_generation()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias ImageGeneration() (PHP method
-    // names are case-insensitive).
-    public function image_generation($data = null)
+    // Canonical facade: $client->ImageGeneration()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->image_generation()
+    // resolves here too.
+    public function ImageGeneration($data = null)
     {
         require_once __DIR__ . '/entity/image_generation_entity.php';
         if ($data === null) {

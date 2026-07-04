@@ -87,7 +87,7 @@ same parameters as `direct()`.
 ## GenerateTextEntity
 
 ```lua
-local generate_text = client:generate_text(nil)
+local generate_text = client:GenerateText(nil)
 ```
 
 ### Fields
@@ -112,7 +112,7 @@ local generate_text = client:generate_text(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:generate_text():create({
+local result, err = client:GenerateText():create({
   message = --[[ `$ARRAY` ]],
 })
 ```
@@ -150,7 +150,7 @@ Return the entity name.
 ## ImageGenerationEntity
 
 ```lua
-local image_generation = client:image_generation(nil)
+local image_generation = client:ImageGeneration(nil)
 ```
 
 ### Operations
@@ -160,7 +160,7 @@ local image_generation = client:image_generation(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:image_generation():load({ id = "image_generation_id" })
+local result, err = client:ImageGeneration():load({ id = "image_generation_id" })
 ```
 
 ### Common Methods

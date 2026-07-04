@@ -220,41 +220,21 @@ class PollinationsAiSDK:
         }
 
 
-    @property
-    def generate_text(self):
-        """Idiomatic facade: client.generate_text.list() / client.generate_text.load({"id": ...})."""
-        from entity.generate_text_entity import GenerateTextEntity
-        cached = getattr(self, "_generate_text", None)
-        if cached is None:
-            cached = GenerateTextEntity(self, None)
-            self._generate_text = cached
-        return cached
-
-    def GenerateText(self, data=None):
-        # Deprecated: use client.generate_text instead.
+    def GenerateText(self, data=None) -> "GenerateTextEntity":
+        """Entity factory: client.GenerateText().list({}) / client.GenerateText().load({"id": ...})."""
         from entity.generate_text_entity import GenerateTextEntity
         return GenerateTextEntity(self, data)
 
 
-    @property
-    def image_generation(self):
-        """Idiomatic facade: client.image_generation.list() / client.image_generation.load({"id": ...})."""
-        from entity.image_generation_entity import ImageGenerationEntity
-        cached = getattr(self, "_image_generation", None)
-        if cached is None:
-            cached = ImageGenerationEntity(self, None)
-            self._image_generation = cached
-        return cached
-
-    def ImageGeneration(self, data=None):
-        # Deprecated: use client.image_generation instead.
+    def ImageGeneration(self, data=None) -> "ImageGenerationEntity":
+        """Entity factory: client.ImageGeneration().list({}) / client.ImageGeneration().load({"id": ...})."""
         from entity.image_generation_entity import ImageGenerationEntity
         return ImageGenerationEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "PollinationsAiSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -274,3 +254,10 @@ class PollinationsAiSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.generate_text_entity import GenerateTextEntity
+    from entity.image_generation_entity import ImageGenerationEntity

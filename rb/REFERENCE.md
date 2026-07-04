@@ -90,7 +90,7 @@ same parameters as `direct()`. Raises on error.
 ## GenerateTextEntity
 
 ```ruby
-generate_text = client.generate_text
+generate_text = client.GenerateText
 ```
 
 ### Fields
@@ -115,7 +115,7 @@ generate_text = client.generate_text
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.generate_text.create({
+result = client.GenerateText.create({
   "message" => # `$ARRAY`,
 })
 ```
@@ -153,7 +153,7 @@ Return the entity name.
 ## ImageGenerationEntity
 
 ```ruby
-image_generation = client.image_generation
+image_generation = client.ImageGeneration
 ```
 
 ### Operations
@@ -163,7 +163,7 @@ image_generation = client.image_generation
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.image_generation.load({ "id" => "image_generation_id" })
+result = client.ImageGeneration.load({ "id" => "image_generation_id" })
 ```
 
 ### Common Methods

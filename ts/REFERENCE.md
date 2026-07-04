@@ -121,7 +121,7 @@ Alias for `PollinationsAiSDK.test()`.
 ## GenerateTextEntity
 
 ```ts
-const generate_text = client.generate_text
+const generate_text = client.GenerateText()
 ```
 
 ### Fields
@@ -146,7 +146,7 @@ const generate_text = client.generate_text
 Create a new entity with the given data.
 
 ```ts
-const result = await client.generate_text.create({
+const result = await client.GenerateText().create({
   message: /* `$ARRAY` */,
 })
 ```
@@ -182,7 +182,7 @@ Return a copy of the entity options.
 ## ImageGenerationEntity
 
 ```ts
-const image_generation = client.image_generation
+const image_generation = client.ImageGeneration()
 ```
 
 ### Operations
@@ -192,7 +192,7 @@ const image_generation = client.image_generation
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.image_generation.load({ id: 'image_generation_id' })
+const result = await client.ImageGeneration().load({ id: 'image_generation_id' })
 ```
 
 ### Common Methods

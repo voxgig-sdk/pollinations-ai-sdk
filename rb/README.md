@@ -31,8 +31,8 @@ client = PollinationsAiSDK.new
 ### 4. Create, update, and remove
 
 ```ruby
-# Create
-created = client.generatetext.create({ "name" => "Example" })
+# create returns the bare created GenerateText record.
+created = client.GenerateText.create({ "name" => "Example" })
 
 ```
 
@@ -77,13 +77,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = PollinationsAiSDK.test
+client = PollinationsAiSDK.test({
+  "entity" => { "generatetext" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.generatetext.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+generatetext = client.GenerateText.load({ "id" => "test01" })
+puts generatetext
 ```
 
 ### Use a custom fetch function
@@ -160,7 +164,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `GenerateText` | `(data) -> GenerateTextEntity` | Create a GenerateText entity instance. |
-| `ImageGeneration` | `(data) -> ImageGenerationEntity` | Create a ImageGeneration entity instance. |
+| `ImageGeneration` | `(data) -> ImageGenerationEntity` | Create an ImageGeneration entity instance. |
 
 ### Entity interface
 
@@ -234,7 +238,7 @@ API path: `/prompt/{prompt}`
 
 ### GenerateText
 
-Create an instance: `const generate_text = client.generate_text`
+Create an instance: `generate_text = client.GenerateText`
 
 #### Operations
 
@@ -259,16 +263,16 @@ Create an instance: `const generate_text = client.generate_text`
 
 #### Example: Create
 
-```ts
-const generate_text = await client.generate_text.create({
-  message: /* `$ARRAY` */,
+```ruby
+generate_text = client.GenerateText.create({
+  "message" => nil, # `$ARRAY`
 })
 ```
 
 
 ### ImageGeneration
 
-Create an instance: `const image_generation = client.image_generation`
+Create an instance: `image_generation = client.ImageGeneration`
 
 #### Operations
 
@@ -278,8 +282,9 @@ Create an instance: `const image_generation = client.image_generation`
 
 #### Example: Load
 
-```ts
-const image_generation = await client.image_generation.load({ id: 'image_generation_id' })
+```ruby
+# load returns the bare ImageGeneration record (raises on error).
+image_generation = client.ImageGeneration.load({ "id" => "image_generation_id" })
 ```
 
 
@@ -354,7 +359,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-generatetext = client.generatetext
+generatetext = client.GenerateText
 generatetext.load({ "id" => "example_id" })
 
 # generatetext.data_get now returns the loaded generatetext data

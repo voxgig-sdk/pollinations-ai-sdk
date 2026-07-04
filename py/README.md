@@ -34,8 +34,8 @@ client = PollinationsAiSDK()
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.generatetext.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.GenerateText().create({"name": "Example"})
 
 ```
 
@@ -82,8 +82,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = PollinationsAiSDK.test()
 
-result = client.generatetext.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+generatetext = client.GenerateText().load({"id": "test01"})
+# generatetext contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -160,7 +161,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `GenerateText` | `(data) -> GenerateTextEntity` | Create a GenerateText entity instance. |
-| `ImageGeneration` | `(data) -> ImageGenerationEntity` | Create a ImageGeneration entity instance. |
+| `ImageGeneration` | `(data) -> ImageGenerationEntity` | Create an ImageGeneration entity instance. |
 
 ### Entity interface
 
@@ -235,7 +236,7 @@ API path: `/prompt/{prompt}`
 
 ### GenerateText
 
-Create an instance: `const generate_text = client.generate_text`
+Create an instance: `generate_text = client.GenerateText()`
 
 #### Operations
 
@@ -260,16 +261,16 @@ Create an instance: `const generate_text = client.generate_text`
 
 #### Example: Create
 
-```ts
-const generate_text = await client.generate_text.create({
-  message: /* `$ARRAY` */,
+```python
+generate_text = client.GenerateText().create({
+    "message": ...,  # `$ARRAY`
 })
 ```
 
 
 ### ImageGeneration
 
-Create an instance: `const image_generation = client.image_generation`
+Create an instance: `image_generation = client.ImageGeneration()`
 
 #### Operations
 
@@ -279,8 +280,8 @@ Create an instance: `const image_generation = client.image_generation`
 
 #### Example: Load
 
-```ts
-const image_generation = await client.image_generation.load({ id: 'image_generation_id' })
+```python
+image_generation = client.ImageGeneration().load({"id": "image_generation_id"})
 ```
 
 
@@ -354,7 +355,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-generatetext = client.generatetext
+generatetext = client.GenerateText()
 generatetext.load({"id": "example_id"})
 
 # generatetext.data_get() now returns the loaded generatetext data

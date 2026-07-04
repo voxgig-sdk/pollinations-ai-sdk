@@ -84,7 +84,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## GenerateTextEntity
 
 ```python
-generate_text = client.generate_text
+generate_text = client.GenerateText()
 ```
 
 ### Fields
@@ -109,8 +109,8 @@ generate_text = client.generate_text
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.generate_text.create({
-    "message": # `$ARRAY`,
+result = client.GenerateText().create({
+    "message": ...,  # `$ARRAY`
 })
 ```
 
@@ -146,7 +146,7 @@ Return the entity name.
 ## ImageGenerationEntity
 
 ```python
-image_generation = client.image_generation
+image_generation = client.ImageGeneration()
 ```
 
 ### Operations
@@ -156,7 +156,7 @@ image_generation = client.image_generation
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.image_generation.load({"id": "image_generation_id"})
+result = client.ImageGeneration().load({"id": "image_generation_id"})
 ```
 
 ### Common Methods

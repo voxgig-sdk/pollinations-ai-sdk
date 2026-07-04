@@ -30,32 +30,31 @@ go mod edit -replace github.com/voxgig-sdk/pollinations-ai-sdk/go=../pollination
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
 
 import (
     "fmt"
-
     sdk "github.com/voxgig-sdk/pollinations-ai-sdk/go"
-    "github.com/voxgig-sdk/pollinations-ai-sdk/go/core"
 )
 
 func main() {
     client := sdk.New()
-```
 
-### 4. Create, update, and remove
-
-```go
-// Create
-created, _ := client.GenerateText(nil).Create(
-    map[string]any{"name": "Example"}, nil,
-)
-cm := core.ToMapAny(created)
-newID := core.ToMapAny(cm["data"])["id"]
-
+    // Create a generatetext.
+    created, err := client.GenerateText(nil).Create(map[string]any{"name": "Example"}, nil)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(created)
+}
 ```
 
 
@@ -105,10 +104,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.GenerateText(nil).Load(
+generatetext, err := client.GenerateText(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(generatetext) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -186,7 +188,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
 | `GenerateText` | `(data map[string]any) PollinationsAiEntity` | Create a GenerateText entity instance. |
-| `ImageGeneration` | `(data map[string]any) PollinationsAiEntity` | Create a ImageGeneration entity instance. |
+| `ImageGeneration` | `(data map[string]any) PollinationsAiEntity` | Create an ImageGeneration entity instance. |
 
 ### Entity interface (PollinationsAiEntity)
 
@@ -206,17 +208,24 @@ All entities implement the `PollinationsAiEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    generatetext, err := client.GenerateText(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // generatetext is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -300,7 +309,11 @@ Create an instance: `image_generation := client.ImageGeneration(nil)`
 #### Example: Load
 
 ```go
-result, err := client.ImageGeneration(nil).Load(map[string]any{"id": "image_generation_id"}, nil)
+image_generation, err := client.ImageGeneration(nil).Load(map[string]any{"id": "image_generation_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(image_generation) // the loaded record
 ```
 
 

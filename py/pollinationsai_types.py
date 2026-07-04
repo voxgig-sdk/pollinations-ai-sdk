@@ -4,47 +4,50 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class GenerateText:
+class GenerateTextRequired(TypedDict):
     message: list
-    choice: Optional[list] = None
-    created: Optional[int] = None
-    id: Optional[str] = None
-    max_token: Optional[int] = None
-    model: Optional[str] = None
-    object: Optional[str] = None
-    seed: Optional[int] = None
-    temperature: Optional[float] = None
-    usage: Optional[dict] = None
 
 
-@dataclass
-class GenerateTextCreateData:
-    choice: Optional[list] = None
-    created: Optional[int] = None
-    id: Optional[str] = None
-    max_token: Optional[int] = None
-    message: Optional[list] = None
-    model: Optional[str] = None
-    object: Optional[str] = None
-    seed: Optional[int] = None
-    temperature: Optional[float] = None
-    usage: Optional[dict] = None
+class GenerateText(GenerateTextRequired, total=False):
+    choice: list
+    created: int
+    id: str
+    max_token: int
+    model: str
+    object: str
+    seed: int
+    temperature: float
+    usage: dict
 
 
-@dataclass
-class ImageGeneration:
+class GenerateTextCreateData(TypedDict, total=False):
+    choice: list
+    created: int
+    id: str
+    max_token: int
+    message: list
+    model: str
+    object: str
+    seed: int
+    temperature: float
+    usage: dict
+
+
+class ImageGeneration(TypedDict):
     pass
 
 
-@dataclass
-class ImageGenerationLoadMatch:
+class ImageGenerationLoadMatch(TypedDict):
     prompt: str
-

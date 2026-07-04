@@ -208,26 +208,14 @@ class PollinationsAiSDK
   end
 
 
-  # Idiomatic facade: client.generate_text.list / client.generate_text.load({ "id" => ... })
-  def generate_text
-    require_relative 'entity/generate_text_entity'
-    @generate_text ||= GenerateTextEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.generate_text instead.
+  # Canonical facade: client.GenerateText.list / client.GenerateText.load({ "id" => ... })
   def GenerateText(data = nil)
     require_relative 'entity/generate_text_entity'
     GenerateTextEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.image_generation.list / client.image_generation.load({ "id" => ... })
-  def image_generation
-    require_relative 'entity/image_generation_entity'
-    @image_generation ||= ImageGenerationEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.image_generation instead.
+  # Canonical facade: client.ImageGeneration.list / client.ImageGeneration.load({ "id" => ... })
   def ImageGeneration(data = nil)
     require_relative 'entity/image_generation_entity'
     ImageGenerationEntity.new(self, data)
