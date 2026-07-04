@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://image.pollinations.ai",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -147,6 +144,7 @@ def make_config():
                       "orig": "prompt",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [

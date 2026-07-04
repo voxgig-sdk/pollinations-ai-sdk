@@ -49,8 +49,7 @@ class ImageGenerationEntityTest extends TestCase
         // LOAD
         $image_generation_ref01_ent = $client->ImageGeneration(null);
         $image_generation_ref01_match_dt0 = [];
-        [$image_generation_ref01_data_dt0_loaded, $err] = $image_generation_ref01_ent->load($image_generation_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $image_generation_ref01_data_dt0_loaded = $image_generation_ref01_ent->load($image_generation_ref01_match_dt0, null);
         $this->assertNotNull($image_generation_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function image_generation_basic_setup($extra)
         "POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID" => $idmap,
         "POLLINATIONSAI_TEST_LIVE" => "FALSE",
         "POLLINATIONSAI_TEST_EXPLAIN" => "FALSE",
-        "POLLINATIONSAI_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function image_generation_basic_setup($extra)
     if ($env["POLLINATIONSAI_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["POLLINATIONSAI_APIKEY"],
             ],
             $extra ?? [],
         ]);

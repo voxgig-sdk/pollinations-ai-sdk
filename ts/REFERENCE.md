@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -122,7 +121,7 @@ Alias for `PollinationsAiSDK.test()`.
 ## GenerateTextEntity
 
 ```ts
-const generate_text = client.GenerateText()
+const generate_text = client.generate_text
 ```
 
 ### Fields
@@ -147,7 +146,7 @@ const generate_text = client.GenerateText()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.GenerateText().create({
+const result = await client.generate_text.create({
   message: /* `$ARRAY` */,
 })
 ```
@@ -183,7 +182,7 @@ Return a copy of the entity options.
 ## ImageGenerationEntity
 
 ```ts
-const image_generation = client.ImageGeneration()
+const image_generation = client.image_generation
 ```
 
 ### Operations
@@ -193,7 +192,7 @@ const image_generation = client.ImageGeneration()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ImageGeneration().load({ id: 'image_generation_id' })
+const result = await client.image_generation.load({ id: 'image_generation_id' })
 ```
 
 ### Common Methods

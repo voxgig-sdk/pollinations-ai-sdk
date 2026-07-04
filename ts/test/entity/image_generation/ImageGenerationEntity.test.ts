@@ -111,7 +111,6 @@ function basicSetup(extra?: any) {
     'POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID': idmap,
     'POLLINATIONS_AI_TEST_LIVE': 'FALSE',
     'POLLINATIONS_AI_TEST_EXPLAIN': 'FALSE',
-    'POLLINATIONS_AI_APIKEY': 'NONE',
   })
 
   idmap = env['POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID']
@@ -121,7 +120,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new PollinationsAiSDK(merge([
       {
-        apikey: env.POLLINATIONS_AI_APIKEY,
       },
       extra
     ]))

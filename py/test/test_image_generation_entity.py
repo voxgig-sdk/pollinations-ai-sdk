@@ -49,8 +49,7 @@ class TestImageGenerationEntity:
         # LOAD
         image_generation_ref01_ent = client.ImageGeneration(None)
         image_generation_ref01_match_dt0 = {}
-        image_generation_ref01_data_dt0_loaded, err = image_generation_ref01_ent.load(image_generation_ref01_match_dt0, None)
-        assert err is None
+        image_generation_ref01_data_dt0_loaded = image_generation_ref01_ent.load(image_generation_ref01_match_dt0, None)
         assert image_generation_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _image_generation_basic_setup(extra):
         "POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID": idmap,
         "POLLINATIONSAI_TEST_LIVE": "FALSE",
         "POLLINATIONSAI_TEST_EXPLAIN": "FALSE",
-        "POLLINATIONSAI_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _image_generation_basic_setup(extra):
     if env.get("POLLINATIONSAI_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("POLLINATIONSAI_APIKEY"),
             },
             extra or {},
         ])

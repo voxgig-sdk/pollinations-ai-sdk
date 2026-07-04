@@ -43,8 +43,7 @@ class GenerateTextEntityTest extends TestCase
         $generate_text_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.generate_text"), "generate_text_ref01"));
 
-        [$generate_text_ref01_data_result, $err] = $generate_text_ref01_ent->create($generate_text_ref01_data, null);
-        $this->assertNull($err);
+        $generate_text_ref01_data_result = $generate_text_ref01_ent->create($generate_text_ref01_data, null);
         $generate_text_ref01_data = Helpers::to_map($generate_text_ref01_data_result);
         $this->assertNotNull($generate_text_ref01_data);
         $this->assertNotNull($generate_text_ref01_data["id"]);
@@ -81,7 +80,6 @@ function generate_text_basic_setup($extra)
         "POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID" => $idmap,
         "POLLINATIONSAI_TEST_LIVE" => "FALSE",
         "POLLINATIONSAI_TEST_EXPLAIN" => "FALSE",
-        "POLLINATIONSAI_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -93,7 +91,6 @@ function generate_text_basic_setup($extra)
     if ($env["POLLINATIONSAI_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["POLLINATIONSAI_APIKEY"],
             ],
             $extra ?? [],
         ]);

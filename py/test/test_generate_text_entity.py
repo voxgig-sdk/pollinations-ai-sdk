@@ -44,9 +44,7 @@ class TestGenerateTextEntity:
         generate_text_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.generate_text"), "generate_text_ref01"))
 
-        generate_text_ref01_data_result, err = generate_text_ref01_ent.create(generate_text_ref01_data, None)
-        assert err is None
-        generate_text_ref01_data = helpers.to_map(generate_text_ref01_data_result)
+        generate_text_ref01_data = helpers.to_map(generate_text_ref01_ent.create(generate_text_ref01_data, None))
         assert generate_text_ref01_data is not None
         assert generate_text_ref01_data["id"] is not None
 
@@ -88,7 +86,6 @@ def _generate_text_basic_setup(extra):
         "POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID": idmap,
         "POLLINATIONSAI_TEST_LIVE": "FALSE",
         "POLLINATIONSAI_TEST_EXPLAIN": "FALSE",
-        "POLLINATIONSAI_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -99,7 +96,6 @@ def _generate_text_basic_setup(extra):
     if env.get("POLLINATIONSAI_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("POLLINATIONSAI_APIKEY"),
             },
             extra or {},
         ])

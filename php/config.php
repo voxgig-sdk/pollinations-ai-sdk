@@ -20,9 +20,6 @@ class PollinationsAiConfig
             ],
             "options" => [
                 "base" => "https://image.pollinations.ai",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -152,6 +149,7 @@ class PollinationsAiConfig
                         'orig' => 'prompt',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [

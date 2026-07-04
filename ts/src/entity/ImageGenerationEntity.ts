@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  ImageGeneration,
+  ImageGenerationLoadMatch,
+} from '../PollinationsAiTypes'
 
 // TODO: needs Entity superclass
-class ImageGenerationEntity extends PollinationsAiEntityBase {
+class ImageGenerationEntity extends PollinationsAiEntityBase<ImageGeneration> {
 
   constructor(client: PollinationsAiSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class ImageGenerationEntity extends PollinationsAiEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: ImageGenerationLoadMatch, ctrl?: Control): Promise<ImageGeneration> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class ImageGenerationEntity extends PollinationsAiEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<ImageGeneration> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

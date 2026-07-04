@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch ImageGenerationLoadMatch
+---@param ctrl? table
+---@return ImageGeneration
+---@return string? err
 function ImageGenerationEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -3,6 +3,8 @@
 import { GenerateTextEntity } from './entity/GenerateTextEntity'
 import { ImageGenerationEntity } from './entity/ImageGenerationEntity'
 
+export type * from './PollinationsAiTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -203,12 +205,28 @@ class PollinationsAiSDK {
 
 
 
+  _generate_text?: GenerateTextEntity
+
+  // Idiomatic facade: `client.generate_text.list()` / `client.generate_text.load({ id })`.
+  get generate_text(): GenerateTextEntity {
+    return (this._generate_text ??= new GenerateTextEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.generate_text` instead. */
   GenerateText(data?: any) {
     const self = this
     return new GenerateTextEntity(self,data)
   }
 
 
+  _image_generation?: ImageGenerationEntity
+
+  // Idiomatic facade: `client.image_generation.list()` / `client.image_generation.load({ id })`.
+  get image_generation(): ImageGenerationEntity {
+    return (this._image_generation ??= new ImageGenerationEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.image_generation` instead. */
   ImageGeneration(data?: any) {
     const self = this
     return new ImageGenerationEntity(self,data)

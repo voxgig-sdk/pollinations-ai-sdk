@@ -245,11 +245,17 @@ func (sdk *PollinationsAiSDK) Direct(fetchargs map[string]any) (map[string]any, 
 }
 
 
+// GenerateText returns a GenerateText entity bound to this client.
+// Idiomatic usage: client.GenerateText(nil).List(nil, nil) or
+// client.GenerateText(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PollinationsAiSDK) GenerateText(data map[string]any) PollinationsAiEntity {
 	return NewGenerateTextEntityFunc(sdk, data)
 }
 
 
+// ImageGeneration returns a ImageGeneration entity bound to this client.
+// Idiomatic usage: client.ImageGeneration(nil).List(nil, nil) or
+// client.ImageGeneration(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PollinationsAiSDK) ImageGeneration(data map[string]any) PollinationsAiEntity {
 	return NewImageGenerationEntityFunc(sdk, data)
 }

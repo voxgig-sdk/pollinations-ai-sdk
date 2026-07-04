@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -88,7 +87,7 @@ same parameters as `direct()`.
 ## GenerateTextEntity
 
 ```lua
-local generate_text = client:GenerateText(nil)
+local generate_text = client:generate_text(nil)
 ```
 
 ### Fields
@@ -113,7 +112,7 @@ local generate_text = client:GenerateText(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:GenerateText():create({
+local result, err = client:generate_text():create({
   message = --[[ `$ARRAY` ]],
 })
 ```
@@ -151,7 +150,7 @@ Return the entity name.
 ## ImageGenerationEntity
 
 ```lua
-local image_generation = client:ImageGeneration(nil)
+local image_generation = client:image_generation(nil)
 ```
 
 ### Operations
@@ -161,7 +160,7 @@ local image_generation = client:ImageGeneration(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ImageGeneration():load({ id = "image_generation_id" })
+local result, err = client:image_generation():load({ id = "image_generation_id" })
 ```
 
 ### Common Methods

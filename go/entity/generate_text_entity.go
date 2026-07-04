@@ -85,6 +85,27 @@ func (e *GenerateTextEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an GenerateText; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *GenerateTextEntity) DataTyped(data ...GenerateText) GenerateText {
+	if len(data) > 0 {
+		return typedFrom[GenerateText](e.Data(asMap(data[0])))
+	}
+	return typedFrom[GenerateText](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through GenerateText (all fields
+// optional at the wire level).
+func (e *GenerateTextEntity) MatchTyped(match ...GenerateText) GenerateText {
+	if len(match) > 0 {
+		return typedFrom[GenerateText](e.Match(asMap(match[0])))
+	}
+	return typedFrom[GenerateText](e.Match())
+}
+
 func (e *GenerateTextEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("load", e.name)
 }
@@ -116,6 +137,17 @@ func (e *GenerateTextEntity) Create(reqdata map[string]any, ctrl map[string]any)
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// GenerateTextCreateData and returns an GenerateText. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *GenerateTextEntity) CreateTyped(reqdata GenerateTextCreateData, ctrl map[string]any) (GenerateText, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return GenerateText{}, err
+	}
+	return typedFrom[GenerateText](res), nil
 }
 
 

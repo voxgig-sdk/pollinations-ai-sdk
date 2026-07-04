@@ -45,6 +45,7 @@ class GenerateTextEntity
     end
   end
 
+  # @return [GenerateText, Hash] the current GenerateText data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class GenerateTextEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of GenerateText fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -67,6 +69,11 @@ class GenerateTextEntity
   
 
   
+  # Create a new GenerateText.
+  #
+  # @param reqdata [GenerateTextCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [GenerateText, Hash] the created GenerateText; raises PollinationsAiError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -144,16 +144,23 @@ class PollinationsAiSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class PollinationsAiSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,20 +212,42 @@ class PollinationsAiSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def generate_text(self):
+        """Idiomatic facade: client.generate_text.list() / client.generate_text.load({"id": ...})."""
+        from entity.generate_text_entity import GenerateTextEntity
+        cached = getattr(self, "_generate_text", None)
+        if cached is None:
+            cached = GenerateTextEntity(self, None)
+            self._generate_text = cached
+        return cached
 
     def GenerateText(self, data=None):
+        # Deprecated: use client.generate_text instead.
         from entity.generate_text_entity import GenerateTextEntity
         return GenerateTextEntity(self, data)
 
 
+    @property
+    def image_generation(self):
+        """Idiomatic facade: client.image_generation.list() / client.image_generation.load({"id": ...})."""
+        from entity.image_generation_entity import ImageGenerationEntity
+        cached = getattr(self, "_image_generation", None)
+        if cached is None:
+            cached = ImageGenerationEntity(self, None)
+            self._image_generation = cached
+        return cached
+
     def ImageGeneration(self, data=None):
+        # Deprecated: use client.image_generation instead.
         from entity.image_generation_entity import ImageGenerationEntity
         return ImageGenerationEntity(self, data)
 

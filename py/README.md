@@ -9,11 +9,9 @@ The Python SDK for the PollinationsAi API — an entity-oriented client followin
 
 
 ## Install
-```bash
-pip install voxgig-sdk-pollinations-ai
-```
-
-Or install from source:
+This package is not yet published to PyPI. Install it from the GitHub
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases)) or
+from a source checkout:
 
 ```bash
 pip install -e .
@@ -28,19 +26,16 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from pollinationsai_sdk import PollinationsAiSDK
 
-client = PollinationsAiSDK({
-    "apikey": os.environ.get("POLLINATIONS-AI_APIKEY"),
-})
+client = PollinationsAiSDK()
 ```
 
 ### 4. Create, update, and remove
 
 ```python
 # Create
-created, _ = client.GenerateText().create({"name": "Example"})
+created = client.generatetext.create({"name": "Example"})
 
 ```
 
@@ -52,29 +47,28 @@ created, _ = client.GenerateText().create({"name": "Example"})
 For endpoints not covered by entity methods:
 
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
+else:
+    print(result["err"])     # error value
 ```
 
 ### Prepare a request without sending it
 
 ```python
-fetchdef, err = client.prepare({
+# prepare() returns the fetch definition and raises on error.
+fetchdef = client.prepare({
     "path": "/api/resource/{id}",
     "method": "DELETE",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 print(fetchdef["url"])
 print(fetchdef["method"])
@@ -88,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```python
 client = PollinationsAiSDK.test()
 
-result, err = client.PollinationsAi().load({"id": "test01"})
+result = client.generatetext.load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -118,8 +112,7 @@ client = PollinationsAiSDK({
 Create a `.env.local` file at the project root:
 
 ```
-POLLINATIONS-AI_TEST_LIVE=TRUE
-POLLINATIONS-AI_APIKEY=<your-key>
+POLLINATIONS_AI_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -143,7 +136,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |
@@ -165,8 +157,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | --- | --- | --- |
 | `options_map` | `() -> dict` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `GenerateText` | `(data) -> GenerateTextEntity` | Create a GenerateText entity instance. |
 | `ImageGeneration` | `(data) -> ImageGenerationEntity` | Create a ImageGeneration entity instance. |
 
@@ -176,11 +168,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> (any, err)` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> (any, err)` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> (any, err)` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> (any, err)` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> (any, err)` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -190,8 +182,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`dict` with these keys:
+Entity operations return the bare result data (a `dict` for single-entity
+ops, a `list` for `list`) and raise on error. Wrap calls in
+`try`/`except` to handle failures.
+
+The `direct()` escape hatch never raises — it returns a result `dict`
+you branch on via `result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -239,7 +235,7 @@ API path: `/prompt/{prompt}`
 
 ### GenerateText
 
-Create an instance: `const generate_text = client.GenerateText()`
+Create an instance: `const generate_text = client.generate_text`
 
 #### Operations
 
@@ -265,7 +261,7 @@ Create an instance: `const generate_text = client.GenerateText()`
 #### Example: Create
 
 ```ts
-const generate_text = await client.GenerateText().create({
+const generate_text = await client.generate_text.create({
   message: /* `$ARRAY` */,
 })
 ```
@@ -273,7 +269,7 @@ const generate_text = await client.GenerateText().create({
 
 ### ImageGeneration
 
-Create an instance: `const image_generation = client.ImageGeneration()`
+Create an instance: `const image_generation = client.image_generation`
 
 #### Operations
 
@@ -284,7 +280,7 @@ Create an instance: `const image_generation = client.ImageGeneration()`
 #### Example: Load
 
 ```ts
-const image_generation = await client.ImageGeneration().load({ id: 'image_generation_id' })
+const image_generation = await client.image_generation.load({ id: 'image_generation_id' })
 ```
 
 
@@ -358,11 +354,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-moon = client.Moon()
-moon.load({"planet_id": "earth", "id": "luna"})
+generatetext = client.generatetext
+generatetext.load({"id": "example_id"})
 
-# moon.data_get() now returns the loaded moon data
-# moon.match_get() returns the last match criteria
+# generatetext.data_get() now returns the loaded generatetext data
+# generatetext.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -9,9 +9,10 @@ The PHP SDK for the PollinationsAi API — an entity-oriented client using PHP c
 
 
 ## Install
-```bash
-composer require voxgig-sdk/pollinations-ai
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/pollinations-ai-sdk/releases](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,16 +26,14 @@ loading a specific record.
 <?php
 require_once 'pollinationsai_sdk.php';
 
-$client = new PollinationsAiSDK([
-    "apikey" => getenv("POLLINATIONS-AI_APIKEY"),
-]);
+$client = new PollinationsAiSDK();
 ```
 
 ### 4. Create, update, and remove
 
 ```php
 // Create
-[$created, $_] = $client->GenerateText()->create(["name" => "Example"]);
+$created = $client->generatetext()->create(["name" => "Example"]);
 
 ```
 
@@ -46,28 +45,31 @@ $client = new PollinationsAiSDK([
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -81,7 +83,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = PollinationsAiSDK::test();
 
-[$result, $err] = $client->PollinationsAi()->load(["id" => "test01"]);
+$result = $client->generatetext()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -115,8 +117,7 @@ $client = new PollinationsAiSDK([
 Create a `.env.local` file at the project root:
 
 ```
-POLLINATIONS-AI_TEST_LIVE=TRUE
-POLLINATIONS-AI_APIKEY=<your-key>
+POLLINATIONS_AI_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -139,7 +140,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -186,8 +186,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -235,7 +239,7 @@ API path: `/prompt/{prompt}`
 
 ### GenerateText
 
-Create an instance: `const generate_text = client.GenerateText()`
+Create an instance: `const generate_text = client.generate_text`
 
 #### Operations
 
@@ -261,7 +265,7 @@ Create an instance: `const generate_text = client.GenerateText()`
 #### Example: Create
 
 ```ts
-const generate_text = await client.GenerateText().create({
+const generate_text = await client.generate_text.create({
   message: /* `$ARRAY` */,
 })
 ```
@@ -269,7 +273,7 @@ const generate_text = await client.GenerateText().create({
 
 ### ImageGeneration
 
-Create an instance: `const image_generation = client.ImageGeneration()`
+Create an instance: `const image_generation = client.image_generation`
 
 #### Operations
 
@@ -280,7 +284,7 @@ Create an instance: `const image_generation = client.ImageGeneration()`
 #### Example: Load
 
 ```ts
-const image_generation = await client.ImageGeneration().load({ id: 'image_generation_id' })
+const image_generation = await client.image_generation.load({ id: 'image_generation_id' })
 ```
 
 
@@ -355,11 +359,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$generatetext = $client->generatetext();
+$generatetext->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $generatetext->dataGet() now returns the loaded generatetext data
+// $generatetext->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

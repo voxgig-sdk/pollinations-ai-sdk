@@ -85,6 +85,27 @@ func (e *ImageGenerationEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an ImageGeneration; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *ImageGenerationEntity) DataTyped(data ...ImageGeneration) ImageGeneration {
+	if len(data) > 0 {
+		return typedFrom[ImageGeneration](e.Data(asMap(data[0])))
+	}
+	return typedFrom[ImageGeneration](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through ImageGeneration (all fields
+// optional at the wire level).
+func (e *ImageGenerationEntity) MatchTyped(match ...ImageGeneration) ImageGeneration {
+	if len(match) > 0 {
+		return typedFrom[ImageGeneration](e.Match(asMap(match[0])))
+	}
+	return typedFrom[ImageGeneration](e.Match())
+}
+
 
 func (e *ImageGenerationEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *ImageGenerationEntity) Load(reqmatch map[string]any, ctrl map[string]an
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// ImageGenerationLoadMatch and returns an ImageGeneration. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *ImageGenerationEntity) LoadTyped(reqmatch ImageGenerationLoadMatch, ctrl map[string]any) (ImageGeneration, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return ImageGeneration{}, err
+	}
+	return typedFrom[ImageGeneration](res), nil
 }
 
 

@@ -9,9 +9,12 @@ The TypeScript SDK for the PollinationsAi API — a type-safe, entity-oriented c
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/pollinations-ai
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/pollinations-ai-sdk/releases](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,18 +23,16 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { PollinationsAiSDK } from 'pollinations-ai'
+import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai'
 
-const client = new PollinationsAiSDK({
-  apikey: process.env.POLLINATIONS-AI_APIKEY,
-})
+const client = new PollinationsAiSDK()
 ```
 
 ### 4. Create, update, and remove
 
 ```ts
 // Create
-const created = await client.GenerateText().create({
+const created = await client.generatetext.create({
   name: 'Example',
 })
 
@@ -79,7 +80,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = PollinationsAiSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.generatetext.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -87,7 +88,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new PollinationsAiSDK({ apikey: '...' })
+const client = new PollinationsAiSDK()
 const testClient = client.tester()
 ```
 
@@ -96,7 +97,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.generatetext
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -123,7 +124,6 @@ const logger = {
 }
 
 const client = new PollinationsAiSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -133,8 +133,7 @@ const client = new PollinationsAiSDK({
 Create a `.env.local` file at the project root:
 
 ```
-POLLINATIONS-AI_TEST_LIVE=TRUE
-POLLINATIONS-AI_APIKEY=<your-key>
+POLLINATIONS_AI_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -152,7 +151,6 @@ cd ts && npm test
 
 ```ts
 new PollinationsAiSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -163,7 +161,6 @@ new PollinationsAiSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -285,7 +282,7 @@ API path: `/prompt/{prompt}`
 
 ### GenerateText
 
-Create an instance: `const generate_text = client.GenerateText()`
+Create an instance: `const generate_text = client.generate_text`
 
 #### Operations
 
@@ -311,7 +308,7 @@ Create an instance: `const generate_text = client.GenerateText()`
 #### Example: Create
 
 ```ts
-const generate_text = await client.GenerateText().create({
+const generate_text = await client.generate_text.create({
   message: /* `$ARRAY` */,
 })
 ```
@@ -319,7 +316,7 @@ const generate_text = await client.GenerateText().create({
 
 ### ImageGeneration
 
-Create an instance: `const image_generation = client.ImageGeneration()`
+Create an instance: `const image_generation = client.image_generation`
 
 #### Operations
 
@@ -330,7 +327,7 @@ Create an instance: `const image_generation = client.ImageGeneration()`
 #### Example: Load
 
 ```ts
-const image_generation = await client.ImageGeneration().load({ id: 'image_generation_id' })
+const image_generation = await client.image_generation.load({ id: 'image_generation_id' })
 ```
 
 
@@ -391,7 +388,7 @@ pollinations-ai/
 Import the SDK from the package root:
 
 ```ts
-import { PollinationsAiSDK } from 'pollinations-ai'
+import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai'
 ```
 
 ### Entity state
@@ -401,11 +398,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const generatetext = client.generatetext
+await generatetext.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// generatetext.data() now returns the loaded generatetext data
+// generatetext.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

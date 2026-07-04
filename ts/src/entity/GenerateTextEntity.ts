@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  GenerateText,
+  GenerateTextCreateData,
+} from '../PollinationsAiTypes'
 
 // TODO: needs Entity superclass
-class GenerateTextEntity extends PollinationsAiEntityBase {
+class GenerateTextEntity extends PollinationsAiEntityBase<GenerateText> {
 
   constructor(client: PollinationsAiSDK, entopts: any) {
     super(client, entopts)
@@ -34,7 +38,7 @@ class GenerateTextEntity extends PollinationsAiEntityBase {
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: GenerateTextCreateData, ctrl?: Control): Promise<GenerateText> {
 
     const utility = this._utility
     const {
@@ -133,7 +137,9 @@ class GenerateTextEntity extends PollinationsAiEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<GenerateText> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

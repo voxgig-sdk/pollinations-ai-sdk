@@ -244,12 +244,38 @@ end
 
 
 
+-- Idiomatic facade: client:generate_text():list() / client:generate_text():load({ id = ... })
+function PollinationsAiSDK:generate_text(data)
+  local EntityMod = require("entity.generate_text_entity")
+  if data == nil then
+    if self._generate_text == nil then
+      self._generate_text = EntityMod.new(self, nil)
+    end
+    return self._generate_text
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:generate_text() instead.
 function PollinationsAiSDK:GenerateText(data)
   local EntityMod = require("entity.generate_text_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:image_generation():list() / client:image_generation():load({ id = ... })
+function PollinationsAiSDK:image_generation(data)
+  local EntityMod = require("entity.image_generation_entity")
+  if data == nil then
+    if self._image_generation == nil then
+      self._image_generation = EntityMod.new(self, nil)
+    end
+    return self._image_generation
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:image_generation() instead.
 function PollinationsAiSDK:ImageGeneration(data)
   local EntityMod = require("entity.image_generation_entity")
   return EntityMod.new(self, data)
