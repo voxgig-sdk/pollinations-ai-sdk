@@ -18,7 +18,18 @@ export interface GenerateText {
   usage?: Record<string, any>
 }
 
-export type GenerateTextCreateData = Partial<GenerateText>
+export interface GenerateTextCreateData {
+  choice?: any[]
+  created?: number
+  id?: string
+  max_token?: number
+  message: any[]
+  model?: string
+  object?: string
+  seed?: number
+  temperature?: number
+  usage?: Record<string, any>
+}
 
 export interface ImageGeneration {
 }

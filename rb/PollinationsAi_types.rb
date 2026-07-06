@@ -53,7 +53,7 @@ GenerateText = Struct.new(
   keyword_init: true
 )
 
-# Match filter for GenerateText#create (any subset of GenerateText fields).
+# Request payload for GenerateText#create.
 #
 # @!attribute [rw] choice
 #   @return [Array, nil]
@@ -68,7 +68,7 @@ GenerateText = Struct.new(
 #   @return [Integer, nil]
 #
 # @!attribute [rw] message
-#   @return [Array, nil]
+#   @return [Array]
 #
 # @!attribute [rw] model
 #   @return [String, nil]

@@ -27,14 +27,14 @@ class GenerateText
     public ?array $usage = null;
 }
 
-/** Match filter for GenerateText#create (any subset of GenerateText fields). */
+/** Request payload for GenerateText#create. */
 class GenerateTextCreateData
 {
     public ?array $choice = null;
     public ?int $created = null;
     public ?string $id = null;
     public ?int $max_token = null;
-    public ?array $message = null;
+    public array $message;
     public ?string $model = null;
     public ?string $object = null;
     public ?int $seed = null;

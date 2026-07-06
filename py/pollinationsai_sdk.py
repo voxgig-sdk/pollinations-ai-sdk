@@ -221,13 +221,13 @@ class PollinationsAiSDK:
 
 
     def GenerateText(self, data=None) -> "GenerateTextEntity":
-        """Entity factory: client.GenerateText().list({}) / client.GenerateText().load({"id": ...})."""
+        """Entity factory: client.GenerateText().list() / client.GenerateText().load({"id": ...})."""
         from entity.generate_text_entity import GenerateTextEntity
         return GenerateTextEntity(self, data)
 
 
     def ImageGeneration(self, data=None) -> "ImageGenerationEntity":
-        """Entity factory: client.ImageGeneration().list({}) / client.ImageGeneration().load({"id": ...})."""
+        """Entity factory: client.ImageGeneration().list() / client.ImageGeneration().load({"id": ...})."""
         from entity.image_generation_entity import ImageGenerationEntity
         return ImageGenerationEntity(self, data)
 

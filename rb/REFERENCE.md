@@ -8,7 +8,7 @@ Complete API reference for the PollinationsAi Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'pollinations-ai_sdk'
+require_relative 'PollinationsAi_sdk'
 
 client = PollinationsAiSDK.new(options)
 ```
@@ -97,16 +97,16 @@ generate_text = client.GenerateText
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | ``$ARRAY`` | No |  |
-| `created` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `object` | ``$STRING`` | No |  |
-| `seed` | ``$INTEGER`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
-| `usage` | ``$OBJECT`` | No |  |
+| `choice` | `Array` | No |  |
+| `created` | `Integer` | No |  |
+| `id` | `String` | No |  |
+| `max_token` | `Integer` | No |  |
+| `message` | `Array` | Yes |  |
+| `model` | `String` | No |  |
+| `object` | `String` | No |  |
+| `seed` | `Integer` | No |  |
+| `temperature` | `Float` | No |  |
+| `usage` | `Hash` | No |  |
 
 ### Operations
 
@@ -116,7 +116,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.GenerateText.create({
-  "message" => # `$ARRAY`,
+  "message" => [], # Array
 })
 ```
 
@@ -163,7 +163,7 @@ image_generation = client.ImageGeneration
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.ImageGeneration.load({ "id" => "image_generation_id" })
+result = client.ImageGeneration.load()
 ```
 
 ### Common Methods

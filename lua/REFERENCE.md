@@ -94,16 +94,16 @@ local generate_text = client:GenerateText(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | ``$ARRAY`` | No |  |
-| `created` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `object` | ``$STRING`` | No |  |
-| `seed` | ``$INTEGER`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
-| `usage` | ``$OBJECT`` | No |  |
+| `choice` | `table` | No |  |
+| `created` | `number` | No |  |
+| `id` | `string` | No |  |
+| `max_token` | `number` | No |  |
+| `message` | `table` | Yes |  |
+| `model` | `string` | No |  |
+| `object` | `string` | No |  |
+| `seed` | `number` | No |  |
+| `temperature` | `number` | No |  |
+| `usage` | `table` | No |  |
 
 ### Operations
 
@@ -113,7 +113,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:GenerateText():create({
-  message = --[[ `$ARRAY` ]],
+  message = --[[ table ]],
 })
 ```
 
@@ -160,7 +160,7 @@ local image_generation = client:ImageGeneration(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ImageGeneration():load({ id = "image_generation_id" })
+local result, err = client:ImageGeneration():load()
 ```
 
 ### Common Methods

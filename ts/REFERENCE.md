@@ -128,16 +128,16 @@ const generate_text = client.GenerateText()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | ``$ARRAY`` | No |  |
-| `created` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `object` | ``$STRING`` | No |  |
-| `seed` | ``$INTEGER`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
-| `usage` | ``$OBJECT`` | No |  |
+| `choice` | `any[]` | No |  |
+| `created` | `number` | No |  |
+| `id` | `string` | No |  |
+| `max_token` | `number` | No |  |
+| `message` | `any[]` | Yes |  |
+| `model` | `string` | No |  |
+| `object` | `string` | No |  |
+| `seed` | `number` | No |  |
+| `temperature` | `number` | No |  |
+| `usage` | `Record<string, any>` | No |  |
 
 ### Operations
 
@@ -147,7 +147,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GenerateText().create({
-  message: /* `$ARRAY` */,
+  message: /* any[] */,
 })
 ```
 
@@ -192,7 +192,7 @@ const image_generation = client.ImageGeneration()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ImageGeneration().load({ id: 'image_generation_id' })
+const result = await client.ImageGeneration().load()
 ```
 
 ### Common Methods

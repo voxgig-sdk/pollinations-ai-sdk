@@ -101,16 +101,16 @@ generate_text := client.GenerateText(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | ``$ARRAY`` | No |  |
-| `created` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `object` | ``$STRING`` | No |  |
-| `seed` | ``$INTEGER`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
-| `usage` | ``$OBJECT`` | No |  |
+| `choice` | `[]any` | No |  |
+| `created` | `int` | No |  |
+| `id` | `string` | No |  |
+| `max_token` | `int` | No |  |
+| `message` | `[]any` | Yes |  |
+| `model` | `string` | No |  |
+| `object` | `string` | No |  |
+| `seed` | `int` | No |  |
+| `temperature` | `float64` | No |  |
+| `usage` | `map[string]any` | No |  |
 
 ### Operations
 
@@ -120,7 +120,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.GenerateText(nil).Create(map[string]any{
-    "message": /* `$ARRAY` */,
+    "message": /* []any */,
 }, nil)
 ```
 
@@ -161,7 +161,7 @@ image_generation := client.ImageGeneration(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.ImageGeneration(nil).Load(map[string]any{"id": "image_generation_id"}, nil)
+result, err := client.ImageGeneration(nil).Load(nil, nil)
 ```
 
 ### Common Methods

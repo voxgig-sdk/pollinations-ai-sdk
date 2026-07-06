@@ -8,7 +8,7 @@ Complete API reference for the PollinationsAi Python SDK.
 ### Constructor
 
 ```python
-from pollinations-ai_sdk import PollinationsAiSDK
+from pollinationsai_sdk import PollinationsAiSDK
 
 client = PollinationsAiSDK(options)
 ```
@@ -91,16 +91,16 @@ generate_text = client.GenerateText()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | ``$ARRAY`` | No |  |
-| `created` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `object` | ``$STRING`` | No |  |
-| `seed` | ``$INTEGER`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
-| `usage` | ``$OBJECT`` | No |  |
+| `choice` | `list` | No |  |
+| `created` | `int` | No |  |
+| `id` | `str` | No |  |
+| `max_token` | `int` | No |  |
+| `message` | `list` | Yes |  |
+| `model` | `str` | No |  |
+| `object` | `str` | No |  |
+| `seed` | `int` | No |  |
+| `temperature` | `float` | No |  |
+| `usage` | `dict` | No |  |
 
 ### Operations
 
@@ -110,7 +110,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.GenerateText().create({
-    "message": ...,  # `$ARRAY`
+    "message": [],  # list
 })
 ```
 
@@ -156,7 +156,7 @@ image_generation = client.ImageGeneration()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.ImageGeneration().load({"id": "image_generation_id"})
+result = client.ImageGeneration().load()
 ```
 
 ### Common Methods

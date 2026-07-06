@@ -19,6 +19,16 @@
 ---@field usage? table
 
 ---@class GenerateTextCreateData
+---@field choice? table
+---@field created? number
+---@field id? string
+---@field max_token? number
+---@field message table
+---@field model? string
+---@field object? string
+---@field seed? number
+---@field temperature? number
+---@field usage? table
 
 ---@class ImageGeneration
 

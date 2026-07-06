@@ -8,7 +8,7 @@ Complete API reference for the PollinationsAi PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/pollinations-ai_sdk.php';
+require_once __DIR__ . '/pollinationsai_sdk.php';
 
 $client = new PollinationsAiSDK($options);
 ```
@@ -49,11 +49,11 @@ Create a new `GenerateTextEntity` instance. Pass `null` for no initial data.
 
 Create a new `ImageGenerationEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): PollinationsAiUtility`
 
 Return a copy of the SDK utility object.
 
@@ -96,16 +96,16 @@ $generate_text = $client->GenerateText();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | ``$ARRAY`` | No |  |
-| `created` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `object` | ``$STRING`` | No |  |
-| `seed` | ``$INTEGER`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
-| `usage` | ``$OBJECT`` | No |  |
+| `choice` | `array` | No |  |
+| `created` | `int` | No |  |
+| `id` | `string` | No |  |
+| `max_token` | `int` | No |  |
+| `message` | `array` | Yes |  |
+| `model` | `string` | No |  |
+| `object` | `string` | No |  |
+| `seed` | `int` | No |  |
+| `temperature` | `float` | No |  |
+| `usage` | `array` | No |  |
 
 ### Operations
 
@@ -115,25 +115,25 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->GenerateText()->create([
-  "message" => /* `$ARRAY` */,
+  "message" => null, // array
 ]);
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -142,7 +142,7 @@ Set the entity match criteria.
 Create a new `GenerateTextEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -162,24 +162,24 @@ $image_generation = $client->ImageGeneration();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->ImageGeneration()->load(["id" => "image_generation_id"]);
+$result = $client->ImageGeneration()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -188,7 +188,7 @@ Set the entity match criteria.
 Create a new `ImageGenerationEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

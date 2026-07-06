@@ -32,12 +32,15 @@ class GenerateText(GenerateTextRequired, total=False):
     usage: dict
 
 
-class GenerateTextCreateData(TypedDict, total=False):
+class GenerateTextCreateDataRequired(TypedDict):
+    message: list
+
+
+class GenerateTextCreateData(GenerateTextCreateDataRequired, total=False):
     choice: list
     created: int
     id: str
     max_token: int
-    message: list
     model: str
     object: str
     seed: int

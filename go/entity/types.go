@@ -22,14 +22,13 @@ type GenerateText struct {
 	Usage *map[string]any `json:"usage,omitempty"`
 }
 
-// GenerateTextCreateData mirrors the generate_text fields as an all-optional match
-// filter (Go analog of Partial<GenerateText>).
+// GenerateTextCreateData is the typed request payload for GenerateText.CreateTyped.
 type GenerateTextCreateData struct {
 	Choice *[]any `json:"choice,omitempty"`
 	Created *int `json:"created,omitempty"`
 	Id *string `json:"id,omitempty"`
 	MaxToken *int `json:"max_token,omitempty"`
-	Message *[]any `json:"message,omitempty"`
+	Message []any `json:"message"`
 	Model *string `json:"model,omitempty"`
 	Object *string `json:"object,omitempty"`
 	Seed *int `json:"seed,omitempty"`
