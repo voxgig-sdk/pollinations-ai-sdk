@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -392,6 +389,7 @@
           "name": "Open Source",
           "url": "https://pollinations.ai/"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Pollinations AI Image Generation Server",
@@ -402,8 +400,10 @@
             "url": "https://text.pollinations.ai"
           }
         ],
+        "summary": "Pollinations AI is an open-source platform providing simple text and image generation APIs without the need for sign-ups or API keys.",
         "title": "Pollinations AI",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://image.pollinations.ai"
       },
       "option": {},
       "target": {
@@ -456,6 +456,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -506,6 +509,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

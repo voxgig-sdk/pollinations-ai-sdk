@@ -163,7 +163,7 @@ image_generation = client.ImageGeneration
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.ImageGeneration.load()
+result = client.ImageGeneration.load({ "prompt" => "prompt" })
 ```
 
 ### Common Methods

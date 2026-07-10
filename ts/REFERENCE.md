@@ -147,7 +147,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GenerateText().create({
-  message: /* any[] */,
+  message: [],
 })
 ```
 
@@ -192,7 +192,7 @@ const image_generation = client.ImageGeneration()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ImageGeneration().load()
+const result = await client.ImageGeneration().load({ prompt: 'prompt' })
 ```
 
 ### Common Methods

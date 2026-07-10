@@ -162,7 +162,7 @@ $image_generation = $client->ImageGeneration();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->ImageGeneration()->load();
+$result = $client->ImageGeneration()->load(["prompt" => "prompt"]);
 ```
 
 ### Common Methods

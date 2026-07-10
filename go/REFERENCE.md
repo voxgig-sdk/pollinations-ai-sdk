@@ -94,7 +94,8 @@ same parameters as `Direct()`.
 ## GenerateTextEntity
 
 ```go
-generate_text := client.GenerateText(nil)
+generateText := client.GenerateText(nil)
+fmt.Println(generateText.GetName()) // "generate_text"
 ```
 
 ### Fields
@@ -120,8 +121,12 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.GenerateText(nil).Create(map[string]any{
-    "message": /* []any */,
+    "message": []any{},
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -151,7 +156,8 @@ Return the entity name.
 ## ImageGenerationEntity
 
 ```go
-image_generation := client.ImageGeneration(nil)
+imageGeneration := client.ImageGeneration(nil)
+fmt.Println(imageGeneration.GetName()) // "image_generation"
 ```
 
 ### Operations
@@ -161,7 +167,11 @@ image_generation := client.ImageGeneration(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.ImageGeneration(nil).Load(nil, nil)
+result, err := client.ImageGeneration(nil).Load(map[string]any{"prompt": "prompt"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

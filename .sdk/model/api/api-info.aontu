@@ -23,9 +23,9 @@ main: {
           url: "https://text.pollinations.ai"
         }
       ]
+      summary: "Pollinations AI is an open-source platform providing simple text and image generation APIs without the need for sign-ups or API keys."
       title: "Pollinations AI"
       version: "1.0.0"
+      website: "https://image.pollinations.ai"
     }
   }
-}
-

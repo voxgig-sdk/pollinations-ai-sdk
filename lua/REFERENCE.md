@@ -160,7 +160,7 @@ local image_generation = client:ImageGeneration(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ImageGeneration():load()
+local result, err = client:ImageGeneration():load({ prompt = "prompt" })
 ```
 
 ### Common Methods

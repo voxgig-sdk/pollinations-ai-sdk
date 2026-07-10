@@ -36,6 +36,19 @@ from pollinationsai_sdk import PollinationsAiSDK
 client = PollinationsAiSDK()
 ```
 
+### 3. Load an imagegeneration
+
+ImageGeneration is nested under prompt, so provide the `prompt`.
+`load()` returns the bare record (a `dict`) and raises on error.
+
+```python
+try:
+    imagegeneration = client.ImageGeneration().load({"prompt": "example_prompt"})
+    print(imagegeneration)
+except Exception as err:
+    print(f"load failed: {err}")
+```
+
 ### 4. Create, update, and remove
 
 ```python
@@ -51,10 +64,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    generatetext = client.GenerateText().create({ "message": [] })
-    print(generatetext)
+    imagegeneration = client.ImageGeneration().load()
+    print(imagegeneration)
 except Exception as err:
-    print(f"create failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -119,8 +132,8 @@ Create a mock client for unit testing — no server required:
 client = PollinationsAiSDK.test()
 
 # Entity ops return the bare record and raise on error.
-generatetext = client.GenerateText().create({"message": []})
-# generatetext contains the mock response record
+imagegeneration = client.ImageGeneration().load()
+# imagegeneration contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -314,7 +327,7 @@ Create an instance: `image_generation = client.ImageGeneration()`
 #### Example: Load
 
 ```python
-image_generation = client.ImageGeneration().load()
+image_generation = client.ImageGeneration().load({"prompt": "prompt"})
 ```
 
 
@@ -389,15 +402,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-generatetext = client.GenerateText()
-generatetext.create({ "message": [] })
+imagegeneration = client.ImageGeneration()
+imagegeneration.load()
 
-# generatetext.data_get() now returns the generatetext data from the last create
-# generatetext.match_get() returns the last match criteria
+# imagegeneration.data_get() now returns the imagegeneration data from the last load
+# imagegeneration.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -33,6 +33,16 @@ local sdk = require("pollinations-ai_sdk")
 local client = sdk.new()
 ```
 
+### 3. Load an imagegeneration
+
+ImageGeneration is nested under prompt, so provide the `prompt`.
+
+```lua
+local imagegeneration, err = client:ImageGeneration():load({ prompt = "example_prompt" })
+if err then error(err) end
+print(imagegeneration)
+```
+
 ### 4. Create, update, and remove
 
 ```lua
@@ -49,7 +59,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local generatetext, err = client:GenerateText():create({ message = {} })
+local imagegeneration, err = client:ImageGeneration():load()
 if err then error(err) end
 ```
 
@@ -107,7 +117,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:GenerateText():create({ message = {} })
+local result, err = client:ImageGeneration():load()
 -- result is the returned data; err is set on failure
 ```
 
@@ -286,7 +296,7 @@ Create an instance: `local generate_text = client:GenerateText(nil)`
 
 ```lua
 local generate_text, err = client:GenerateText():create({
-  message = nil, -- table
+  message = {}, -- table
 })
 ```
 
@@ -304,7 +314,7 @@ Create an instance: `local image_generation = client:ImageGeneration(nil)`
 #### Example: Load
 
 ```lua
-local image_generation, err = client:ImageGeneration():load()
+local image_generation, err = client:ImageGeneration():load({ prompt = "prompt" })
 ```
 
 
@@ -380,15 +390,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local generatetext = client:GenerateText()
-generatetext:create({ message = {} })
+local imagegeneration = client:ImageGeneration()
+imagegeneration:load()
 
--- generatetext:data_get() now returns the generatetext data from the last create
--- generatetext:match_get() returns the last match criteria
+-- imagegeneration:data_get() now returns the imagegeneration data from the last load
+-- imagegeneration:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

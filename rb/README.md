@@ -30,6 +30,20 @@ require_relative "PollinationsAi_sdk"
 client = PollinationsAiSDK.new
 ```
 
+### 3. Load an imagegeneration
+
+ImageGeneration is nested under prompt, so provide the `prompt`.
+
+```ruby
+begin
+  # load returns the bare ImageGeneration record (raises on error).
+  imagegeneration = client.ImageGeneration.load({ "prompt" => "example_prompt" })
+  puts imagegeneration
+rescue => err
+  warn "load failed: #{err}"
+end
+```
+
 ### 4. Create, update, and remove
 
 ```ruby
@@ -45,9 +59,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  generatetext = client.GenerateText.create({ "message" => [] })
+  imagegeneration = client.ImageGeneration.load()
 rescue => err
-  warn "create failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -114,8 +128,8 @@ Create a mock client for unit testing — no server required:
 client = PollinationsAiSDK.test
 
 # Entity ops return the bare mock record (raises on error).
-generatetext = client.GenerateText.create({ "message" => [] })
-puts generatetext
+imagegeneration = client.ImageGeneration.load()
+puts imagegeneration
 ```
 
 ### Use a custom fetch function
@@ -309,7 +323,7 @@ Create an instance: `image_generation = client.ImageGeneration`
 
 ```ruby
 # load returns the bare ImageGeneration record (raises on error).
-image_generation = client.ImageGeneration.load()
+image_generation = client.ImageGeneration.load({ "prompt" => "prompt" })
 ```
 
 
@@ -385,15 +399,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-generatetext = client.GenerateText
-generatetext.create({ "message" => [] })
+imagegeneration = client.ImageGeneration
+imagegeneration.load()
 
-# generatetext.data_get now returns the generatetext data from the last create
-# generatetext.match_get returns the last match criteria
+# imagegeneration.data_get now returns the imagegeneration data from the last load
+# imagegeneration.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

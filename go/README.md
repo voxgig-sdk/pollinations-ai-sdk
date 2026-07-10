@@ -50,7 +50,7 @@ import (
 func main() {
     client := sdk.New()
 
-    // Create a generatetext.
+    // Create a generateText.
     created, err := client.GenerateText(nil).Create(map[string]any{"message": []any{}}, nil)
     if err != nil {
         panic(err)
@@ -66,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-generatetext, err := client.GenerateText(nil).Create(map[string]any{"message": []any{}}, nil)
+imagegeneration, err := client.ImageGeneration(nil).Load(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = generatetext
+_ = imagegeneration
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-generatetext, err := client.GenerateText(nil).Create(
-    map[string]any{"message": []any{}}, nil,
+imageGeneration, err := client.ImageGeneration(nil).Load(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(generatetext) // the returned mock data
+fmt.Println(imageGeneration) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -247,9 +247,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    generatetext, err := client.GenerateText(nil).Create(map[string]any{/* fields */}, nil)
+    generateText, err := client.GenerateText(nil).Create(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // generatetext is the returned record
+    // generateText is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -291,7 +291,7 @@ API path: `/prompt/{prompt}`
 
 ### GenerateText
 
-Create an instance: `generate_text := client.GenerateText(nil)`
+Create an instance: `generateText := client.GenerateText(nil)`
 
 #### Operations
 
@@ -318,14 +318,18 @@ Create an instance: `generate_text := client.GenerateText(nil)`
 
 ```go
 result, err := client.GenerateText(nil).Create(map[string]any{
-    "message": /* []any */,
+    "message": []any{},
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
 ### ImageGeneration
 
-Create an instance: `image_generation := client.ImageGeneration(nil)`
+Create an instance: `imageGeneration := client.ImageGeneration(nil)`
 
 #### Operations
 
@@ -336,11 +340,11 @@ Create an instance: `image_generation := client.ImageGeneration(nil)`
 #### Example: Load
 
 ```go
-image_generation, err := client.ImageGeneration(nil).Load(nil, nil)
+imageGeneration, err := client.ImageGeneration(nil).Load(map[string]any{"prompt": "prompt"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(image_generation) // the loaded record
+fmt.Println(imageGeneration) // the loaded record
 ```
 
 
@@ -413,15 +417,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Create`, the entity
+Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-generatetext := client.GenerateText(nil)
-generatetext.Create(map[string]any{"message": []any{}}, nil)
+imagegeneration := client.ImageGeneration(nil)
+imagegeneration.Load(nil, nil)
 
-// generatetext.Data() now returns the generatetext data from the last create
-// generatetext.Match() returns the last match criteria
+// imagegeneration.Data() now returns the imagegeneration data from the last load
+// imagegeneration.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

@@ -33,6 +33,22 @@ import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai'
 const client = new PollinationsAiSDK()
 ```
 
+### 3. Load an imagegeneration
+
+ImageGeneration is nested under prompt, so provide the `prompt`.
+`load()` returns the entity directly and throws on failure:
+
+```ts
+try {
+  const imagegeneration = await client.ImageGeneration().load({
+    prompt: 'example_prompt',
+  })
+  console.log(imagegeneration)
+} catch (err) {
+  console.error('load failed:', err)
+}
+```
+
 ### 4. Create, update, and remove
 
 ```ts
@@ -50,10 +66,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const generatetext = await client.GenerateText().create({ message: [] })
-  console.log(generatetext)
+  const imagegeneration = await client.ImageGeneration().load()
+  console.log(imagegeneration)
 } catch (err) {
-  console.error('create failed:', err)
+  console.error('load failed:', err)
 }
 ```
 
@@ -117,9 +133,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = PollinationsAiSDK.test()
 
-const generatetext = await client.GenerateText().create({ message: [] })
-// generatetext is a bare entity populated with mock response data
-console.log(generatetext)
+const imagegeneration = await client.ImageGeneration().load()
+// imagegeneration is a bare entity populated with mock response data
+console.log(imagegeneration)
 ```
 
 You can also use the instance method:
@@ -134,14 +150,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.GenerateText()
+const entity = client.ImageGeneration()
 
 // First call runs the operation and stores its result
-await entity.create({ message: [] })
+await entity.load()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id)
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -341,7 +357,7 @@ Create an instance: `const generate_text = client.GenerateText()`
 
 ```ts
 const generate_text = await client.GenerateText().create({
-  message: /* any[] */,
+  message: [],
 })
 ```
 
@@ -359,7 +375,7 @@ Create an instance: `const image_generation = client.ImageGeneration()`
 #### Example: Load
 
 ```ts
-const image_generation = await client.ImageGeneration().load()
+const image_generation = await client.ImageGeneration().load({ prompt: 'prompt' })
 ```
 
 
@@ -427,16 +443,16 @@ import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const generatetext = client.GenerateText()
-await generatetext.create({ message: [] })
+const imagegeneration = client.ImageGeneration()
+await imagegeneration.load()
 
-// generatetext.data() now returns the generatetext data from the last `create`
-// generatetext.match() returns the last match criteria
+// imagegeneration.data() now returns the imagegeneration data from the last `load`
+// imagegeneration.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

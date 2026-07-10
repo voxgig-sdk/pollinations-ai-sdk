@@ -31,6 +31,20 @@ require_once 'pollinationsai_sdk.php';
 $client = new PollinationsAiSDK();
 ```
 
+### 3. Load an imagegeneration
+
+ImageGeneration is nested under prompt, so provide the `prompt`.
+
+```php
+try {
+    // load() returns the bare ImageGeneration record (throws on error).
+    $imagegeneration = $client->ImageGeneration()->load(["prompt" => "example_prompt"]);
+    print_r($imagegeneration);
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
 ### 4. Create, update, and remove
 
 ```php
@@ -47,7 +61,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $generatetext = $client->GenerateText()->create(["message" => []]);
+    $imagegeneration = $client->ImageGeneration()->load();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -120,8 +134,8 @@ Create a mock client for unit testing — no server required:
 $client = PollinationsAiSDK::test();
 
 // Entity ops return the bare mock record (throws on error).
-$generatetext = $client->GenerateText()->create(["message" => []]);
-print_r($generatetext);
+$imagegeneration = $client->ImageGeneration()->load();
+print_r($imagegeneration);
 ```
 
 ### Use a custom fetch function
@@ -319,7 +333,7 @@ Create an instance: `$image_generation = $client->ImageGeneration();`
 
 ```php
 // load() returns the bare ImageGeneration record (throws on error).
-$image_generation = $client->ImageGeneration()->load();
+$image_generation = $client->ImageGeneration()->load(["prompt" => "prompt"]);
 ```
 
 
@@ -395,15 +409,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `create`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$generatetext = $client->GenerateText();
-$generatetext->create(["message" => []]);
+$imagegeneration = $client->ImageGeneration();
+$imagegeneration->load();
 
-// $generatetext->data_get() now returns the generatetext data from the last create
-// $generatetext->match_get() returns the last match criteria
+// $imagegeneration->data_get() now returns the imagegeneration data from the last load
+// $imagegeneration->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration
