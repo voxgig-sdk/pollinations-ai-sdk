@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- PollinationsAi SDK exists test
 
 local sdk = require("pollinations-ai_sdk")
 
