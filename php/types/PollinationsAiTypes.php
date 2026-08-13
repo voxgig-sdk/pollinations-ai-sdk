@@ -15,11 +15,11 @@ declare(strict_types=1);
 /** GenerateText entity data model. */
 class GenerateText
 {
-    public ?array $choice = null;
+    public ?array $choices = null;
     public ?int $created = null;
     public ?string $id = null;
-    public ?int $max_token = null;
-    public array $message;
+    public ?int $max_tokens = null;
+    public array $messages;
     public ?string $model = null;
     public ?string $object = null;
     public ?int $seed = null;
@@ -30,11 +30,11 @@ class GenerateText
 /** Request payload for GenerateText#create. */
 class GenerateTextCreateData
 {
-    public ?array $choice = null;
+    public ?array $choices = null;
     public ?int $created = null;
     public ?string $id = null;
-    public ?int $max_token = null;
-    public array $message;
+    public ?int $max_tokens = null;
+    public array $messages;
     public ?string $model = null;
     public ?string $object = null;
     public ?int $seed = null;

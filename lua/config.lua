@@ -27,7 +27,7 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "choice",
+            ["name"] = "choices",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 0,
@@ -48,14 +48,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "max_token",
+            ["name"] = "max_tokens",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
             ["index$"] = 3,
           },
           {
             ["active"] = true,
-            ["name"] = "message",
+            ["name"] = "messages",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
             ["index$"] = 4,
@@ -105,6 +105,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/",
                 ["parts"] = {},
@@ -202,6 +203,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/prompt/{prompt}",
                 ["parts"] = {

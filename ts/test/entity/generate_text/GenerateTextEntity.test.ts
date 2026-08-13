@@ -26,8 +26,8 @@ import {
 describe('GenerateTextEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when POLLINATIONSAI_TEST_LIVE=TRUE.
-  afterEach(liveDelay('POLLINATIONSAI_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when POLLINATIONS_AI_TEST_LIVE=TRUE.
+  afterEach(liveDelay('POLLINATIONS_AI_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = PollinationsAiSDK.test()
@@ -62,7 +62,7 @@ describe('GenerateTextEntity', async () => {
     const generate_text_ref01_ent = client.GenerateText()
     let generate_text_ref01_data = setup.data.new.generate_text['generate_text_ref01']
 
-    generate_text_ref01_data = await generate_text_ref01_ent.create(generate_text_ref01_data)
+    generate_text_ref01_data = (await generate_text_ref01_ent.create(generate_text_ref01_data)).data()
     assert(null != generate_text_ref01_data.id)
 
 

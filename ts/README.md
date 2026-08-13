@@ -52,9 +52,9 @@ try {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created GenerateText
+// Create — returns the created GenerateText ENTITY (.data() for the record)
 const created = await client.GenerateText().create({
-  message: [],
+  messages: [],
 })
 
 ```
@@ -66,7 +66,7 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const imagegeneration = await client.ImageGeneration().load()
+  const imagegeneration = await client.ImageGeneration().load({ prompt: "example" })
   console.log(imagegeneration)
 } catch (err) {
   console.error('load failed:', err)
@@ -133,8 +133,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = PollinationsAiSDK.test()
 
-const imagegeneration = await client.ImageGeneration().load()
-// imagegeneration is a bare entity populated with mock response data
+const imagegeneration = await client.ImageGeneration().load({ prompt: 'example_prompt' })
+// imagegeneration is the entity, populated with mock response data
+// — call imagegeneration.data() for the record itself
 console.log(imagegeneration)
 ```
 
@@ -153,7 +154,7 @@ Entity instances remember their last match and data:
 const entity = client.ImageGeneration()
 
 // First call runs the operation and stores its result
-await entity.load()
+await entity.load({ prompt: 'example_prompt' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -299,11 +300,11 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `choice` |  |
+| `choices` |  |
 | `created` |  |
 | `id` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `object` |  |
 | `seed` |  |
@@ -342,11 +343,11 @@ Create an instance: `const generate_text = client.GenerateText()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `choice` | `any[]` |  |
+| `choices` | `any[]` |  |
 | `created` | `number` |  |
 | `id` | `string` |  |
-| `max_token` | `number` |  |
-| `message` | `any[]` |  |
+| `max_tokens` | `number` |  |
+| `messages` | `any[]` |  |
 | `model` | `string` |  |
 | `object` | `string` |  |
 | `seed` | `number` |  |
@@ -357,7 +358,7 @@ Create an instance: `const generate_text = client.GenerateText()`
 
 ```ts
 const generate_text = await client.GenerateText().create({
-  message: [],
+  messages: [],
 })
 ```
 
@@ -449,7 +450,7 @@ calls on the same instance can rely on this state.
 
 ```ts
 const imagegeneration = client.ImageGeneration()
-await imagegeneration.load()
+await imagegeneration.load({ prompt: "example" })
 
 // imagegeneration.data() now returns the imagegeneration data from the last `load`
 // imagegeneration.match() returns the last match criteria

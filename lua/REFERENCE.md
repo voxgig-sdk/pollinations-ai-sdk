@@ -94,11 +94,11 @@ local generate_text = client:GenerateText(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | `table` | No |  |
+| `choices` | `table` | No |  |
 | `created` | `number` | No |  |
 | `id` | `string` | No |  |
-| `max_token` | `number` | No |  |
-| `message` | `table` | Yes |  |
+| `max_tokens` | `number` | No |  |
+| `messages` | `table` | Yes |  |
 | `model` | `string` | No |  |
 | `object` | `string` | No |  |
 | `seed` | `number` | No |  |
@@ -113,7 +113,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:GenerateText():create({
-  message = --[[ table ]],
+  messages = --[[ table ]],
 })
 ```
 

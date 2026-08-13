@@ -33,7 +33,7 @@ class PollinationsAiConfig
           'fields' => [
             [
               'active' => true,
-              'name' => 'choice',
+              'name' => 'choices',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 0,
@@ -54,14 +54,14 @@ class PollinationsAiConfig
             ],
             [
               'active' => true,
-              'name' => 'max_token',
+              'name' => 'max_tokens',
               'req' => false,
               'type' => '`$INTEGER`',
               'index$' => 3,
             ],
             [
               'active' => true,
-              'name' => 'message',
+              'name' => 'messages',
               'req' => true,
               'type' => '`$ARRAY`',
               'index$' => 4,
@@ -111,6 +111,7 @@ class PollinationsAiConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/',
                   'parts' => [],
@@ -208,6 +209,7 @@ class PollinationsAiConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/prompt/{prompt}',
                   'parts' => [

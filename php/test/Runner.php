@@ -43,8 +43,8 @@ class PollinationsAiTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('POLLINATIONSAI_TEST_LIVE');
-        $override = self::getenv('POLLINATIONSAI_TEST_OVERRIDE');
+        $live = self::getenv('POLLINATIONS_AI_TEST_LIVE');
+        $override = self::getenv('POLLINATIONS_AI_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class PollinationsAiTestRunner
             }
         }
 
-        $explain = self::getenv('POLLINATIONSAI_TEST_EXPLAIN');
+        $explain = self::getenv('POLLINATIONS_AI_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['POLLINATIONSAI_TEST_EXPLAIN'] = $explain;
+            $m['POLLINATIONS_AI_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

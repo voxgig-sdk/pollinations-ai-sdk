@@ -96,11 +96,11 @@ $generate_text = $client->GenerateText();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | `array` | No |  |
+| `choices` | `array` | No |  |
 | `created` | `int` | No |  |
 | `id` | `string` | No |  |
-| `max_token` | `int` | No |  |
-| `message` | `array` | Yes |  |
+| `max_tokens` | `int` | No |  |
+| `messages` | `array` | Yes |  |
 | `model` | `string` | No |  |
 | `object` | `string` | No |  |
 | `seed` | `int` | No |  |
@@ -115,7 +115,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->GenerateText()->create([
-  "message" => null, // array
+  "messages" => null, // array
 ]);
 ```
 

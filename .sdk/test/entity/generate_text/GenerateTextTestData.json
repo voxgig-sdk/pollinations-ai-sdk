@@ -2,11 +2,11 @@
   "existing": {
     "generate_text": {
       "GENERATE_TEXT00": {
-        "choice": [],
+        "choices": [],
         "created": "s65",
         "id": "GENERATE_TEXT00",
-        "max_token": "s67",
-        "message": [],
+        "max_tokens": "s67",
+        "messages": [],
         "model": "s69",
         "object": "s6a",
         "seed": "s6b",
@@ -14,11 +14,11 @@
         "usage": {}
       },
       "GENERATE_TEXT01": {
-        "choice": [],
+        "choices": [],
         "created": "sc9",
         "id": "GENERATE_TEXT01",
-        "max_token": "scb",
-        "message": [],
+        "max_tokens": "scb",
+        "messages": [],
         "model": "scd",
         "object": "sce",
         "seed": "scf",
@@ -26,11 +26,11 @@
         "usage": {}
       },
       "GENERATE_TEXT02": {
-        "choice": [],
+        "choices": [],
         "created": "s12d",
         "id": "GENERATE_TEXT02",
-        "max_token": "s12f",
-        "message": [],
+        "max_tokens": "s12f",
+        "messages": [],
         "model": "s131",
         "object": "s132",
         "seed": "s133",
@@ -42,10 +42,10 @@
   "new": {
     "generate_text": {
       "generate_text_ref01": {
-        "choice": [],
+        "choices": [],
         "created": "s191",
-        "max_token": "s193",
-        "message": [],
+        "max_tokens": "s193",
+        "messages": [],
         "model": "s195",
         "object": "s196",
         "seed": "s197",

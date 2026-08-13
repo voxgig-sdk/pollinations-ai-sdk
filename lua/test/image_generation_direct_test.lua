@@ -68,11 +68,11 @@ function image_generation_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID"] = {},
-    ["POLLINATIONSAI_TEST_LIVE"] = "FALSE",
+    ["POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID"] = {},
+    ["POLLINATIONS_AI_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["POLLINATIONSAI_TEST_LIVE"] == "TRUE"
+  local live = env["POLLINATIONS_AI_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

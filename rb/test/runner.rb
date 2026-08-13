@@ -23,8 +23,8 @@ module PollinationsAiTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("POLLINATIONSAI_TEST_LIVE")
-    override = getenv("POLLINATIONSAI_TEST_OVERRIDE")
+    live = getenv("POLLINATIONS_AI_TEST_LIVE")
+    override = getenv("POLLINATIONS_AI_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module PollinationsAiTestRunner
       end
     end
 
-    explain = getenv("POLLINATIONSAI_TEST_EXPLAIN")
-    m["POLLINATIONSAI_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("POLLINATIONS_AI_TEST_EXPLAIN")
+    m["POLLINATIONS_AI_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

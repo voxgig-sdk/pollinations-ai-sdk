@@ -16,11 +16,11 @@
 import pytest
 
 from pollinationsai_sdk import PollinationsAiSDK
-from core.error import PollinationsAiError
-from core.result import PollinationsAiResult
-from core.response import PollinationsAiResponse
-from core.spec import PollinationsAiSpec
-from feature.base_feature import PollinationsAiBaseFeature
+from pollinationsai_sdk.core.error import PollinationsAiError
+from pollinationsai_sdk.core.result import PollinationsAiResult
+from pollinationsai_sdk.core.response import PollinationsAiResponse
+from pollinationsai_sdk.core.spec import PollinationsAiSpec
+from pollinationsai_sdk.feature.base_feature import PollinationsAiBaseFeature
 
 
 def _client():

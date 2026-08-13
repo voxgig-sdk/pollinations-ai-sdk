@@ -91,11 +91,11 @@ generate_text = client.GenerateText()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | `list` | No |  |
+| `choices` | `list` | No |  |
 | `created` | `int` | No |  |
 | `id` | `str` | No |  |
-| `max_token` | `int` | No |  |
-| `message` | `list` | Yes |  |
+| `max_tokens` | `int` | No |  |
+| `messages` | `list` | Yes |  |
 | `model` | `str` | No |  |
 | `object` | `str` | No |  |
 | `seed` | `int` | No |  |
@@ -110,7 +110,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.GenerateText().create({
-    "message": [],  # list
+    "messages": [],  # list
 })
 ```
 

@@ -10,7 +10,7 @@
 
 # GenerateText entity data model.
 #
-# @!attribute [rw] choice
+# @!attribute [rw] choices
 #   @return [Array, nil]
 #
 # @!attribute [rw] created
@@ -19,10 +19,10 @@
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] max_token
+# @!attribute [rw] max_tokens
 #   @return [Integer, nil]
 #
-# @!attribute [rw] message
+# @!attribute [rw] messages
 #   @return [Array]
 #
 # @!attribute [rw] model
@@ -40,11 +40,11 @@
 # @!attribute [rw] usage
 #   @return [Hash, nil]
 GenerateText = Struct.new(
-  :choice,
+  :choices,
   :created,
   :id,
-  :max_token,
-  :message,
+  :max_tokens,
+  :messages,
   :model,
   :object,
   :seed,
@@ -55,7 +55,7 @@ GenerateText = Struct.new(
 
 # Request payload for GenerateText#create.
 #
-# @!attribute [rw] choice
+# @!attribute [rw] choices
 #   @return [Array, nil]
 #
 # @!attribute [rw] created
@@ -64,10 +64,10 @@ GenerateText = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] max_token
+# @!attribute [rw] max_tokens
 #   @return [Integer, nil]
 #
-# @!attribute [rw] message
+# @!attribute [rw] messages
 #   @return [Array]
 #
 # @!attribute [rw] model
@@ -85,11 +85,11 @@ GenerateText = Struct.new(
 # @!attribute [rw] usage
 #   @return [Hash, nil]
 GenerateTextCreateData = Struct.new(
-  :choice,
+  :choices,
   :created,
   :id,
-  :max_token,
-  :message,
+  :max_tokens,
+  :messages,
   :model,
   :object,
   :seed,

@@ -51,7 +51,7 @@ func main() {
     client := sdk.New()
 
     // Create a generateText.
-    created, err := client.GenerateText(nil).Create(map[string]any{"message": []any{}}, nil)
+    created, err := client.GenerateText(nil).Create(map[string]any{"messages": []any{}}, nil)
     if err != nil {
         panic(err)
     }
@@ -66,7 +66,7 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-imagegeneration, err := client.ImageGeneration(nil).Load(nil, nil)
+imagegeneration, err := client.ImageGeneration(nil).Load(map[string]any{"prompt": "example"}, nil)
 if err != nil {
     // handle err
     return
@@ -136,7 +136,7 @@ Create a mock client for unit testing — no server required:
 client := sdk.Test()
 
 imageGeneration, err := client.ImageGeneration(nil).Load(
-    nil, nil,
+    map[string]any{"prompt": "example"}, nil,
 )
 if err != nil {
     panic(err)
@@ -260,11 +260,11 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"choice"` |  |
+| `"choices"` |  |
 | `"created"` |  |
 | `"id"` |  |
-| `"max_token"` |  |
-| `"message"` |  |
+| `"max_tokens"` |  |
+| `"messages"` |  |
 | `"model"` |  |
 | `"object"` |  |
 | `"seed"` |  |
@@ -303,11 +303,11 @@ Create an instance: `generateText := client.GenerateText(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `choice` | `[]any` |  |
+| `choices` | `[]any` |  |
 | `created` | `int` |  |
 | `id` | `string` |  |
-| `max_token` | `int` |  |
-| `message` | `[]any` |  |
+| `max_tokens` | `int` |  |
+| `messages` | `[]any` |  |
 | `model` | `string` |  |
 | `object` | `string` |  |
 | `seed` | `int` |  |
@@ -318,7 +318,7 @@ Create an instance: `generateText := client.GenerateText(nil)`
 
 ```go
 result, err := client.GenerateText(nil).Create(map[string]any{
-    "message": []any{},
+    "messages": []any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -422,7 +422,7 @@ stores the returned data and match criteria internally.
 
 ```go
 imagegeneration := client.ImageGeneration(nil)
-imagegeneration.Load(nil, nil)
+imagegeneration.Load(map[string]any{"prompt": "example"}, nil)
 
 // imagegeneration.Data() now returns the imagegeneration data from the last load
 // imagegeneration.Match() returns the last match criteria

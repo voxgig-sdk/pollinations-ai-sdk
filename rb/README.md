@@ -36,7 +36,7 @@ ImageGeneration is nested under prompt, so provide the `prompt`.
 
 ```ruby
 begin
-  # load returns the bare ImageGeneration record (raises on error).
+  # load returns the ENTITY — call data_get for the ImageGeneration record (raises on error).
   imagegeneration = client.ImageGeneration.load({ "prompt" => "example_prompt" })
   puts imagegeneration
 rescue => err
@@ -47,8 +47,8 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created GenerateText record.
-created = client.GenerateText.create({ "message" => [] })
+# create returns the ENTITY — call data_get for the created GenerateText record.
+created = client.GenerateText.create({ "messages" => [] })
 
 ```
 
@@ -59,7 +59,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  imagegeneration = client.ImageGeneration.load()
+  imagegeneration = client.ImageGeneration.load({ "prompt" => "example" })
 rescue => err
   warn "load failed: #{err}"
 end
@@ -127,8 +127,9 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = PollinationsAiSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-imagegeneration = client.ImageGeneration.load()
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+imagegeneration = client.ImageGeneration.load({ "prompt" => "example" })
 puts imagegeneration
 ```
 
@@ -246,11 +247,11 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `choice` |  |
+| `choices` |  |
 | `created` |  |
 | `id` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `object` |  |
 | `seed` |  |
@@ -289,11 +290,11 @@ Create an instance: `generate_text = client.GenerateText`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `choice` | `Array` |  |
+| `choices` | `Array` |  |
 | `created` | `Integer` |  |
 | `id` | `String` |  |
-| `max_token` | `Integer` |  |
-| `message` | `Array` |  |
+| `max_tokens` | `Integer` |  |
+| `messages` | `Array` |  |
 | `model` | `String` |  |
 | `object` | `String` |  |
 | `seed` | `Integer` |  |
@@ -304,7 +305,7 @@ Create an instance: `generate_text = client.GenerateText`
 
 ```ruby
 generate_text = client.GenerateText.create({
-  "message" => [], # Array
+  "messages" => [], # Array
 })
 ```
 
@@ -322,7 +323,7 @@ Create an instance: `image_generation = client.ImageGeneration`
 #### Example: Load
 
 ```ruby
-# load returns the bare ImageGeneration record (raises on error).
+# load returns the ENTITY — call data_get for the ImageGeneration record (raises on error).
 image_generation = client.ImageGeneration.load({ "prompt" => "prompt" })
 ```
 
@@ -404,7 +405,7 @@ stores the returned data and match criteria internally.
 
 ```ruby
 imagegeneration = client.ImageGeneration
-imagegeneration.load()
+imagegeneration.load({ "prompt" => "example" })
 
 # imagegeneration.data_get now returns the imagegeneration data from the last load
 # imagegeneration.match_get returns the last match criteria

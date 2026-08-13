@@ -26,7 +26,7 @@ class GenerateTextEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -37,7 +37,7 @@ class GenerateTextEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.generate_text"), "generate_text_ref01"))
 
     generate_text_ref01_data_result = generate_text_ref01_ent.create(generate_text_ref01_data, nil)
-    generate_text_ref01_data = Helpers.to_map(generate_text_ref01_data_result)
+    generate_text_ref01_data = Helpers.to_map(generate_text_ref01_data_result.respond_to?(:data_get) ? generate_text_ref01_data_result.data_get : generate_text_ref01_data_result)
     assert !generate_text_ref01_data.nil?
     assert !generate_text_ref01_data["id"].nil?
 
@@ -70,22 +70,22 @@ def generate_text_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID"]
+  entid_env_raw = ENV["POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID" => idmap,
-    "POLLINATIONSAI_TEST_LIVE" => "FALSE",
-    "POLLINATIONSAI_TEST_EXPLAIN" => "FALSE",
+    "POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID" => idmap,
+    "POLLINATIONS_AI_TEST_LIVE" => "FALSE",
+    "POLLINATIONS_AI_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["POLLINATIONSAI_TEST_GENERATE_TEXT_ENTID"])
+    env["POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["POLLINATIONSAI_TEST_LIVE"] == "TRUE"
+  if env["POLLINATIONS_AI_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
       },
@@ -94,13 +94,13 @@ def generate_text_basic_setup(extra)
     client = PollinationsAiSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["POLLINATIONSAI_TEST_LIVE"] == "TRUE"
+  live = env["POLLINATIONS_AI_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["POLLINATIONSAI_TEST_EXPLAIN"] == "TRUE",
+    explain: env["POLLINATIONS_AI_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

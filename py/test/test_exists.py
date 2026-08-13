@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# PollinationsAi SDK exists test
 
 import pytest
 from pollinationsai_sdk import PollinationsAiSDK

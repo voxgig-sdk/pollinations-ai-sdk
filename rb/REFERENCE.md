@@ -97,11 +97,11 @@ generate_text = client.GenerateText
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | `Array` | No |  |
+| `choices` | `Array` | No |  |
 | `created` | `Integer` | No |  |
 | `id` | `String` | No |  |
-| `max_token` | `Integer` | No |  |
-| `message` | `Array` | Yes |  |
+| `max_tokens` | `Integer` | No |  |
+| `messages` | `Array` | Yes |  |
 | `model` | `String` | No |  |
 | `object` | `String` | No |  |
 | `seed` | `Integer` | No |  |
@@ -116,7 +116,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.GenerateText.create({
-  "message" => [], # Array
+  "messages" => [], # Array
 })
 ```
 

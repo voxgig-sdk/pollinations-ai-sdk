@@ -39,7 +39,7 @@ client = PollinationsAiSDK()
 ### 3. Load an imagegeneration
 
 ImageGeneration is nested under prompt, so provide the `prompt`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -52,8 +52,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
-created = client.GenerateText().create({"message": []})
+# Create — returns the ENTITY (call data_get() for the record)
+created = client.GenerateText().create({"messages": []})
 
 ```
 
@@ -64,7 +64,7 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    imagegeneration = client.ImageGeneration().load()
+    imagegeneration = client.ImageGeneration().load({"prompt": "example"})
     print(imagegeneration)
 except Exception as err:
     print(f"load failed: {err}")
@@ -131,8 +131,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = PollinationsAiSDK.test()
 
-# Entity ops return the bare record and raise on error.
-imagegeneration = client.ImageGeneration().load()
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+imagegeneration = client.ImageGeneration().load({"prompt": "example"})
 # imagegeneration contains the mock response record
 ```
 
@@ -229,7 +230,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -251,11 +252,11 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `choice` |  |
+| `choices` |  |
 | `created` |  |
 | `id` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `object` |  |
 | `seed` |  |
@@ -294,11 +295,11 @@ Create an instance: `generate_text = client.GenerateText()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `choice` | `list` |  |
+| `choices` | `list` |  |
 | `created` | `int` |  |
 | `id` | `str` |  |
-| `max_token` | `int` |  |
-| `message` | `list` |  |
+| `max_tokens` | `int` |  |
+| `messages` | `list` |  |
 | `model` | `str` |  |
 | `object` | `str` |  |
 | `seed` | `int` |  |
@@ -309,7 +310,7 @@ Create an instance: `generate_text = client.GenerateText()`
 
 ```python
 generate_text = client.GenerateText().create({
-    "message": [],  # list
+    "messages": [],  # list
 })
 ```
 
@@ -407,7 +408,7 @@ stores the returned data and match criteria internally.
 
 ```python
 imagegeneration = client.ImageGeneration()
-imagegeneration.load()
+imagegeneration.load({"prompt": "example"})
 
 # imagegeneration.data_get() now returns the imagegeneration data from the last load
 # imagegeneration.match_get() returns the last match criteria

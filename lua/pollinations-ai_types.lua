@@ -7,11 +7,11 @@
 -- edit by hand.
 
 ---@class GenerateText
----@field choice? table
+---@field choices? table
 ---@field created? number
 ---@field id? string
----@field max_token? number
----@field message table
+---@field max_tokens? number
+---@field messages table
 ---@field model? string
 ---@field object? string
 ---@field seed? number
@@ -19,11 +19,11 @@
 ---@field usage? table
 
 ---@class GenerateTextCreateData
----@field choice? table
+---@field choices? table
 ---@field created? number
 ---@field id? string
----@field max_token? number
----@field message table
+---@field max_tokens? number
+---@field messages table
 ---@field model? string
 ---@field object? string
 ---@field seed? number

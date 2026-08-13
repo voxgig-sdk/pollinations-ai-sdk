@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'PollinationsAi',
   }
 
 
@@ -59,7 +59,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "choice",
+          "name": "choices",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 0
@@ -80,14 +80,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "max_token",
+          "name": "max_tokens",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "message",
+          "name": "messages",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 4
@@ -137,6 +137,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/",
               "parts": [],
@@ -234,6 +235,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/prompt/{prompt}",
               "parts": [

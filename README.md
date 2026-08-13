@@ -24,7 +24,7 @@ support (`load`, `create`):
 ```ts
 const client = new PollinationsAiSDK()
 const generatetext = await client.GenerateText().create({
-  message: [],
+  messages: [],
 })
 ```
 
@@ -40,9 +40,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = PollinationsAiSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = PollinationsAiSDK.test({
+  entity: {
+    image_generation: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const imagegeneration = await client.ImageGeneration().load({ prompt: 'example_prompt' })
-// imagegeneration is a bare ImageGeneration populated with mock data
+// imagegeneration is the ImageGeneration entity, populated with mock data
+// — call imagegeneration.data() for the record itself
 console.log(imagegeneration)
 ```
 
@@ -337,6 +346,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://pollinations.ai/](https://pollinations.ai/)
 

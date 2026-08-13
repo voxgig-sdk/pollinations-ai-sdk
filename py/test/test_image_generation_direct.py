@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from pollinationsai_sdk.utility.voxgig_struct import voxgig_struct as vs
 from pollinationsai_sdk import PollinationsAiSDK
-from core import helpers
+from pollinationsai_sdk.core import helpers
 from test import runner
 
 
@@ -63,11 +63,11 @@ def _image_generation_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "POLLINATIONSAI_TEST_IMAGE_GENERATION_ENTID": {},
-        "POLLINATIONSAI_TEST_LIVE": "FALSE",
+        "POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID": {},
+        "POLLINATIONS_AI_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("POLLINATIONSAI_TEST_LIVE") == "TRUE"
+    live = env.get("POLLINATIONS_AI_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

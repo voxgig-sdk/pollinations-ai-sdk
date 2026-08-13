@@ -6,7 +6,7 @@ main: kit: entity: generate_text: {
 
   fields: [
     {
-      name: "choice"
+      name: "choices"
       req: false
       type: "`$ARRAY`"
     }
@@ -21,12 +21,12 @@ main: kit: entity: generate_text: {
       type: "`$STRING`"
     }
     {
-      name: "max_token"
+      name: "max_tokens"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "message"
+      name: "messages"
       req: true
       type: "`$ARRAY`"
     }

@@ -37,7 +37,7 @@ ImageGeneration is nested under prompt, so provide the `prompt`.
 
 ```php
 try {
-    // load() returns the bare ImageGeneration record (throws on error).
+    // load() returns the ENTITY — call data_get() for the ImageGeneration record (throws on error).
     $imagegeneration = $client->ImageGeneration()->load(["prompt" => "example_prompt"]);
     print_r($imagegeneration);
 } catch (\Throwable $err) {
@@ -48,8 +48,8 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created GenerateText record.
-$created = $client->GenerateText()->create(["message" => []]);
+// create() returns the ENTITY — call data_get() for the created GenerateText record.
+$created = $client->GenerateText()->create(["messages" => []]);
 
 ```
 
@@ -61,7 +61,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $imagegeneration = $client->ImageGeneration()->load();
+    $imagegeneration = $client->ImageGeneration()->load(["prompt" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -133,8 +133,9 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = PollinationsAiSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$imagegeneration = $client->ImageGeneration()->load();
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$imagegeneration = $client->ImageGeneration()->load(["prompt" => "example"]);
 print_r($imagegeneration);
 ```
 
@@ -234,7 +235,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -256,11 +257,11 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `choice` |  |
+| `choices` |  |
 | `created` |  |
 | `id` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `object` |  |
 | `seed` |  |
@@ -299,11 +300,11 @@ Create an instance: `$generate_text = $client->GenerateText();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `choice` | `array` |  |
+| `choices` | `array` |  |
 | `created` | `int` |  |
 | `id` | `string` |  |
-| `max_token` | `int` |  |
-| `message` | `array` |  |
+| `max_tokens` | `int` |  |
+| `messages` | `array` |  |
 | `model` | `string` |  |
 | `object` | `string` |  |
 | `seed` | `int` |  |
@@ -314,7 +315,7 @@ Create an instance: `$generate_text = $client->GenerateText();`
 
 ```php
 $generate_text = $client->GenerateText()->create([
-    "message" => null, // array
+    "messages" => null, // array
 ]);
 ```
 
@@ -332,7 +333,7 @@ Create an instance: `$image_generation = $client->ImageGeneration();`
 #### Example: Load
 
 ```php
-// load() returns the bare ImageGeneration record (throws on error).
+// load() returns the ENTITY — call data_get() for the ImageGeneration record (throws on error).
 $image_generation = $client->ImageGeneration()->load(["prompt" => "prompt"]);
 ```
 
@@ -414,7 +415,7 @@ stores the returned data and match criteria internally.
 
 ```php
 $imagegeneration = $client->ImageGeneration();
-$imagegeneration->load();
+$imagegeneration->load(["prompt" => "example"]);
 
 // $imagegeneration->data_get() now returns the imagegeneration data from the last load
 // $imagegeneration->match_get() returns the last match criteria

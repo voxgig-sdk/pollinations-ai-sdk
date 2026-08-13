@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ PollinationsAiUtility.registrar = ->(u) {
   u.prepare_params = PollinationsAiUtilities::PrepareParams
   u.prepare_path = PollinationsAiUtilities::PreparePath
   u.prepare_query = PollinationsAiUtilities::PrepareQuery
+  u.graphql_body = PollinationsAiUtilities::GraphqlBody
+  u.graphql_errors = PollinationsAiUtilities::GraphqlErrors
   u.result_basic = PollinationsAiUtilities::ResultBasic
   u.result_body = PollinationsAiUtilities::ResultBody
   u.result_headers = PollinationsAiUtilities::ResultHeaders

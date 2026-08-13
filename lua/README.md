@@ -47,7 +47,7 @@ print(imagegeneration)
 
 ```lua
 -- Create
-local created, err = client:GenerateText():create({ message = {} })
+local created, err = client:GenerateText():create({ messages = {} })
 if err then error(err) end
 
 ```
@@ -59,7 +59,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local imagegeneration, err = client:ImageGeneration():load()
+local imagegeneration, err = client:ImageGeneration():load({ prompt = "example" })
 if err then error(err) end
 ```
 
@@ -117,7 +117,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ImageGeneration():load()
+local result, err = client:ImageGeneration():load({ prompt = "example" })
 -- result is the returned data; err is set on failure
 ```
 
@@ -225,9 +225,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local generate_text, err = client:GenerateText():load()
+    local image_generation, err = client:ImageGeneration():load()
     if err then error(err) end
-    -- generate_text is the loaded record
+    -- image_generation is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -238,11 +238,11 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `choice` |  |
+| `choices` |  |
 | `created` |  |
 | `id` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `object` |  |
 | `seed` |  |
@@ -281,11 +281,11 @@ Create an instance: `local generate_text = client:GenerateText(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `choice` | `table` |  |
+| `choices` | `table` |  |
 | `created` | `number` |  |
 | `id` | `string` |  |
-| `max_token` | `number` |  |
-| `message` | `table` |  |
+| `max_tokens` | `number` |  |
+| `messages` | `table` |  |
 | `model` | `string` |  |
 | `object` | `string` |  |
 | `seed` | `number` |  |
@@ -296,7 +296,7 @@ Create an instance: `local generate_text = client:GenerateText(nil)`
 
 ```lua
 local generate_text, err = client:GenerateText():create({
-  message = {}, -- table
+  messages = {}, -- table
 })
 ```
 
@@ -395,7 +395,7 @@ stores the returned data and match criteria internally.
 
 ```lua
 local imagegeneration = client:ImageGeneration()
-imagegeneration:load()
+imagegeneration:load({ prompt = "example" })
 
 -- imagegeneration:data_get() now returns the imagegeneration data from the last load
 -- imagegeneration:match_get() returns the last match criteria

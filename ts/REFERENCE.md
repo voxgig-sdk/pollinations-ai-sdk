@@ -128,11 +128,11 @@ const generate_text = client.GenerateText()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | `any[]` | No |  |
+| `choices` | `any[]` | No |  |
 | `created` | `number` | No |  |
 | `id` | `string` | No |  |
-| `max_token` | `number` | No |  |
-| `message` | `any[]` | Yes |  |
+| `max_tokens` | `number` | No |  |
+| `messages` | `any[]` | Yes |  |
 | `model` | `string` | No |  |
 | `object` | `string` | No |  |
 | `seed` | `number` | No |  |
@@ -147,7 +147,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.GenerateText().create({
-  message: [],
+  messages: [],
 })
 ```
 

@@ -102,11 +102,11 @@ fmt.Println(generateText.GetName()) // "generate_text"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `choice` | `[]any` | No |  |
+| `choices` | `[]any` | No |  |
 | `created` | `int` | No |  |
 | `id` | `string` | No |  |
-| `max_token` | `int` | No |  |
-| `message` | `[]any` | Yes |  |
+| `max_tokens` | `int` | No |  |
+| `messages` | `[]any` | Yes |  |
 | `model` | `string` | No |  |
 | `object` | `string` | No |  |
 | `seed` | `int` | No |  |
@@ -121,7 +121,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.GenerateText(nil).Create(map[string]any{
-    "message": []any{},
+    "messages": []any{},
 }, nil)
 if err != nil {
     panic(err)

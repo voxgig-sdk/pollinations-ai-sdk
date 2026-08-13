@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import PollinationsAiControl
-from core.error import PollinationsAiError
-from core.result import PollinationsAiResult
-from core.spec import PollinationsAiSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import PollinationsAiControl
+from projectname_sdk.core.error import PollinationsAiError
+from projectname_sdk.core.result import PollinationsAiResult
+from projectname_sdk.core.spec import PollinationsAiSpec
 
 
 # True when this SDK was generated with the named feature.

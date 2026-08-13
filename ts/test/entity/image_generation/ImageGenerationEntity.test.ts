@@ -26,8 +26,8 @@ import {
 describe('ImageGenerationEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when POLLINATIONSAI_TEST_LIVE=TRUE.
-  afterEach(liveDelay('POLLINATIONSAI_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when POLLINATIONS_AI_TEST_LIVE=TRUE.
+  afterEach(liveDelay('POLLINATIONS_AI_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = PollinationsAiSDK.test()

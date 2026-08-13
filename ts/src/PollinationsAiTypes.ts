@@ -6,11 +6,11 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface GenerateText {
-  choice?: any[]
+  choices?: any[]
   created?: number
   id?: string
-  max_token?: number
-  message: any[]
+  max_tokens?: number
+  messages: any[]
   model?: string
   object?: string
   seed?: number
@@ -19,11 +19,11 @@ export interface GenerateText {
 }
 
 export interface GenerateTextCreateData {
-  choice?: any[]
+  choices?: any[]
   created?: number
   id?: string
-  max_token?: number
-  message: any[]
+  max_tokens?: number
+  messages: any[]
   model?: string
   object?: string
   seed?: number

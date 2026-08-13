@@ -27,7 +27,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "choice",
+						"name": "choices",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 0,
@@ -48,14 +48,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "max_token",
+						"name": "max_tokens",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 3,
 					},
 					map[string]any{
 						"active": true,
-						"name": "message",
+						"name": "messages",
 						"req": true,
 						"type": "`$ARRAY`",
 						"index$": 4,
@@ -105,6 +105,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/",
 								"parts": []any{},
@@ -116,7 +117,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 				},
 				"relations": map[string]any{
@@ -202,6 +202,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/prompt/{prompt}",
 								"parts": []any{
@@ -226,7 +227,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
