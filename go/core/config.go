@@ -1,5 +1,12 @@
 package core
 
+import (
+	"sync"
+)
+
+// MakeConfig builds a fresh, fully materialised config map. Every call
+// rebuilds the whole structure, so prefer SharedConfig unless you need a
+// private copy you intend to mutate.
 func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
@@ -26,74 +33,45 @@ func MakeConfig() map[string]any {
 			"generate_text": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "choices",
-						"req": false,
 						"type": "`$ARRAY`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "created",
-						"req": false,
 						"type": "`$INTEGER`",
-						"index$": 1,
 					},
 					map[string]any{
-						"active": true,
 						"name": "id",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 2,
 					},
 					map[string]any{
-						"active": true,
 						"name": "max_tokens",
-						"req": false,
 						"type": "`$INTEGER`",
-						"index$": 3,
 					},
 					map[string]any{
-						"active": true,
 						"name": "messages",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 4,
 					},
 					map[string]any{
-						"active": true,
 						"name": "model",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 5,
 					},
 					map[string]any{
-						"active": true,
 						"name": "object",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 6,
 					},
 					map[string]any{
-						"active": true,
 						"name": "seed",
-						"req": false,
 						"type": "`$INTEGER`",
-						"index$": 7,
 					},
 					map[string]any{
-						"active": true,
 						"name": "temperature",
-						"req": false,
 						"type": "`$NUMBER`",
-						"index$": 8,
 					},
 					map[string]any{
-						"active": true,
 						"name": "usage",
-						"req": false,
 						"type": "`$OBJECT`",
-						"index$": 9,
 					},
 				},
 				"name": "generate_text",
@@ -103,7 +81,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
@@ -114,7 +91,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -132,72 +108,57 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"example": "A beautiful sunset over mountains",
 											"kind": "param",
 											"name": "prompt",
 											"orig": "prompt",
 											"reqd": true,
 											"type": "`$STRING`",
-											"index$": 0,
 										},
 									},
 									"query": []any{
 										map[string]any{
-											"active": true,
 											"example": false,
 											"kind": "query",
 											"name": "enhance",
 											"orig": "enhance",
-											"reqd": false,
 											"type": "`$BOOLEAN`",
 										},
 										map[string]any{
-											"active": true,
 											"example": 1024,
 											"kind": "query",
 											"name": "height",
 											"orig": "height",
-											"reqd": false,
 											"type": "`$INTEGER`",
 										},
 										map[string]any{
-											"active": true,
 											"example": "flux",
 											"kind": "query",
 											"name": "model",
 											"orig": "model",
-											"reqd": false,
 											"type": "`$STRING`",
 										},
 										map[string]any{
-											"active": true,
 											"example": false,
 											"kind": "query",
 											"name": "nologo",
 											"orig": "nologo",
-											"reqd": false,
 											"type": "`$BOOLEAN`",
 										},
 										map[string]any{
-											"active": true,
 											"kind": "query",
 											"name": "seed",
 											"orig": "seed",
-											"reqd": false,
 											"type": "`$INTEGER`",
 										},
 										map[string]any{
-											"active": true,
 											"example": 1024,
 											"kind": "query",
 											"name": "width",
 											"orig": "width",
-											"reqd": false,
 											"type": "`$INTEGER`",
 										},
 									},
@@ -224,7 +185,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -239,6 +199,24 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+var (
+	sharedConfigOnce sync.Once
+	sharedConfigVal  map[string]any
+)
+
+// SharedConfig returns the process-wide config, built once on first use.
+// The SDK reads the config on every request and never writes to it, so one
+// instance is shared by every client rather than rebuilt per client.
+//
+// The returned map is shared: treat it as read-only. Callers that need to
+// mutate should use MakeConfig, which always returns a fresh copy.
+func SharedConfig() map[string]any {
+	sharedConfigOnce.Do(func() {
+		sharedConfigVal = MakeConfig()
+	})
+	return sharedConfigVal
 }
 
 func makeFeature(name string) Feature {

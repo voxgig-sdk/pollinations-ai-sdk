@@ -23,6 +23,7 @@ build = {
   modules = {
     ["pollinations-ai_sdk"] = "pollinations-ai_sdk.lua",
     ["config"] = "config.lua",
+    ["config_shared"] = "config_shared.lua",
     ["features"] = "features.lua",
   }
 }

@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class PollinationsAiConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -32,74 +55,45 @@ class PollinationsAiConfig
         'generate_text' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'choices',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'created',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'id',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'max_tokens',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'messages',
               'req' => true,
               'type' => '`$ARRAY`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'model',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 5,
             ],
             [
-              'active' => true,
               'name' => 'object',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 6,
             ],
             [
-              'active' => true,
               'name' => 'seed',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 7,
             ],
             [
-              'active' => true,
               'name' => 'temperature',
-              'req' => false,
               'type' => '`$NUMBER`',
-              'index$' => 8,
             ],
             [
-              'active' => true,
               'name' => 'usage',
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 9,
             ],
           ],
           'name' => 'generate_text',
@@ -109,7 +103,6 @@ class PollinationsAiConfig
               'name' => 'create',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'POST',
@@ -120,10 +113,8 @@ class PollinationsAiConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'create',
             ],
           ],
           'relations' => [
@@ -139,72 +130,57 @@ class PollinationsAiConfig
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'example' => 'A beautiful sunset over mountains',
                         'kind' => 'param',
                         'name' => 'prompt',
                         'orig' => 'prompt',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                     'query' => [
                       [
-                        'active' => true,
                         'example' => false,
                         'kind' => 'query',
                         'name' => 'enhance',
                         'orig' => 'enhance',
-                        'reqd' => false,
                         'type' => '`$BOOLEAN`',
                       ],
                       [
-                        'active' => true,
                         'example' => 1024,
                         'kind' => 'query',
                         'name' => 'height',
                         'orig' => 'height',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'flux',
                         'kind' => 'query',
                         'name' => 'model',
                         'orig' => 'model',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => false,
                         'kind' => 'query',
                         'name' => 'nologo',
                         'orig' => 'nologo',
-                        'reqd' => false,
                         'type' => '`$BOOLEAN`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'seed',
                         'orig' => 'seed',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                       [
-                        'active' => true,
                         'example' => 1024,
                         'kind' => 'query',
                         'name' => 'width',
                         'orig' => 'width',
-                        'reqd' => false,
                         'type' => '`$INTEGER`',
                       ],
                     ],
@@ -231,10 +207,8 @@ class PollinationsAiConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [

@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'https://image.pollinations.ai',
+    base: "https://image.pollinations.ai",
 
     headers: {
       "content-type": "application/json"
@@ -58,74 +58,45 @@ class Config {
     "generate_text": {
       "fields": [
         {
-          "active": true,
           "name": "choices",
-          "req": false,
-          "type": "`$ARRAY`",
-          "index$": 0
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "created",
-          "req": false,
-          "type": "`$INTEGER`",
-          "index$": 1
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "id",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "max_tokens",
-          "req": false,
-          "type": "`$INTEGER`",
-          "index$": 3
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "messages",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 4
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "model",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "object",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "seed",
-          "req": false,
-          "type": "`$INTEGER`",
-          "index$": 7
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "temperature",
-          "req": false,
-          "type": "`$NUMBER`",
-          "index$": 8
+          "type": "`$NUMBER`"
         },
         {
-          "active": true,
           "name": "usage",
-          "req": false,
-          "type": "`$OBJECT`",
-          "index$": 9
+          "type": "`$OBJECT`"
         }
       ],
       "name": "generate_text",
@@ -135,7 +106,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "POST",
@@ -145,11 +115,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         }
       },
       "relations": {
@@ -165,72 +133,57 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "params": [
                   {
-                    "active": true,
                     "example": "A beautiful sunset over mountains",
                     "kind": "param",
                     "name": "prompt",
                     "orig": "prompt",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "example": false,
                     "kind": "query",
                     "name": "enhance",
                     "orig": "enhance",
-                    "reqd": false,
                     "type": "`$BOOLEAN`"
                   },
                   {
-                    "active": true,
                     "example": 1024,
                     "kind": "query",
                     "name": "height",
                     "orig": "height",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": "flux",
                     "kind": "query",
                     "name": "model",
                     "orig": "model",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": false,
                     "kind": "query",
                     "name": "nologo",
                     "orig": "nologo",
-                    "reqd": false,
                     "type": "`$BOOLEAN`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "seed",
                     "orig": "seed",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   },
                   {
-                    "active": true,
                     "example": 1024,
                     "kind": "query",
                     "name": "width",
                     "orig": "width",
-                    "reqd": false,
                     "type": "`$INTEGER`"
                   }
                 ]
@@ -256,11 +209,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {

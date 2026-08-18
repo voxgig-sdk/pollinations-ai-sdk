@@ -28,7 +28,7 @@ class PollinationsAiSDK
     utility = PollinationsAiUtility.new
     @_utility = utility
 
-    config = PollinationsAiConfig.make_config
+    config = PollinationsAiConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

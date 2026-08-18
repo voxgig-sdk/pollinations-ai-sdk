@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from pollinationsai_sdk.config import make_config
+from pollinationsai_sdk.config import shared_config
 from pollinationsai_sdk.features import _make_feature
 from pollinationsai_sdk.core.control import PollinationsAiControl
 from pollinationsai_sdk.core.error import PollinationsAiError
@@ -24,7 +24,7 @@ from pollinationsai_sdk.core.spec import PollinationsAiSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

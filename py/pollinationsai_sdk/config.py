@@ -1,7 +1,30 @@
 # PollinationsAi SDK configuration
 
 
+_shared_config = None
+
+
+def shared_config():
+    """Return the process-wide config, built once on first use.
+
+    The SDK reads the config on every request and never writes to it, so one
+    instance is shared by every client rather than rebuilt per client.
+
+    The returned dict is shared: treat it as read-only. Callers that need to
+    mutate should use make_config, which always returns a fresh copy.
+    """
+    global _shared_config
+    if _shared_config is None:
+        _shared_config = make_config()
+    return _shared_config
+
+
 def make_config():
+    """Build a fresh, fully materialised config dict.
+
+    Every call rebuilds the whole structure, so prefer shared_config unless
+    you need a private copy you intend to mutate.
+    """
     return {
         "main": {
             "name": "PollinationsAi",
@@ -27,74 +50,45 @@ def make_config():
       "generate_text": {
         "fields": [
           {
-            "active": True,
             "name": "choices",
-            "req": False,
             "type": "`$ARRAY`",
-            "index$": 0,
           },
           {
-            "active": True,
             "name": "created",
-            "req": False,
             "type": "`$INTEGER`",
-            "index$": 1,
           },
           {
-            "active": True,
             "name": "id",
-            "req": False,
             "type": "`$STRING`",
-            "index$": 2,
           },
           {
-            "active": True,
             "name": "max_tokens",
-            "req": False,
             "type": "`$INTEGER`",
-            "index$": 3,
           },
           {
-            "active": True,
             "name": "messages",
             "req": True,
             "type": "`$ARRAY`",
-            "index$": 4,
           },
           {
-            "active": True,
             "name": "model",
-            "req": False,
             "type": "`$STRING`",
-            "index$": 5,
           },
           {
-            "active": True,
             "name": "object",
-            "req": False,
             "type": "`$STRING`",
-            "index$": 6,
           },
           {
-            "active": True,
             "name": "seed",
-            "req": False,
             "type": "`$INTEGER`",
-            "index$": 7,
           },
           {
-            "active": True,
             "name": "temperature",
-            "req": False,
             "type": "`$NUMBER`",
-            "index$": 8,
           },
           {
-            "active": True,
             "name": "usage",
-            "req": False,
             "type": "`$OBJECT`",
-            "index$": 9,
           },
         ],
         "name": "generate_text",
@@ -104,7 +98,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "active": True,
                 "args": {},
                 "kind": "http",
                 "method": "POST",
@@ -115,10 +108,8 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "index$": 0,
               },
             ],
-            "key$": "create",
           },
         },
         "relations": {
@@ -134,72 +125,57 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "active": True,
                 "args": {
                   "params": [
                     {
-                      "active": True,
                       "example": "A beautiful sunset over mountains",
                       "kind": "param",
                       "name": "prompt",
                       "orig": "prompt",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "index$": 0,
                     },
                   ],
                   "query": [
                     {
-                      "active": True,
                       "example": False,
                       "kind": "query",
                       "name": "enhance",
                       "orig": "enhance",
-                      "reqd": False,
                       "type": "`$BOOLEAN`",
                     },
                     {
-                      "active": True,
                       "example": 1024,
                       "kind": "query",
                       "name": "height",
                       "orig": "height",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                     {
-                      "active": True,
                       "example": "flux",
                       "kind": "query",
                       "name": "model",
                       "orig": "model",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "example": False,
                       "kind": "query",
                       "name": "nologo",
                       "orig": "nologo",
-                      "reqd": False,
                       "type": "`$BOOLEAN`",
                     },
                     {
-                      "active": True,
                       "kind": "query",
                       "name": "seed",
                       "orig": "seed",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                     {
-                      "active": True,
                       "example": 1024,
                       "kind": "query",
                       "name": "width",
                       "orig": "width",
-                      "reqd": False,
                       "type": "`$INTEGER`",
                     },
                   ],
@@ -226,10 +202,8 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "index$": 0,
               },
             ],
-            "key$": "load",
           },
         },
         "relations": {

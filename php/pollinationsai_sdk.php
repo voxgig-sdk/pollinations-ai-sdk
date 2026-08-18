@@ -40,7 +40,7 @@ class PollinationsAiSDK
         $utility = new PollinationsAiUtility();
         $this->_utility = $utility;
 
-        $config = PollinationsAiConfig::make_config();
+        $config = PollinationsAiConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
