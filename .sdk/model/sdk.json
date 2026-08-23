@@ -42,30 +42,35 @@
               "active": true,
               "name": "created",
               "req": false,
+              "short": "Unix timestamp of when the generation was created",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the generation",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "max_tokens",
               "req": false,
+              "short": "Maximum number of tokens to generate",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "messages",
               "req": true,
+              "short": "Array of message objects for the conversation",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "model",
               "req": false,
+              "short": "The model used for generation",
               "type": "`$STRING`"
             },
             {
@@ -78,12 +83,14 @@
               "active": true,
               "name": "seed",
               "req": false,
+              "short": "Seed for reproducible text generation",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "temperature",
               "req": false,
+              "short": "Controls randomness in generation (0.0 to 2.0)",
               "type": "`$NUMBER`"
             },
             {

@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "PollinationsAi",
+      slug = "pollinations-ai",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -34,23 +37,28 @@ local function make_config()
           },
           {
             ["name"] = "created",
+            ["short"] = "Unix timestamp of when the generation was created",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "id",
+            ["short"] = "Unique identifier for the generation",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "max_tokens",
+            ["short"] = "Maximum number of tokens to generate",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "messages",
             ["req"] = true,
+            ["short"] = "Array of message objects for the conversation",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "model",
+            ["short"] = "The model used for generation",
             ["type"] = "`$STRING`",
           },
           {
@@ -59,10 +67,12 @@ local function make_config()
           },
           {
             ["name"] = "seed",
+            ["short"] = "Seed for reproducible text generation",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "temperature",
+            ["short"] = "Controls randomness in generation (0.0 to 2.0)",
             ["type"] = "`$NUMBER`",
           },
           {

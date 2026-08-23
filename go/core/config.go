@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "PollinationsAi",
+			"slug": "pollinations-ai",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -38,23 +41,28 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "created",
+						"short": "Unix timestamp of when the generation was created",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the generation",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "max_tokens",
+						"short": "Maximum number of tokens to generate",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "messages",
 						"req": true,
+						"short": "Array of message objects for the conversation",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "model",
+						"short": "The model used for generation",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -63,10 +71,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "seed",
+						"short": "Seed for reproducible text generation",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "temperature",
+						"short": "Controls randomness in generation (0.0 to 2.0)",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{

@@ -98,14 +98,14 @@ generate_text = client.GenerateText
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `choices` | `Array` | No |  |
-| `created` | `Integer` | No |  |
-| `id` | `String` | No |  |
-| `max_tokens` | `Integer` | No |  |
-| `messages` | `Array` | Yes |  |
-| `model` | `String` | No |  |
+| `created` | `Integer` | No | Unix timestamp of when the generation was created |
+| `id` | `String` | No | Unique identifier for the generation |
+| `max_tokens` | `Integer` | No | Maximum number of tokens to generate |
+| `messages` | `Array` | Yes | Array of message objects for the conversation |
+| `model` | `String` | No | The model used for generation |
 | `object` | `String` | No |  |
-| `seed` | `Integer` | No |  |
-| `temperature` | `Float` | No |  |
+| `seed` | `Integer` | No | Seed for reproducible text generation |
+| `temperature` | `Float` | No | Controls randomness in generation (0.0 to 2.0) |
 | `usage` | `Hash` | No |  |
 
 ### Operations

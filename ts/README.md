@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -301,14 +301,14 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `choices` |  |
-| `created` |  |
-| `id` |  |
-| `max_tokens` |  |
-| `messages` |  |
-| `model` |  |
+| `created` | Unix timestamp of when the generation was created |
+| `id` | Unique identifier for the generation |
+| `max_tokens` | Maximum number of tokens to generate |
+| `messages` | Array of message objects for the conversation |
+| `model` | The model used for generation |
 | `object` |  |
-| `seed` |  |
-| `temperature` |  |
+| `seed` | Seed for reproducible text generation |
+| `temperature` | Controls randomness in generation (0.0 to 2.0) |
 | `usage` |  |
 
 Operations: create.
@@ -344,14 +344,14 @@ Create an instance: `const generate_text = client.GenerateText()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `choices` | `any[]` |  |
-| `created` | `number` |  |
-| `id` | `string` |  |
-| `max_tokens` | `number` |  |
-| `messages` | `any[]` |  |
-| `model` | `string` |  |
+| `created` | `number` | Unix timestamp of when the generation was created |
+| `id` | `string` | Unique identifier for the generation |
+| `max_tokens` | `number` | Maximum number of tokens to generate |
+| `messages` | `any[]` | Array of message objects for the conversation |
+| `model` | `string` | The model used for generation |
 | `object` | `string` |  |
-| `seed` | `number` |  |
-| `temperature` | `number` |  |
+| `seed` | `number` | Seed for reproducible text generation |
+| `temperature` | `number` | Controls randomness in generation (0.0 to 2.0) |
 | `usage` | `Record<string, any>` |  |
 
 #### Example: Create

@@ -6,7 +6,7 @@ The Golang SDK for the PollinationsAi API — an entity-oriented client using st
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.GenerateText(nil)` — each with the same small set of operations (`Load`, `Create`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -261,14 +261,14 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"choices"` |  |
-| `"created"` |  |
-| `"id"` |  |
-| `"max_tokens"` |  |
-| `"messages"` |  |
-| `"model"` |  |
+| `"created"` | Unix timestamp of when the generation was created |
+| `"id"` | Unique identifier for the generation |
+| `"max_tokens"` | Maximum number of tokens to generate |
+| `"messages"` | Array of message objects for the conversation |
+| `"model"` | The model used for generation |
 | `"object"` |  |
-| `"seed"` |  |
-| `"temperature"` |  |
+| `"seed"` | Seed for reproducible text generation |
+| `"temperature"` | Controls randomness in generation (0.0 to 2.0) |
 | `"usage"` |  |
 
 Operations: Create.
@@ -304,14 +304,14 @@ Create an instance: `generateText := client.GenerateText(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `choices` | `[]any` |  |
-| `created` | `int` |  |
-| `id` | `string` |  |
-| `max_tokens` | `int` |  |
-| `messages` | `[]any` |  |
-| `model` | `string` |  |
+| `created` | `int` | Unix timestamp of when the generation was created |
+| `id` | `string` | Unique identifier for the generation |
+| `max_tokens` | `int` | Maximum number of tokens to generate |
+| `messages` | `[]any` | Array of message objects for the conversation |
+| `model` | `string` | The model used for generation |
 | `object` | `string` |  |
-| `seed` | `int` |  |
-| `temperature` | `float64` |  |
+| `seed` | `int` | Seed for reproducible text generation |
+| `temperature` | `float64` | Controls randomness in generation (0.0 to 2.0) |
 | `usage` | `map[string]any` |  |
 
 #### Example: Create

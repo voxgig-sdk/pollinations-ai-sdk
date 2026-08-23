@@ -258,14 +258,14 @@ On error, `ok` is `false` and `$err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `choices` |  |
-| `created` |  |
-| `id` |  |
-| `max_tokens` |  |
-| `messages` |  |
-| `model` |  |
+| `created` | Unix timestamp of when the generation was created |
+| `id` | Unique identifier for the generation |
+| `max_tokens` | Maximum number of tokens to generate |
+| `messages` | Array of message objects for the conversation |
+| `model` | The model used for generation |
 | `object` |  |
-| `seed` |  |
-| `temperature` |  |
+| `seed` | Seed for reproducible text generation |
+| `temperature` | Controls randomness in generation (0.0 to 2.0) |
 | `usage` |  |
 
 Operations: Create.
@@ -301,14 +301,14 @@ Create an instance: `$generate_text = $client->GenerateText();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `choices` | `array` |  |
-| `created` | `int` |  |
-| `id` | `string` |  |
-| `max_tokens` | `int` |  |
-| `messages` | `array` |  |
-| `model` | `string` |  |
+| `created` | `int` | Unix timestamp of when the generation was created |
+| `id` | `string` | Unique identifier for the generation |
+| `max_tokens` | `int` | Maximum number of tokens to generate |
+| `messages` | `array` | Array of message objects for the conversation |
+| `model` | `string` | The model used for generation |
 | `object` | `string` |  |
-| `seed` | `int` |  |
-| `temperature` | `float` |  |
+| `seed` | `int` | Seed for reproducible text generation |
+| `temperature` | `float` | Controls randomness in generation (0.0 to 2.0) |
 | `usage` | `array` |  |
 
 #### Example: Create

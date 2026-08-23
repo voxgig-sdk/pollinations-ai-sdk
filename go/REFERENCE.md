@@ -103,14 +103,14 @@ fmt.Println(generateText.GetName()) // "generate_text"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `choices` | `[]any` | No |  |
-| `created` | `int` | No |  |
-| `id` | `string` | No |  |
-| `max_tokens` | `int` | No |  |
-| `messages` | `[]any` | Yes |  |
-| `model` | `string` | No |  |
+| `created` | `int` | No | Unix timestamp of when the generation was created |
+| `id` | `string` | No | Unique identifier for the generation |
+| `max_tokens` | `int` | No | Maximum number of tokens to generate |
+| `messages` | `[]any` | Yes | Array of message objects for the conversation |
+| `model` | `string` | No | The model used for generation |
 | `object` | `string` | No |  |
-| `seed` | `int` | No |  |
-| `temperature` | `float64` | No |  |
+| `seed` | `int` | No | Seed for reproducible text generation |
+| `temperature` | `float64` | No | Controls randomness in generation (0.0 to 2.0) |
 | `usage` | `map[string]any` | No |  |
 
 ### Operations

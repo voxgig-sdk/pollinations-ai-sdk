@@ -248,14 +248,14 @@ returns a result `Hash` with these keys:
 | Field | Description |
 | --- | --- |
 | `choices` |  |
-| `created` |  |
-| `id` |  |
-| `max_tokens` |  |
-| `messages` |  |
-| `model` |  |
+| `created` | Unix timestamp of when the generation was created |
+| `id` | Unique identifier for the generation |
+| `max_tokens` | Maximum number of tokens to generate |
+| `messages` | Array of message objects for the conversation |
+| `model` | The model used for generation |
 | `object` |  |
-| `seed` |  |
-| `temperature` |  |
+| `seed` | Seed for reproducible text generation |
+| `temperature` | Controls randomness in generation (0.0 to 2.0) |
 | `usage` |  |
 
 Operations: Create.
@@ -291,14 +291,14 @@ Create an instance: `generate_text = client.GenerateText`
 | Field | Type | Description |
 | --- | --- | --- |
 | `choices` | `Array` |  |
-| `created` | `Integer` |  |
-| `id` | `String` |  |
-| `max_tokens` | `Integer` |  |
-| `messages` | `Array` |  |
-| `model` | `String` |  |
+| `created` | `Integer` | Unix timestamp of when the generation was created |
+| `id` | `String` | Unique identifier for the generation |
+| `max_tokens` | `Integer` | Maximum number of tokens to generate |
+| `messages` | `Array` | Array of message objects for the conversation |
+| `model` | `String` | The model used for generation |
 | `object` | `String` |  |
-| `seed` | `Integer` |  |
-| `temperature` | `Float` |  |
+| `seed` | `Integer` | Seed for reproducible text generation |
+| `temperature` | `Float` | Controls randomness in generation (0.0 to 2.0) |
 | `usage` | `Hash` |  |
 
 #### Example: Create

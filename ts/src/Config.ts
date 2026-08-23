@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'PollinationsAi',
+        slug: "pollinations-ai",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -63,23 +74,28 @@ class Config {
         },
         {
           "name": "created",
+          "short": "Unix timestamp of when the generation was created",
           "type": "`$INTEGER`"
         },
         {
           "name": "id",
+          "short": "Unique identifier for the generation",
           "type": "`$STRING`"
         },
         {
           "name": "max_tokens",
+          "short": "Maximum number of tokens to generate",
           "type": "`$INTEGER`"
         },
         {
           "name": "messages",
           "req": true,
+          "short": "Array of message objects for the conversation",
           "type": "`$ARRAY`"
         },
         {
           "name": "model",
+          "short": "The model used for generation",
           "type": "`$STRING`"
         },
         {
@@ -88,10 +104,12 @@ class Config {
         },
         {
           "name": "seed",
+          "short": "Seed for reproducible text generation",
           "type": "`$INTEGER`"
         },
         {
           "name": "temperature",
+          "short": "Controls randomness in generation (0.0 to 2.0)",
           "type": "`$NUMBER`"
         },
         {
