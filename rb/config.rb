@@ -28,6 +28,7 @@ module PollinationsAiConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
