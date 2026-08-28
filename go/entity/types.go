@@ -47,6 +47,12 @@ type ImageGeneration struct {
 // ImageGenerationLoadMatch is the typed request payload for ImageGeneration.LoadTyped.
 type ImageGenerationLoadMatch struct {
 	Prompt string `json:"prompt"`
+	Enhance *bool `json:"enhance,omitempty"`
+	Height *int `json:"height,omitempty"`
+	Model *string `json:"model,omitempty"`
+	Nologo *bool `json:"nologo,omitempty"`
+	Seed *int `json:"seed,omitempty"`
+	Width *int `json:"width,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

@@ -34,6 +34,12 @@
 
 ---@class ImageGenerationLoadMatch
 ---@field prompt string
+---@field enhance? boolean
+---@field height? number
+---@field model? string
+---@field nologo? boolean
+---@field seed? number
+---@field width? number
 
 local M = {}
 

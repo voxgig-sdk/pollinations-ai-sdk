@@ -52,5 +52,14 @@ class ImageGeneration(TypedDict):
     pass
 
 
-class ImageGenerationLoadMatch(TypedDict):
+class ImageGenerationLoadMatchRequired(TypedDict):
     prompt: str
+
+
+class ImageGenerationLoadMatch(ImageGenerationLoadMatchRequired, total=False):
+    enhance: bool
+    height: int
+    model: str
+    nologo: bool
+    seed: int
+    width: int

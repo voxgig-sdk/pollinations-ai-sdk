@@ -51,5 +51,11 @@ class ImageGeneration
 class ImageGenerationLoadMatch
 {
     public string $prompt;
+    public ?bool $enhance = null;
+    public ?int $height = null;
+    public ?string $model = null;
+    public ?bool $nologo = null;
+    public ?int $seed = null;
+    public ?int $width = null;
 }
 

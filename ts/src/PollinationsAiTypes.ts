@@ -36,5 +36,11 @@ export interface ImageGeneration {
 
 export interface ImageGenerationLoadMatch {
   prompt: string
+  enhance?: boolean
+  height?: number
+  model?: string
+  nologo?: boolean
+  seed?: number
+  width?: number
 }
 
