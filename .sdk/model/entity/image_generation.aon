@@ -73,9 +73,13 @@ main: kit: entity: image_generation: {
           }
           method: "GET"
           orig: "/prompt/{prompt}"
-          parts: [
-            "prompt"
-            "{prompt}"
+          segments: [
+            {
+              lit: "prompt"
+            }
+            {
+              var: "prompt"
+            }
           ]
           select: {
             exist: [

@@ -81,6 +81,10 @@ local function make_config()
             ["type"] = "`$OBJECT`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "generate_text",
         ["op"] = {
           ["create"] = {
@@ -92,12 +96,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/",
-                ["parts"] = {},
+                ["segments"] = {},
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {},
               },
             },
           },
@@ -173,9 +178,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/prompt/{prompt}",
-                ["parts"] = {
-                  "prompt",
-                  "{prompt}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "prompt",
+                  },
+                  {
+                    ["var"] = "prompt",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -191,6 +200,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "prompt",
+                  "{prompt}",
                 },
               },
             },
