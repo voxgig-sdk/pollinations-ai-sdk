@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai'
+import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai-sdk'
 
 const client = new PollinationsAiSDK()
 ```
@@ -462,7 +462,7 @@ pollinations-ai/
 Import the SDK from the package root:
 
 ```ts
-import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai'
+import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai-sdk'
 ```
 
 ### Entity state

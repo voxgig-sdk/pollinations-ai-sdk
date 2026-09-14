@@ -107,7 +107,7 @@ local result, err = client:ImageGeneration():load({ prompt = "example" })
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
+| TypeScript | `@voxgig-sdk/pollinations-ai-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
 | Python | `voxgig-sdk-pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
 | PHP | `voxgig-sdk/pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/pollinations-ai-sdk/go` | `go get github.com/voxgig-sdk/pollinations-ai-sdk/go@latest` |
@@ -121,7 +121,7 @@ local result, err = client:ImageGeneration():load({ prompt = "example" })
 ### TypeScript
 
 ```ts
-import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai'
+import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai-sdk'
 
 const client = new PollinationsAiSDK()
 
