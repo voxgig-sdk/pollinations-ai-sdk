@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.POLLINATIONS_AI_TEST_LIVE;
         for (const op of ['create']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'generate_text.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'generate_text.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [{ "active": true, "name": "choices", "req": false, "type": "`$ARRAY`", "index$": 0 }, { "active": true, "name": "created", "req": false, "short": "Unix timestamp of when the generation was created", "type": "`$INTEGER`", "index$": 1 }, { "active": true, "name": "id", "req": false, "short": "Unique identifier for the generation", "type": "`$STRING`", "index$": 2 }, { "active": true, "name": "max_tokens", "req": false, "short": "Maximum number of tokens to generate", "type": "`$INTEGER`", "index$": 3 }, { "active": true, "name": "messages", "req": true, "short": "Array of message objects for the conversation", "type": "`$ARRAY`", "index$": 4 }, { "active": true, "name": "model", "req": false, "short": "The model used for generation", "type": "`$STRING`", "index$": 5 }, { "active": true, "name": "object", "req": false, "type": "`$STRING`", "index$": 6 }, { "active": true, "name": "seed", "req": false, "short": "Seed for reproducible text generation", "type": "`$INTEGER`", "index$": 7 }, { "active": true, "name": "temperature", "req": false, "short": "Controls randomness in generation (0.0 to 2.0)", "type": "`$NUMBER`", "index$": 8 }, { "active": true, "name": "usage", "req": false, "type": "`$OBJECT`", "index$": 9 }], "id": { "field": "id", "name": "id" }, "name": "generate_text", "op": { "create": { "input": "data", "name": "create", "points": [{ "active": true, "args": {}, "contract": { "id": "POST /", "json": "{\"operationId\":\"generateText\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"example\":{\"messages\":[{\"content\":\"Write a short poem about artificial intelligence\",\"role\":\"user\"}],\"model\":\"openai\",\"seed\":42,\"temperature\":0.7},\"schema\":{\"properties\":{\"max_tokens\":{\"description\":\"Maximum number of tokens to generate\",\"maximum\":4096,\"minimum\":1,\"type\":\"integer\"},\"messages\":{\"description\":\"Array of message objects for the conversation\",\"items\":{\"properties\":{\"content\":{\"description\":\"The content of the message\",\"type\":\"string\"},\"role\":{\"description\":\"The role of the message sender\",\"enum\":[\"system\",\"user\",\"assistant\"],\"type\":\"string\"}},\"required\":[\"role\",\"content\"],\"type\":\"object\"},\"type\":\"array\"},\"model\":{\"default\":\"openai\",\"description\":\"The language model to use for text generation\",\"enum\":[\"openai\",\"mistral\",\"claude\"],\"type\":\"string\"},\"seed\":{\"description\":\"Seed for reproducible text generation\",\"type\":\"integer\"},\"temperature\":{\"default\":1,\"description\":\"Controls randomness in generation (0.0 to 2.0)\",\"maximum\":2,\"minimum\":0,\"type\":\"number\"}},\"required\":[\"messages\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"choices\":{\"items\":{\"properties\":{\"finish_reason\":{\"enum\":[\"stop\",\"length\",\"content_filter\"],\"type\":\"string\"},\"index\":{\"type\":\"integer\"},\"message\":{\"properties\":{\"content\":{\"description\":\"The content of the message\",\"type\":\"string\"},\"role\":{\"description\":\"The role of the message sender\",\"enum\":[\"system\",\"user\",\"assistant\"],\"type\":\"string\"}},\"required\":[\"role\",\"content\"],\"type\":\"object\"}},\"type\":\"object\"},\"type\":\"array\"},\"created\":{\"description\":\"Unix timestamp of when the generation was created\",\"type\":\"integer\"},\"id\":{\"description\":\"Unique identifier for the generation\",\"type\":\"string\"},\"model\":{\"description\":\"The model used for generation\",\"type\":\"string\"},\"object\":{\"example\":\"chat.completion\",\"type\":\"string\"},\"usage\":{\"properties\":{\"completion_tokens\":{\"description\":\"Number of tokens in the completion\",\"type\":\"integer\"},\"prompt_tokens\":{\"description\":\"Number of tokens in the prompt\",\"type\":\"integer\"},\"total_tokens\":{\"description\":\"Total number of tokens used\",\"type\":\"integer\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successfully generated text response\",\"headers\":{\"Content-Type\":{\"schema\":{\"example\":\"application/json\",\"type\":\"string\"}}}},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"message\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"},\"type\":{\"description\":\"Type of error\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Bad request - invalid parameters or prompt\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"message\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"},\"type\":{\"description\":\"Type of error\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Internal server error during text generation\"}},\"security\":[],\"securitySource\":\"definition\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "POST", "orig": "/", "segments": [], "select": {}, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "create" } }, "relations": { "ancestors": [] }, "key$": "generate_text", "name__orig": "generate_text", "Name": "GenerateText", "name_": "generate_text", "name-": "generate-text", "NAME": "GENERATE_TEXT", "index$": 0 }, { "active": true, "entity": "generate_text", "key$": "BasicGenerateTextFlow", "kind": "basic", "name": "BasicGenerateTextFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": { "ref": "generate_text_ref01" }, "match": {}, "op": "create", "spec": [], "valid": [], "index$": 0 }] }, 'GenerateText');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -101,12 +99,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID': idmap,
         'POLLINATIONS_AI_TEST_LIVE': 'FALSE',
@@ -114,7 +106,13 @@ function basicSetup(extra) {
     });
     idmap = env['POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID'];
     const live = 'TRUE' === env.POLLINATIONS_AI_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['POLLINATIONS_AI_TEST_GENERATE_TEXT_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.PollinationsAiSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -125,7 +123,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -137,7 +136,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.POLLINATIONS_AI_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;

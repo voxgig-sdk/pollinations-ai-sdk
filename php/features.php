@@ -4,7 +4,10 @@ declare(strict_types=1);
 // PollinationsAi SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class PollinationsAiFeatures
@@ -14,8 +17,14 @@ class PollinationsAiFeatures
         switch ($name) {
             case "base":
                 return new PollinationsAiBaseFeature();
+            case "ratelimit":
+                return new PollinationsAiRatelimitFeature();
+            case "retry":
+                return new PollinationsAiRetryFeature();
             case "test":
                 return new PollinationsAiTestFeature();
+            case "timeout":
+                return new PollinationsAiTimeoutFeature();
             default:
                 return new PollinationsAiBaseFeature();
         }
@@ -31,7 +40,10 @@ class PollinationsAiFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { PollinationsAiSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('ImageGenerationEntity', async () => {
 
     const live = 'TRUE' === process.env.POLLINATIONS_AI_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'image_generation.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'image_generation.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[],"name":"image_generation","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"params":[{"active":true,"example":"A beautiful sunset over mountains","kind":"param","name":"prompt","orig":"prompt","reqd":true,"type":"`$STRING`","index$":0}],"query":[{"active":true,"example":false,"kind":"query","name":"enhance","orig":"enhance","reqd":false,"type":"`$BOOLEAN`","index$":0},{"active":true,"example":1024,"kind":"query","name":"height","orig":"height","reqd":false,"type":"`$INTEGER`","index$":1},{"active":true,"example":"flux","kind":"query","name":"model","orig":"model","reqd":false,"type":"`$STRING`","index$":2},{"active":true,"example":false,"kind":"query","name":"nologo","orig":"nologo","reqd":false,"type":"`$BOOLEAN`","index$":3},{"active":true,"kind":"query","name":"seed","orig":"seed","reqd":false,"type":"`$INTEGER`","index$":4},{"active":true,"example":1024,"kind":"query","name":"width","orig":"width","reqd":false,"type":"`$INTEGER`","index$":5}]},"contract":{"id":"GET /prompt/{prompt}","json":"{\"operationId\":\"generateImage\",\"parameters\":[{\"description\":\"The text prompt describing the image to generate\",\"example\":\"A beautiful sunset over mountains\",\"in\":\"path\",\"name\":\"prompt\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Width of the generated image in pixels\",\"in\":\"query\",\"name\":\"width\",\"required\":false,\"schema\":{\"default\":1024,\"maximum\":2048,\"minimum\":128,\"type\":\"integer\"}},{\"description\":\"Height of the generated image in pixels\",\"in\":\"query\",\"name\":\"height\",\"required\":false,\"schema\":{\"default\":1024,\"maximum\":2048,\"minimum\":128,\"type\":\"integer\"}},{\"description\":\"Seed for reproducible image generation\",\"in\":\"query\",\"name\":\"seed\",\"required\":false,\"schema\":{\"type\":\"integer\"}},{\"description\":\"The AI model to use for generation\",\"in\":\"query\",\"name\":\"model\",\"required\":false,\"schema\":{\"default\":\"flux\",\"type\":\"string\"}},{\"description\":\"Remove Pollinations logo from the generated image\",\"in\":\"query\",\"name\":\"nologo\",\"required\":false,\"schema\":{\"default\":false,\"type\":\"boolean\"}},{\"description\":\"Enhance the prompt automatically\",\"in\":\"query\",\"name\":\"enhance\",\"required\":false,\"schema\":{\"default\":false,\"type\":\"boolean\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"image/jpeg\":{\"schema\":{\"format\":\"binary\",\"type\":\"string\"}},\"image/png\":{\"schema\":{\"format\":\"binary\",\"type\":\"string\"}}},\"description\":\"Successfully generated image\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"message\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"},\"type\":{\"description\":\"Type of error\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Bad request - invalid parameters\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"message\":{\"description\":\"Error message describing what went wrong\",\"type\":\"string\"},\"type\":{\"description\":\"Type of error\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Internal server error during image generation\"}},\"security\":[],\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/prompt/{prompt}","segments":[{"lit":"prompt"},{"var":"prompt"}],"select":{"exist":["enhance","height","model","nologo","prompt","seed","width"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["prompt"]]},"key$":"image_generation","name__orig":"image_generation","Name":"ImageGeneration","name_":"image_generation","name-":"image-generation","NAME":"IMAGE_GENERATION","index$":1}, {"active":true,"entity":"image_generation","key$":"BasicImageGenerationFlow","kind":"basic","name":"BasicImageGenerationFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"image_generation_ref01","srcdatavar":"image_generation_ref01_data","suffix":"_dt0"},"match":{"id":"image_generation01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-image_generation_ref01"}}],"index$":0}]}, 'ImageGeneration')
     }
     const client = setup.client
     const struct = setup.struct
@@ -107,13 +106,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID': idmap,
     'POLLINATIONS_AI_TEST_LIVE': 'FALSE',
@@ -124,7 +116,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.POLLINATIONS_AI_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new PollinationsAiSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -136,7 +134,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -149,7 +148,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.POLLINATIONS_AI_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

@@ -1,12 +1,18 @@
 # PollinationsAi SDK feature factory
 
 from pollinationsai_sdk.feature.base_feature import PollinationsAiBaseFeature
+from pollinationsai_sdk.feature.ratelimit_feature import PollinationsAiRatelimitFeature
+from pollinationsai_sdk.feature.retry_feature import PollinationsAiRetryFeature
 from pollinationsai_sdk.feature.test_feature import PollinationsAiTestFeature
+from pollinationsai_sdk.feature.timeout_feature import PollinationsAiTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: PollinationsAiBaseFeature(),
+    "ratelimit": lambda: PollinationsAiRatelimitFeature(),
+    "retry": lambda: PollinationsAiRetryFeature(),
     "test": lambda: PollinationsAiTestFeature(),
+    "timeout": lambda: PollinationsAiTimeoutFeature(),
 }
 
 
