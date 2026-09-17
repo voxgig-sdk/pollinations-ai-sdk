@@ -107,12 +107,12 @@ local result, err = client:ImageGeneration():load({ prompt = "example" })
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/pollinations-ai-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
-| Python | `voxgig-sdk-pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
-| PHP | `voxgig-sdk/pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
+| TypeScript | `@voxgig-sdk/pollinations-ai-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/tags) |
+| Python | `voxgig-sdk-pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/tags) |
+| PHP | `voxgig-sdk/pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/pollinations-ai-sdk/go` | `go get github.com/voxgig-sdk/pollinations-ai-sdk/go@latest` |
-| Ruby | `voxgig-sdk-pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
-| Lua | `voxgig-sdk-pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/releases) |
+| Ruby | `voxgig-sdk-pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/tags) |
+| Lua | `voxgig-sdk-pollinations-ai` | publish pending — [install from git tag](https://github.com/voxgig-sdk/pollinations-ai-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/pollinations-ai-sdk/go-cli` | `go install github.com/voxgig-sdk/pollinations-ai-sdk/go-cli/cmd/pollinations-ai@latest` |
 | Go MCP server | `github.com/voxgig-sdk/pollinations-ai-sdk/go-mcp` | `go get github.com/voxgig-sdk/pollinations-ai-sdk/go-mcp@latest` |
 

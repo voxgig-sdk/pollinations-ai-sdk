@@ -127,12 +127,12 @@ class Config {
 
     entity: {
       
-      generate_text: {
-      },
-
-      image_generation: {
-      },
-
+        generate_text: {
+        },
+  
+        image_generation: {
+        },
+  
     }
   }
 
