@@ -36,19 +36,6 @@ from pollinationsai_sdk import PollinationsAiSDK
 client = PollinationsAiSDK()
 ```
 
-### 3. Load an imagegeneration
-
-ImageGeneration is nested under prompt, so provide the `prompt`.
-`load()` returns the ENTITY — call data_get() for the record — and raises on error.
-
-```python
-try:
-    imagegeneration = client.ImageGeneration().load({"prompt": "example_prompt"})
-    print(imagegeneration)
-except Exception as err:
-    print(f"load failed: {err}")
-```
-
 ### 4. Create, update, and remove
 
 ```python

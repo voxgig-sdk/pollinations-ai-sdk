@@ -1,0 +1,106 @@
+# Entity: generate_text
+
+main: kit: entity: generate_text: {
+
+  alias: field: {}
+
+  fields: {
+    choices: {
+      h: "Choices"
+      n: "choices"
+      r: false
+      t: "`$ARRAY`"
+    }
+    created: {
+      h: "Created"
+      n: "created"
+      r: false
+      sh: "Unix timestamp of when the generation was created"
+      t: "`$INTEGER`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique identifier for the generation"
+      t: "`$STRING`"
+    }
+    max_tokens: {
+      h: "Max Tokens"
+      n: "max_tokens"
+      r: false
+      sh: "Maximum number of tokens to generate"
+      t: "`$INTEGER`"
+    }
+    messages: {
+      h: "Messages"
+      n: "messages"
+      r: true
+      sh: "Array of message objects for the conversation"
+      t: "`$ARRAY`"
+    }
+    model: {
+      h: "Model"
+      n: "model"
+      r: false
+      sh: "The model used for generation"
+      t: "`$STRING`"
+    }
+    object: {
+      h: "Object"
+      n: "object"
+      r: false
+      t: "`$STRING`"
+    }
+    seed: {
+      h: "Seed"
+      n: "seed"
+      r: false
+      sh: "Seed for reproducible text generation"
+      t: "`$INTEGER`"
+    }
+    temperature: {
+      h: "Temperature"
+      n: "temperature"
+      r: false
+      sh: "Controls randomness in generation (0.0 to 2.0)"
+      t: "`$NUMBER`"
+    }
+    usage: {
+      h: "Usage"
+      n: "usage"
+      r: false
+      t: "`$OBJECT`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "generate_text"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/"
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

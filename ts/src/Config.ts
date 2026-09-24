@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -142,50 +135,60 @@ class Config {
       "fields": [
         {
           "name": "choices",
+          "title": "Choices",
           "type": "`$ARRAY`"
         },
         {
           "name": "created",
-          "short": "Unix timestamp of when the generation was created",
-          "type": "`$INTEGER`"
+          "title": "Created",
+          "type": "`$INTEGER`",
+          "short": "Unix timestamp of when the generation was created"
         },
         {
           "name": "id",
-          "short": "Unique identifier for the generation",
-          "type": "`$STRING`"
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "Unique identifier for the generation"
         },
         {
           "name": "max_tokens",
-          "short": "Maximum number of tokens to generate",
-          "type": "`$INTEGER`"
+          "title": "Max Tokens",
+          "type": "`$INTEGER`",
+          "short": "Maximum number of tokens to generate"
         },
         {
           "name": "messages",
+          "title": "Messages",
+          "type": "`$ARRAY`",
           "req": true,
-          "short": "Array of message objects for the conversation",
-          "type": "`$ARRAY`"
+          "short": "Array of message objects for the conversation"
         },
         {
           "name": "model",
-          "short": "The model used for generation",
-          "type": "`$STRING`"
+          "title": "Model",
+          "type": "`$STRING`",
+          "short": "The model used for generation"
         },
         {
           "name": "object",
+          "title": "Object",
           "type": "`$STRING`"
         },
         {
           "name": "seed",
-          "short": "Seed for reproducible text generation",
-          "type": "`$INTEGER`"
+          "title": "Seed",
+          "type": "`$INTEGER`",
+          "short": "Seed for reproducible text generation"
         },
         {
           "name": "temperature",
-          "short": "Controls randomness in generation (0.0 to 2.0)",
-          "type": "`$NUMBER`"
+          "title": "Temperature",
+          "type": "`$NUMBER`",
+          "short": "Controls randomness in generation (0.0 to 2.0)"
         },
         {
           "name": "usage",
+          "title": "Usage",
           "type": "`$OBJECT`"
         }
       ],
@@ -200,17 +203,18 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/",
               "segments": [],
-              "select": {},
+              "parts": [],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": []
+              "args": {},
+              "select": {}
             }
           ]
         }
@@ -228,61 +232,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": "A beautiful sunset over mountains",
-                    "kind": "param",
-                    "name": "prompt",
-                    "orig": "prompt",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "example": false,
-                    "kind": "query",
-                    "name": "enhance",
-                    "orig": "enhance",
-                    "type": "`$BOOLEAN`"
-                  },
-                  {
-                    "example": 1024,
-                    "kind": "query",
-                    "name": "height",
-                    "orig": "height",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": "flux",
-                    "kind": "query",
-                    "name": "model",
-                    "orig": "model",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": false,
-                    "kind": "query",
-                    "name": "nologo",
-                    "orig": "nologo",
-                    "type": "`$BOOLEAN`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "seed",
-                    "orig": "seed",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": 1024,
-                    "kind": "query",
-                    "name": "width",
-                    "orig": "width",
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/prompt/{prompt}",
@@ -294,6 +243,70 @@ class Config {
                   "var": "prompt"
                 }
               ],
+              "parts": [
+                "prompt",
+                "{prompt}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "prompt",
+                    "orig": "prompt",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "A beautiful sunset over mountains"
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "enhance",
+                    "orig": "enhance",
+                    "type": "`$BOOLEAN`",
+                    "kind": "query",
+                    "example": false
+                  },
+                  {
+                    "name": "height",
+                    "orig": "height",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 1024
+                  },
+                  {
+                    "name": "model",
+                    "orig": "model",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "flux"
+                  },
+                  {
+                    "name": "nologo",
+                    "orig": "nologo",
+                    "type": "`$BOOLEAN`",
+                    "kind": "query",
+                    "example": false
+                  },
+                  {
+                    "name": "seed",
+                    "orig": "seed",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "width",
+                    "orig": "width",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 1024
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "enhance",
@@ -304,25 +317,13 @@ class Config {
                   "seed",
                   "width"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "prompt",
-                "{prompt}"
-              ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "prompt"
-          ]
-        ]
+        "ancestors": []
       }
     }
   }

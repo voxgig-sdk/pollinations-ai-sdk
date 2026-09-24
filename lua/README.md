@@ -33,16 +33,6 @@ local sdk = require("pollinations-ai_sdk")
 local client = sdk.new()
 ```
 
-### 3. Load an imagegeneration
-
-ImageGeneration is nested under prompt, so provide the `prompt`.
-
-```lua
-local imagegeneration, err = client:ImageGeneration():load({ prompt = "example_prompt" })
-if err then error(err) end
-print(imagegeneration)
-```
-
 ### 4. Create, update, and remove
 
 ```lua

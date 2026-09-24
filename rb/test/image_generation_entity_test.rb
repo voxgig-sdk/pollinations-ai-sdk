@@ -62,7 +62,7 @@ def image_generation_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["image_generation01", "image_generation02", "image_generation03", "prompt01", "prompt02", "prompt03"],
+    ["image_generation01", "image_generation02", "image_generation03"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",

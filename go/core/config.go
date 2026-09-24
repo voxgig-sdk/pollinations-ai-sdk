@@ -92,50 +92,60 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "choices",
+						"title": "Choices",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "created",
-						"short": "Unix timestamp of when the generation was created",
+						"title": "Created",
 						"type": "`$INTEGER`",
+						"short": "Unix timestamp of when the generation was created",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "Unique identifier for the generation",
+						"title": "Id",
 						"type": "`$STRING`",
+						"short": "Unique identifier for the generation",
 					},
 					map[string]any{
 						"name": "max_tokens",
-						"short": "Maximum number of tokens to generate",
+						"title": "Max Tokens",
 						"type": "`$INTEGER`",
+						"short": "Maximum number of tokens to generate",
 					},
 					map[string]any{
 						"name": "messages",
+						"title": "Messages",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Array of message objects for the conversation",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "model",
-						"short": "The model used for generation",
+						"title": "Model",
 						"type": "`$STRING`",
+						"short": "The model used for generation",
 					},
 					map[string]any{
 						"name": "object",
+						"title": "Object",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "seed",
-						"short": "Seed for reproducible text generation",
+						"title": "Seed",
 						"type": "`$INTEGER`",
+						"short": "Seed for reproducible text generation",
 					},
 					map[string]any{
 						"name": "temperature",
-						"short": "Controls randomness in generation (0.0 to 2.0)",
+						"title": "Temperature",
 						"type": "`$NUMBER`",
+						"short": "Controls randomness in generation (0.0 to 2.0)",
 					},
 					map[string]any{
 						"name": "usage",
+						"title": "Usage",
 						"type": "`$OBJECT`",
 					},
 				},
@@ -150,17 +160,18 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/",
 								"segments": []any{},
-								"select": map[string]any{},
+								"parts": []any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -178,61 +189,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "A beautiful sunset over mountains",
-											"kind": "param",
-											"name": "prompt",
-											"orig": "prompt",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": false,
-											"kind": "query",
-											"name": "enhance",
-											"orig": "enhance",
-											"type": "`$BOOLEAN`",
-										},
-										map[string]any{
-											"example": 1024,
-											"kind": "query",
-											"name": "height",
-											"orig": "height",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": "flux",
-											"kind": "query",
-											"name": "model",
-											"orig": "model",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": false,
-											"kind": "query",
-											"name": "nologo",
-											"orig": "nologo",
-											"type": "`$BOOLEAN`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "seed",
-											"orig": "seed",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 1024,
-											"kind": "query",
-											"name": "width",
-											"orig": "width",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/prompt/{prompt}",
@@ -242,6 +198,70 @@ func MakeConfig() map[string]any {
 									},
 									map[string]any{
 										"var": "prompt",
+									},
+								},
+								"parts": []any{
+									"prompt",
+									"{prompt}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "prompt",
+											"orig": "prompt",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "A beautiful sunset over mountains",
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "enhance",
+											"orig": "enhance",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+											"example": false,
+										},
+										map[string]any{
+											"name": "height",
+											"orig": "height",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1024,
+										},
+										map[string]any{
+											"name": "model",
+											"orig": "model",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "flux",
+										},
+										map[string]any{
+											"name": "nologo",
+											"orig": "nologo",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+											"example": false,
+										},
+										map[string]any{
+											"name": "seed",
+											"orig": "seed",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "width",
+											"orig": "width",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1024,
+										},
 									},
 								},
 								"select": map[string]any{
@@ -255,24 +275,12 @@ func MakeConfig() map[string]any {
 										"width",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"prompt",
-									"{prompt}",
-								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"prompt",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 		},

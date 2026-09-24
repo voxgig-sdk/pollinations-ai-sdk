@@ -33,22 +33,6 @@ import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai-sdk'
 const client = new PollinationsAiSDK()
 ```
 
-### 3. Load an imagegeneration
-
-ImageGeneration is nested under prompt, so provide the `prompt`.
-`load()` returns the entity directly and throws on failure:
-
-```ts
-try {
-  const imagegeneration = await client.ImageGeneration().load({
-    prompt: 'example_prompt',
-  })
-  console.log(imagegeneration)
-} catch (err) {
-  console.error('load failed:', err)
-}
-```
-
 ### 4. Create, update, and remove
 
 ```ts

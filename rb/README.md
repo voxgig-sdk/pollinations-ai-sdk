@@ -30,20 +30,6 @@ require_relative "PollinationsAi_sdk"
 client = PollinationsAiSDK.new
 ```
 
-### 3. Load an imagegeneration
-
-ImageGeneration is nested under prompt, so provide the `prompt`.
-
-```ruby
-begin
-  # load returns the ENTITY — call data_get for the ImageGeneration record (raises on error).
-  imagegeneration = client.ImageGeneration.load({ "prompt" => "example_prompt" })
-  puts imagegeneration
-rescue => err
-  warn "load failed: #{err}"
-end
-```
-
 ### 4. Create, update, and remove
 
 ```ruby

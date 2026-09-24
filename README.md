@@ -14,7 +14,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -125,12 +125,6 @@ import { PollinationsAiSDK } from '@voxgig-sdk/pollinations-ai-sdk'
 
 const client = new PollinationsAiSDK()
 
-
-// Load a specific imagegeneration (returns a ImageGeneration)
-const imagegeneration = await client.ImageGeneration().load({
-  prompt: 'example_prompt',
-})
-console.log(imagegeneration)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -205,15 +199,6 @@ import sdk "github.com/voxgig-sdk/pollinations-ai-sdk/go"
 
 client := sdk.New()
 
-
-// Load a specific imagegeneration
-imageGeneration, err := client.ImageGeneration(nil).Load(
-    map[string]any{"prompt": "example_prompt"}, nil,
-)
-if err != nil {
-    panic(err)
-}
-fmt.Println(imageGeneration)
 ```
 
 ### Ruby

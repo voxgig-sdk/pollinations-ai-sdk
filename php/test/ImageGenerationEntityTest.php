@@ -70,7 +70,7 @@ function image_generation_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["image_generation01", "image_generation02", "image_generation03", "prompt01", "prompt02", "prompt03"] as $k) {
+    foreach (["image_generation01", "image_generation02", "image_generation03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

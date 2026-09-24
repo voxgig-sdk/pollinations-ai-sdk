@@ -1,7 +1,7 @@
 // Typed models for the PollinationsAi SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,16 +14,6 @@ import (
 
 // GenerateText is the typed data model for the generate_text entity.
 type GenerateText struct {
-	Choices *[]any `json:"choices,omitempty"`
-	Created *int `json:"created,omitempty"`
-	Id *string `json:"id,omitempty"`
-	MaxTokens *int `json:"max_tokens,omitempty"`
-	Messages []any `json:"messages"`
-	Model *string `json:"model,omitempty"`
-	Object *string `json:"object,omitempty"`
-	Seed *int `json:"seed,omitempty"`
-	Temperature *float64 `json:"temperature,omitempty"`
-	Usage *map[string]any `json:"usage,omitempty"`
 }
 
 // GenerateTextCreateData is the typed request payload for GenerateText.CreateTyped.

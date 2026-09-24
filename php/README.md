@@ -31,20 +31,6 @@ require_once 'pollinationsai_sdk.php';
 $client = new PollinationsAiSDK();
 ```
 
-### 3. Load an imagegeneration
-
-ImageGeneration is nested under prompt, so provide the `prompt`.
-
-```php
-try {
-    // load() returns the ENTITY — call data_get() for the ImageGeneration record (throws on error).
-    $imagegeneration = $client->ImageGeneration()->load(["prompt" => "example_prompt"]);
-    print_r($imagegeneration->data_get());
-} catch (\Throwable $err) {
-    echo "Error: " . $err->getMessage();
-}
-```
-
 ### 4. Create, update, and remove
 
 ```php

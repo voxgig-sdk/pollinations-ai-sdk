@@ -114,50 +114,60 @@ class PollinationsAiConfig
           'fields' => [
             [
               'name' => 'choices',
+              'title' => 'Choices',
               'type' => '`$ARRAY`',
             ],
             [
               'name' => 'created',
-              'short' => 'Unix timestamp of when the generation was created',
+              'title' => 'Created',
               'type' => '`$INTEGER`',
+              'short' => 'Unix timestamp of when the generation was created',
             ],
             [
               'name' => 'id',
-              'short' => 'Unique identifier for the generation',
+              'title' => 'Id',
               'type' => '`$STRING`',
+              'short' => 'Unique identifier for the generation',
             ],
             [
               'name' => 'max_tokens',
-              'short' => 'Maximum number of tokens to generate',
+              'title' => 'Max Tokens',
               'type' => '`$INTEGER`',
+              'short' => 'Maximum number of tokens to generate',
             ],
             [
               'name' => 'messages',
+              'title' => 'Messages',
+              'type' => '`$ARRAY`',
               'req' => true,
               'short' => 'Array of message objects for the conversation',
-              'type' => '`$ARRAY`',
             ],
             [
               'name' => 'model',
-              'short' => 'The model used for generation',
+              'title' => 'Model',
               'type' => '`$STRING`',
+              'short' => 'The model used for generation',
             ],
             [
               'name' => 'object',
+              'title' => 'Object',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'seed',
-              'short' => 'Seed for reproducible text generation',
+              'title' => 'Seed',
               'type' => '`$INTEGER`',
+              'short' => 'Seed for reproducible text generation',
             ],
             [
               'name' => 'temperature',
-              'short' => 'Controls randomness in generation (0.0 to 2.0)',
+              'title' => 'Temperature',
               'type' => '`$NUMBER`',
+              'short' => 'Controls randomness in generation (0.0 to 2.0)',
             ],
             [
               'name' => 'usage',
+              'title' => 'Usage',
               'type' => '`$OBJECT`',
             ],
           ],
@@ -172,17 +182,18 @@ class PollinationsAiConfig
               'name' => 'create',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/',
                   'segments' => [],
-                  'select' => [],
+                  'parts' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'parts' => [],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -200,61 +211,6 @@ class PollinationsAiConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => 'A beautiful sunset over mountains',
-                        'kind' => 'param',
-                        'name' => 'prompt',
-                        'orig' => 'prompt',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                    'query' => [
-                      [
-                        'example' => false,
-                        'kind' => 'query',
-                        'name' => 'enhance',
-                        'orig' => 'enhance',
-                        'type' => '`$BOOLEAN`',
-                      ],
-                      [
-                        'example' => 1024,
-                        'kind' => 'query',
-                        'name' => 'height',
-                        'orig' => 'height',
-                        'type' => '`$INTEGER`',
-                      ],
-                      [
-                        'example' => 'flux',
-                        'kind' => 'query',
-                        'name' => 'model',
-                        'orig' => 'model',
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'example' => false,
-                        'kind' => 'query',
-                        'name' => 'nologo',
-                        'orig' => 'nologo',
-                        'type' => '`$BOOLEAN`',
-                      ],
-                      [
-                        'kind' => 'query',
-                        'name' => 'seed',
-                        'orig' => 'seed',
-                        'type' => '`$INTEGER`',
-                      ],
-                      [
-                        'example' => 1024,
-                        'kind' => 'query',
-                        'name' => 'width',
-                        'orig' => 'width',
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/prompt/{prompt}',
@@ -264,6 +220,70 @@ class PollinationsAiConfig
                     ],
                     [
                       'var' => 'prompt',
+                    ],
+                  ],
+                  'parts' => [
+                    'prompt',
+                    '{prompt}',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'prompt',
+                        'orig' => 'prompt',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 'A beautiful sunset over mountains',
+                      ],
+                    ],
+                    'query' => [
+                      [
+                        'name' => 'enhance',
+                        'orig' => 'enhance',
+                        'type' => '`$BOOLEAN`',
+                        'kind' => 'query',
+                        'example' => false,
+                      ],
+                      [
+                        'name' => 'height',
+                        'orig' => 'height',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'query',
+                        'example' => 1024,
+                      ],
+                      [
+                        'name' => 'model',
+                        'orig' => 'model',
+                        'type' => '`$STRING`',
+                        'kind' => 'query',
+                        'example' => 'flux',
+                      ],
+                      [
+                        'name' => 'nologo',
+                        'orig' => 'nologo',
+                        'type' => '`$BOOLEAN`',
+                        'kind' => 'query',
+                        'example' => false,
+                      ],
+                      [
+                        'name' => 'seed',
+                        'orig' => 'seed',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'query',
+                      ],
+                      [
+                        'name' => 'width',
+                        'orig' => 'width',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'query',
+                        'example' => 1024,
+                      ],
                     ],
                   ],
                   'select' => [
@@ -277,24 +297,12 @@ class PollinationsAiConfig
                       'width',
                     ],
                   ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
-                  'parts' => [
-                    'prompt',
-                    '{prompt}',
-                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'prompt',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
       ],
