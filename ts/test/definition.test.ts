@@ -1,0 +1,95 @@
+import { describe, test } from 'node:test'
+import { SDK } from '..'
+import { runDefinitionPoint } from './definition-runner'
+import { isControlSkipped } from './utility'
+
+
+// Generated from the API definition, not from the model this SDK was built
+// from: the route, the declared query parameters, the credential the security
+// scheme names, and the definition's own response example.
+const PLAN: any[] = [
+  {
+    "entity": "generate_text",
+    "accessor": "GenerateText",
+    "op": "create",
+    "method": "POST",
+    "path": "/",
+    "args": [],
+    "select": {},
+    "headers": [],
+    "query": [],
+    "auth": null,
+    "status": 200,
+    "sample": {
+      "id": "x",
+      "object": "chat.completion",
+      "created": 1,
+      "model": "x",
+      "choices": [
+        {
+          "index": 1,
+          "message": {
+            "role": "system",
+            "content": "x"
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1,
+        "completion_tokens": 1,
+        "total_tokens": 1
+      }
+    },
+    "idField": "id"
+  },
+  {
+    "entity": "image_generation",
+    "accessor": "ImageGeneration",
+    "op": "load",
+    "method": "GET",
+    "path": "/prompt/{prompt}",
+    "args": [
+      {
+        "name": "prompt",
+        "wire": "prompt",
+        "value": "A beautiful sunset over mountains"
+      }
+    ],
+    "select": {
+      "enhance": "v1",
+      "height": "v1",
+      "model": "v1",
+      "nologo": "v1",
+      "seed": "v1",
+      "width": "v1"
+    },
+    "headers": [],
+    "query": [
+      "width",
+      "height",
+      "seed",
+      "model",
+      "nologo",
+      "enhance"
+    ],
+    "auth": null,
+    "status": 200,
+    "sample": null,
+    "idField": "id"
+  }
+]
+
+
+describe('definition', () => {
+  for (const point of PLAN) {
+    test(point.entity + '.' + point.op + ' ' + point.method + ' ' + point.path, async (t) => {
+      const control = isControlSkipped('entityOp', point.entity + '.' + point.op, 'definition')
+      if (control.skip) {
+        t.skip(control.reason || 'skipped via sdk-test-control.json')
+        return
+      }
+      await runDefinitionPoint(SDK, point)
+    })
+  }
+})

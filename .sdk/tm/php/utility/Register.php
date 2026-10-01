@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 PollinationsAiUtility::setRegistrar(function (PollinationsAiUtility $u): void {
     $u->clean = [PollinationsAiClean::class, 'call'];
+    $u->clean_add = [PollinationsAiClean::class, 'add'];
+    $u->clean_explain = [PollinationsAiDone::class, 'clean_explain'];
     $u->done = [PollinationsAiDone::class, 'call'];
     $u->make_error = [PollinationsAiMakeError::class, 'call'];
     $u->feature_add = [PollinationsAiFeatureAdd::class, 'call'];

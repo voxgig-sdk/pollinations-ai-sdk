@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 PollinationsAiUtility.registrar = ->(u) {
   u.clean = PollinationsAiUtilities::Clean
+  u.clean_add = PollinationsAiUtilities::CleanAdd
+  u.clean_explain = PollinationsAiUtilities::CleanExplain
   u.done = PollinationsAiUtilities::Done
   u.make_error = PollinationsAiUtilities::MakeError
   u.feature_add = PollinationsAiUtilities::FeatureAdd
