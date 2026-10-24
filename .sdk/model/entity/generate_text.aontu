@@ -85,6 +85,13 @@ main: kit: entity: generate_text: {
       name: "create"
       points: [
         {
+          bf: [
+            "max_tokens"
+            "messages"
+            "model"
+            "seed"
+            "temperature"
+          ]
           co: {
             id: "POST /"
             source: "openapi3"
@@ -92,6 +99,10 @@ main: kit: entity: generate_text: {
           }
           m: "POST"
           o: "/"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           t: {
             req: "`reqdata`"
             res: "`body`"

@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { PollinationsAiSDK, BaseFeature, stdutil } from '../../..'
+import { PollinationsAiSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,17 +41,29 @@ describe('ImageGenerationEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = PollinationsAiSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.ImageGeneration().load({"prompt":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.POLLINATIONS_AI_TEST_LIVE
-    for (const op of ['load']) {
+    for (const op of []) {
       if (!live && maybeSkipControl(t, 'entityOp', 'image_generation.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"image_generation","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /prompt/{prompt}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"A beautiful sunset over mountains","k":"param","n":"prompt","or":"prompt","r":true,"t":"`$STRING`","index$":0}],"query":[{"a":true,"ex":false,"k":"query","n":"enhance","or":"enhance","r":false,"t":"`$BOOLEAN`","index$":0},{"a":true,"ex":1024,"k":"query","n":"height","or":"height","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":"flux","k":"query","n":"model","or":"model","r":false,"t":"`$STRING`","index$":2},{"a":true,"ex":false,"k":"query","n":"nologo","or":"nologo","r":false,"t":"`$BOOLEAN`","index$":3},{"a":true,"k":"query","n":"seed","or":"seed","r":false,"t":"`$INTEGER`","index$":4},{"a":true,"ex":1024,"k":"query","n":"width","or":"width","r":false,"t":"`$INTEGER`","index$":5}]},"k":"http","m":"GET","o":"/prompt/{prompt}","q":{"exist":["enhance","height","model","nologo","prompt","seed","width"]},"r":{},"s":[{"lit":"prompt"},{"var":"prompt"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"image_generation","name__orig":"image_generation","Name":"ImageGeneration","name_":"image_generation","name-":"image-generation","NAME":"IMAGE_GENERATION","index$":1}, {"active":true,"entity":"image_generation","key$":"BasicImageGenerationFlow","kind":"basic","name":"BasicImageGenerationFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"image_generation_ref01","srcdatavar":"image_generation_ref01_data","suffix":"_dt0"},"m":{"id":"image_generation01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-image_generation_ref01"}}],"index$":0}]}, 'ImageGeneration', {"GET /prompt/{prompt}":{"protocol":"http","parameters":[{"name":"prompt","in":"path","required":true,"description":"The text prompt describing the image to generate","schema":{"type":"string"},"example":"A beautiful sunset over mountains","index$":0},{"name":"width","in":"query","required":false,"description":"Width of the generated image in pixels","schema":{"type":"integer","default":1024,"minimum":128,"maximum":2048},"index$":1},{"name":"height","in":"query","required":false,"description":"Height of the generated image in pixels","schema":{"type":"integer","default":1024,"minimum":128,"maximum":2048},"index$":2},{"name":"seed","in":"query","required":false,"description":"Seed for reproducible image generation","schema":{"type":"integer"},"index$":3},{"name":"model","in":"query","required":false,"description":"The AI model to use for generation","schema":{"type":"string","default":"flux"},"index$":4},{"name":"nologo","in":"query","required":false,"description":"Remove Pollinations logo from the generated image","schema":{"type":"boolean","default":false},"index$":5},{"name":"enhance","in":"query","required":false,"description":"Enhance the prompt automatically","schema":{"type":"boolean","default":false},"index$":6}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"image_generation","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /prompt/{prompt}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"A beautiful sunset over mountains","k":"param","n":"prompt","or":"prompt","r":true,"t":"`$STRING`","index$":0}],"query":[{"a":true,"ex":false,"k":"query","n":"enhance","or":"enhance","r":false,"t":"`$BOOLEAN`","index$":0},{"a":true,"ex":1024,"k":"query","n":"height","or":"height","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":"flux","k":"query","n":"model","or":"model","r":false,"t":"`$STRING`","index$":2},{"a":true,"ex":false,"k":"query","n":"nologo","or":"nologo","r":false,"t":"`$BOOLEAN`","index$":3},{"a":true,"k":"query","n":"seed","or":"seed","r":false,"t":"`$INTEGER`","index$":4},{"a":true,"ex":1024,"k":"query","n":"width","or":"width","r":false,"t":"`$INTEGER`","index$":5}]},"k":"http","m":"GET","o":"/prompt/{prompt}","q":{"exist":["prompt"]},"r":{},"rs":{"alternatives":[{"binary":true,"kind":"raw","media":"image/png"}],"binary":true,"kind":"raw","media":"image/jpeg"},"s":[{"lit":"prompt"},{"var":"prompt"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"image_generation","name__orig":"image_generation","Name":"ImageGeneration","name_":"image_generation","name-":"image-generation","NAME":"IMAGE_GENERATION","index$":1}, {"active":true,"entity":"image_generation","key$":"BasicImageGenerationFlow","kind":"basic","name":"BasicImageGenerationFlow","param":{},"step":[{"a":false,"d":{},"i":{"ref":"image_generation_ref01","srcdatavar":"image_generation_ref01_data","suffix":"_dt0"},"m":{"id":"image_generation01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-image_generation_ref01"}}],"unreachable":true}]}, 'ImageGeneration', {"GET /prompt/{prompt}":{"protocol":"http","parameters":[{"name":"prompt","in":"path","required":true,"description":"The text prompt describing the image to generate","schema":{"type":"string"},"example":"A beautiful sunset over mountains","index$":0},{"name":"width","in":"query","required":false,"description":"Width of the generated image in pixels","schema":{"type":"integer","default":1024,"minimum":128,"maximum":2048},"index$":1},{"name":"height","in":"query","required":false,"description":"Height of the generated image in pixels","schema":{"type":"integer","default":1024,"minimum":128,"maximum":2048},"index$":2},{"name":"seed","in":"query","required":false,"description":"Seed for reproducible image generation","schema":{"type":"integer"},"index$":3},{"name":"model","in":"query","required":false,"description":"The AI model to use for generation","schema":{"type":"string","default":"flux"},"index$":4},{"name":"nologo","in":"query","required":false,"description":"Remove Pollinations logo from the generated image","schema":{"type":"boolean","default":false},"index$":5},{"name":"enhance","in":"query","required":false,"description":"Enhance the prompt automatically","schema":{"type":"boolean","default":false},"index$":6}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -61,15 +73,16 @@ describe('ImageGenerationEntity', async () => {
 
     let image_generation_ref01_data = Object.values(setup.data.existing.image_generation)[0] as any
 
-    // LOAD: skipped — no entity id field and load requires path params.
-    // Entity-var is declared here so later flow steps still compile.
-    const image_generation_ref01_ent = client.ImageGeneration()
-
-
   })
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

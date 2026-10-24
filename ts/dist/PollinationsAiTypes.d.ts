@@ -11,16 +11,11 @@ export interface GenerateText {
     usage?: Record<string, any>;
 }
 export interface GenerateTextCreateData {
-    choices?: any[];
-    created?: number;
-    id?: string;
     max_tokens?: number;
     messages: any[];
     model?: string;
-    object?: string;
     seed?: number;
     temperature?: number;
-    usage?: Record<string, any>;
 }
 export interface ImageGeneration {
 }

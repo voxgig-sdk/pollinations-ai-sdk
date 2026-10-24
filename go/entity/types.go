@@ -18,16 +18,11 @@ type GenerateText struct {
 
 // GenerateTextCreateData is the typed request payload for GenerateText.CreateTyped.
 type GenerateTextCreateData struct {
-	Choices *[]any `json:"choices,omitempty"`
-	Created *int `json:"created,omitempty"`
-	Id *string `json:"id,omitempty"`
 	MaxTokens *int `json:"max_tokens,omitempty"`
 	Messages []any `json:"messages"`
 	Model *string `json:"model,omitempty"`
-	Object *string `json:"object,omitempty"`
 	Seed *int `json:"seed,omitempty"`
 	Temperature *float64 `json:"temperature,omitempty"`
-	Usage *map[string]any `json:"usage,omitempty"`
 }
 
 // ImageGeneration is the typed data model for the image_generation entity.

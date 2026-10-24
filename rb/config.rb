@@ -79,6 +79,7 @@ module PollinationsAiConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -180,6 +181,10 @@ module PollinationsAiConfig
                   },
                   "args" => {},
                   "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
+                  },
                 },
               ],
             },
@@ -274,14 +279,20 @@ module PollinationsAiConfig
                   },
                   "select" => {
                     "exist" => [
-                      "enhance",
-                      "height",
-                      "model",
-                      "nologo",
                       "prompt",
-                      "seed",
-                      "width",
                     ],
+                  },
+                  "response" => {
+                    "alternatives" => [
+                      {
+                        "binary" => true,
+                        "kind" => "raw",
+                        "media" => "image/png",
+                      },
+                    ],
+                    "binary" => true,
+                    "kind" => "raw",
+                    "media" => "image/jpeg",
                   },
                 },
               ],

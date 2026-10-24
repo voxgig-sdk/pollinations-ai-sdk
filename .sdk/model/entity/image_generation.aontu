@@ -80,14 +80,20 @@ main: kit: entity: image_generation: {
           o: "/prompt/{prompt}"
           q: {
             exist: [
-              "enhance"
-              "height"
-              "model"
-              "nologo"
               "prompt"
-              "seed"
-              "width"
             ]
+          }
+          rs: {
+            alternatives: [
+              {
+                binary: true
+                kind: "raw"
+                media: "image/png"
+              }
+            ]
+            binary: true
+            kind: "raw"
+            media: "image/jpeg"
           }
           s: [
             {

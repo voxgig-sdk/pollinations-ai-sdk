@@ -17,7 +17,12 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
@@ -58,13 +63,18 @@ const PLAN = [
         ],
         "select": {
             "enhance": "v1",
-            "height": "v1",
-            "model": "v1",
+            "height": 1024,
+            "model": "flux",
             "nologo": "v1",
             "seed": "v1",
-            "width": "v1"
+            "width": 1024
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "image/png",
+            "image/jpeg"
+        ],
         "query": [
             "width",
             "height",
@@ -72,6 +82,32 @@ const PLAN = [
             "model",
             "nologo",
             "enhance"
+        ],
+        "queryArgs": [
+            {
+                "name": "enhance",
+                "wire": "enhance"
+            },
+            {
+                "name": "height",
+                "wire": "height"
+            },
+            {
+                "name": "model",
+                "wire": "model"
+            },
+            {
+                "name": "nologo",
+                "wire": "nologo"
+            },
+            {
+                "name": "seed",
+                "wire": "seed"
+            },
+            {
+                "name": "width",
+                "wire": "width"
+            }
         ],
         "auth": null,
         "status": 200,

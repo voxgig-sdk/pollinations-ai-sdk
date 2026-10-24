@@ -37,15 +37,10 @@ class GenerateTextCreateDataRequired(TypedDict):
 
 
 class GenerateTextCreateData(GenerateTextCreateDataRequired, total=False):
-    choices: list
-    created: int
-    id: str
     max_tokens: int
     model: str
-    object: str
     seed: int
     temperature: float
-    usage: dict
 
 
 class ImageGeneration(TypedDict):

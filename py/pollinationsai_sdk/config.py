@@ -96,6 +96,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -197,6 +198,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -291,14 +296,20 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "enhance",
-                    "height",
-                    "model",
-                    "nologo",
                     "prompt",
-                    "seed",
-                    "width",
                   ],
+                },
+                "response": {
+                  "alternatives": [
+                    {
+                      "binary": True,
+                      "kind": "raw",
+                      "media": "image/png",
+                    },
+                  ],
+                  "binary": True,
+                  "kind": "raw",
+                  "media": "image/jpeg",
                 },
               },
             ],

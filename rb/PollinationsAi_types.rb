@@ -55,15 +55,6 @@ GenerateText = Struct.new(
 
 # Request payload for GenerateText#create.
 #
-# @!attribute [rw] choices
-#   @return [Array, nil]
-#
-# @!attribute [rw] created
-#   @return [Integer, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
 # @!attribute [rw] max_tokens
 #   @return [Integer, nil]
 #
@@ -73,28 +64,17 @@ GenerateText = Struct.new(
 # @!attribute [rw] model
 #   @return [String, nil]
 #
-# @!attribute [rw] object
-#   @return [String, nil]
-#
 # @!attribute [rw] seed
 #   @return [Integer, nil]
 #
 # @!attribute [rw] temperature
 #   @return [Float, nil]
-#
-# @!attribute [rw] usage
-#   @return [Hash, nil]
 GenerateTextCreateData = Struct.new(
-  :choices,
-  :created,
-  :id,
   :max_tokens,
   :messages,
   :model,
-  :object,
   :seed,
   :temperature,
-  :usage,
   keyword_init: true
 )
 

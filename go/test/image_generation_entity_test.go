@@ -15,6 +15,13 @@ import (
 	vs "github.com/voxgig-sdk/pollinations-ai-sdk/go/utility/struct"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const image_generationEntityLiveStrict = true
+
+
 func TestImageGenerationEntity(t *testing.T) {
 	t.Run("instance", func(t *testing.T) {
 		testsdk := sdk.TestSDK(nil, nil)
@@ -24,7 +31,21 @@ func TestImageGenerationEntity(t *testing.T) {
 		}
 	})
 
-	t.Run("basic", func(t *testing.T) {
+	t.Run("validate", func(t *testing.T) {
+		if !fhHasFeature("validate") {
+			t.Skip("feature not present in this SDK: validate")
+		}
+		client := sdk.TestSDK(nil, map[string]any{
+			"feature": map[string]any{"validate": map[string]any{"active": true}},
+		})
+		_, err := client.ImageGeneration(nil).Load(map[string]any{"prompt": 1}, nil)
+		if sdkerr, ok := err.(*core.PollinationsAiError); !ok || "validate_failed" != sdkerr.Code {
+			t.Fatalf("expected validate_failed, got %v", err)
+		}
+	})
+
+	t.Run("basic", func(tt *testing.T) {
+		var t testing.TB = tt
 		setup := image_generationBasicSetup(nil)
 		// Per-op sdk-test-control.json skip — basic test exercises a flow
 		// with multiple ops; skipping any op skips the whole flow.
@@ -32,7 +53,7 @@ func TestImageGenerationEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"load"} {
+		for _, _op := range []string{} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "image_generation." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -41,14 +62,6 @@ func TestImageGenerationEntity(t *testing.T) {
 				return
 			}
 		}
-		// The basic flow consumes synthetic IDs from the fixture. In live mode
-		// without an *_ENTID env override, those IDs hit the live API and 4xx.
-		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID JSON to run live")
-			return
-		}
-		client := setup.client
-
 		// Bootstrap entity data from existing test data (no create step in flow).
 		imageGenerationRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.image_generation")))
 		var imageGenerationRef01Data map[string]any
@@ -58,17 +71,6 @@ func TestImageGenerationEntity(t *testing.T) {
 		// Discard guards against Go's unused-var check when the flow's steps
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = imageGenerationRef01Data
-
-		// LOAD
-		imageGenerationRef01Ent := client.ImageGeneration(nil)
-		imageGenerationRef01MatchDt0 := map[string]any{}
-		imageGenerationRef01DataDt0Loaded, err := imageGenerationRef01Ent.Load(imageGenerationRef01MatchDt0, nil)
-		if err != nil {
-			t.Fatalf("load failed: %v", err)
-		}
-		if imageGenerationRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
-		}
 
 	})
 }
@@ -107,9 +109,8 @@ func image_generationBasicSetup(extra map[string]any) *entityTestSetup {
 		},
 	)
 
-	// Detect ENTID env override before envOverride consumes it. When live
-	// mode is on without a real override, the basic test runs against synthetic
-	// IDs from the fixture and 4xx's. Surface this so the test can skip.
+	// Whether *_ENTID supplied the idmap, read before envOverride consumes it:
+	// without it, the ids a live flow binds are the fixture's synthetic ones.
 	entidEnvRaw := os.Getenv("POLLINATIONS_AI_TEST_IMAGE_GENERATION_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 

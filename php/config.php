@@ -93,6 +93,7 @@ class PollinationsAiConfig
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -194,6 +195,10 @@ class PollinationsAiConfig
                   ],
                   'args' => [],
                   'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
                 ],
               ],
             ],
@@ -288,14 +293,20 @@ class PollinationsAiConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'enhance',
-                      'height',
-                      'model',
-                      'nologo',
                       'prompt',
-                      'seed',
-                      'width',
                     ],
+                  ],
+                  'response' => [
+                    'alternatives' => [
+                      [
+                        'binary' => true,
+                        'kind' => 'raw',
+                        'media' => 'image/png',
+                      ],
+                    ],
+                    'binary' => true,
+                    'kind' => 'raw',
+                    'media' => 'image/jpeg',
                   ],
                 ],
               ],
